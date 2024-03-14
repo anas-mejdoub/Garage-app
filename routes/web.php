@@ -31,6 +31,10 @@ Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');
 
 });
+Route::get('/repair-request', function () {
+    return Inertia::render('repairs/RepairRequestForm');
+});
+Route::post('/repair-request', [RepairController::class, 'store']);
 Route::post('/vehicles', [VehicleController::class, 'store']);
 // In routes/web.php
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);

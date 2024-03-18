@@ -11,7 +11,7 @@ export default function Register() {
         name: '',
         email: '',
         password: '',
-        role:'user', // Add role field
+        role:'client', // Add role field
         password_confirmation: '',
     });
 

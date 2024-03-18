@@ -26,6 +26,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
 Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');

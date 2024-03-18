@@ -29,7 +29,7 @@ class VehicleController extends Controller
             'fuelType' => $request->fuelType,
             'registration' => $request->registration,
             'photos' => $photoPath,
-            'clientID' => auth()->user()->id,
+            'clientID' => auth()->user()->client->id,
         ]);
 
 

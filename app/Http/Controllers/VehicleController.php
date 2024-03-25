@@ -33,10 +33,8 @@ class VehicleController extends Controller
         ]);
 
 
-        // // Redirect the user to a success page
         return redirect('/my-vehicles');
     }
-    // In VehicleController.php
     public function userVehicles()
     {
         $userId = auth()->user()->id;

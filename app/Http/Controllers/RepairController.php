@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Repair;
+use App\Models\Vehicle;
 
 class RepairController extends Controller
 {
@@ -18,5 +20,9 @@ class RepairController extends Controller
             'clientNotes' => $request->clientNotes,
             'clientID' => auth()->user()->id,
         ]);
+    }
+    public function selectToRepair(Request $request)
+    {
+        
     }
 }

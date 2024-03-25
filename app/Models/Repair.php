@@ -18,4 +18,13 @@ class Repair extends Model
     {
         return $this->belongsTo(Vehicle::class, 'vehicleID');
     }
+    // i have to fill this table !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // protected $fillable = [
+    //     'description',
+    //     'status',
+    //     'startDate',
+    //     'registration',
+    //     'photos',
+    //     'clientID'
+    // ];
 }

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\VehicleController;
-
+use App\Http\Controllers\RepairController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,9 +37,7 @@ Route::get('/repair-request', function () {
 });
 Route::post('/repair-request', [RepairController::class, 'store']);
 Route::post('/vehicles', [VehicleController::class, 'store']);
-// In routes/web.php
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);
-// Route::get('/vehicles', [VehicleController::class, 'store']);
 
 Route::get('/clients', [ClientController::class, 'index']);
 Route::get('/dashboard', function () {

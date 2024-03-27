@@ -12,7 +12,7 @@ function Navbar() {
                 <InertiaLink className="text-lg text-indigo-600 hover:text-indigo-900" href="/my-vehicles">My Vehicles</InertiaLink>
                 </li>
                 <li className='pl-10'>
-                <InertiaLink className="text-lg text-indigo-600 hover:text-indigo-900" href="/repair-request">repair-request</InertiaLink>
+                <InertiaLink className="text-lg text-indigo-600 hover:text-indigo-900" href="/select-vehicle">repair-request</InertiaLink>
                 </li>
             </ul>
         </nav>

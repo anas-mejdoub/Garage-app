@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Repair;
 use App\Models\Vehicle;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class RepairController extends Controller
 {
@@ -23,6 +25,10 @@ class RepairController extends Controller
     }
     public function selectToRepair(Request $request)
     {
-        
+        $userId = auth()->user()->id;
+        $vehicles = Vehicle::where('clientID', $userId)->get();
+
+        // dd($vehicles);
+        return Inertia::render('repairs/SelectVehicle', ['vehicles' => $vehicles]);
     }
 }

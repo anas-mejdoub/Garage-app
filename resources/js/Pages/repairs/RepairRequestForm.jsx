@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 
-function RepairRequestForm() {
+function RepairRequestForm(props) {
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('');
     const [startDate, setStartDate] = useState('');
@@ -10,14 +10,13 @@ function RepairRequestForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Submit form
         const formData = new FormData();
         formData.append('description', description);
         formData.append('status', status);
         formData.append('startDate', startDate);
         formData.append('endDate', endDate);
         formData.append('clientNotes', clientNotes);
-
+        formData.append('vehicle_id', props.vehicleId);
         Inertia.post('/repair-request', formData);
     };
 

@@ -32,9 +32,8 @@ Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');
 
 });
-Route::get('/repair-request/{id}', function () {
-    return Inertia::render('repairs/RepairRequestForm');
-});
+Route::get('/repair-request/{id}', [RepairController::class, 'redirectForm']);
+    // return Inertia::render('repairs/RepairRequestForm');
 Route::get('/select-vehicle', [RepairController::class, 'selectToRepair']);
 // });
 Route::post('/repair-request', [RepairController::class, 'store']);

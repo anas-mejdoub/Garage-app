@@ -16,7 +16,7 @@ const SelectVehicle = ({ vehicles }) => {
             <p>Model: {vehicle.model}</p>
             <p>Fuel Type: {vehicle.fuelType}</p>
             <p>Registration: {vehicle.registration}</p>
-            <button 
+            <button  
               onClick={() => handleSelect(vehicle.id)}
               className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto w-full text-center mt-4"
             >

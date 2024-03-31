@@ -21,5 +21,5 @@ class Vehicle extends Model
         'photos',
         'clientID'
     ];
-
+ 
 }

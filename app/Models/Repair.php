@@ -17,7 +17,7 @@ class Repair extends Model
     public function vehicle()
     {
         return $this->belongsTo(Vehicle::class, 'vehicleID');
-    }
+    } 
     protected $fillable = [
         'description',
         'status',

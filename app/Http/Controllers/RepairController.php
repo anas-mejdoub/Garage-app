@@ -39,4 +39,11 @@ class RepairController extends Controller
         $vehicleId = $request->id;
         return Inertia::render('repairs/RepairRequestForm', ['vehicleId' => $vehicleId]);
     }
+    public function history(Request $request)
+    {
+    $userId = auth()->user()->id;
+    $repairs = Repair::where('mechanicID', $userId)->get();
+
+    return Inertia::render('repairs/History', ['repairs' => $repairs]);
+    }
 }

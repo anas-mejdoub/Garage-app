@@ -39,6 +39,7 @@ Route::get('/select-vehicle', [RepairController::class, 'selectToRepair']);
 Route::post('/repair-request', [RepairController::class, 'store']);
 Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);
+Route::get('/repairs-history', [RepairController::class, 'history']);
 
 Route::get('/clients', [ClientController::class, 'index']);
 Route::get('/dashboard', function () {

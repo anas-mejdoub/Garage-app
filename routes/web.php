@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\RepairController;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\CheckRole;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +29,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
+Route::delete('/users/{id}', [AdminController::class, 'destroy']);
 Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');
@@ -35,7 +38,13 @@ Route::get('/add-vehicle', function () {
 Route::get('/repair-request/{id}', [RepairController::class, 'redirectForm']);
     // return Inertia::render('repairs/RepairRequestForm');
 Route::get('/select-vehicle', [RepairController::class, 'selectToRepair']);
+
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 // });
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+ });
 Route::post('/repair-request', [RepairController::class, 'store']);
 Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);

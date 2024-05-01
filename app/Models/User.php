@@ -46,5 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Client::class, 'userID');
     }
+    public function hasRole($role)
+{
+    return $this->role === $role;
+}
  
 }

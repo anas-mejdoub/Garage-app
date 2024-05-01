@@ -19,16 +19,19 @@ return new class extends Migration
             $table->string('registration');
             $table->string('photos')->nullable();
             $table->unsignedBigInteger('clientID');
-            $table->foreign('clientID')->references('id')->on('clients');
+            $table->foreign('clientID')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
+        Schema::table('vehicles', function (Blueprint $table) {
+            $table->dropForeign('vehicles_clientid_foreign');
+        });
         Schema::dropIfExists('vehicles');
     }
 };

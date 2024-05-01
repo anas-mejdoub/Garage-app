@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('mechanicID');
             $table->foreign('mechanicID')->references('id')->on('users');
             $table->unsignedBigInteger('vehicleID');
-            $table->foreign('vehicleID')->references('id')->on('vehicles');
+            $table->foreign('vehicleID')->references('id')->on('vehicles')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -35,13 +35,15 @@ Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');
 
 });
+Route::post('/admin/users', [AdminController::class, 'store']);
+
 Route::get('/repair-request/{id}', [RepairController::class, 'redirectForm']);
     // return Inertia::render('repairs/RepairRequestForm');
 Route::get('/select-vehicle', [RepairController::class, 'selectToRepair']);
+Route::get('/admin/add/user', function(){
+    return Inertia::render('Admin/Adduser');
+});
 
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-// });
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
  });

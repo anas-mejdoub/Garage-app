@@ -51,6 +51,23 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User created successfully');
     }
+    public function addMecanic(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'mecanic',
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->back()->with('success', 'User created successfully');
+    }
     public function dashboard()
     {
         // Ensure the user is an admin

@@ -36,12 +36,15 @@ Route::get('/add-vehicle', function () {
 
 });
 Route::post('/admin/users', [AdminController::class, 'store']);
-
+Route::post('/admin/add/mecanic', [AdminController::class, 'addMecanic']);
 Route::get('/repair-request/{id}', [RepairController::class, 'redirectForm']);
     // return Inertia::render('repairs/RepairRequestForm');
 Route::get('/select-vehicle', [RepairController::class, 'selectToRepair']);
 Route::get('/admin/add/user', function(){
     return Inertia::render('Admin/Adduser');
+});
+Route::get('/admin/add/mecanic', function(){
+    return Inertia::render('Admin/AddMecanic');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

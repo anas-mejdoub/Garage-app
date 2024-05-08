@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['firstName', 'userID'];
+    protected $table = 'clients';
+    protected $fillable = ['firstName', 'userID', 'lastName'];
     public function user()
     {
         return $this->belongsTo(User::class, 'userID');

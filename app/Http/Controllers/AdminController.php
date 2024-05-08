@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Repair;
+use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
@@ -43,12 +44,21 @@ class AdminController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'client',
         ]);
 
+        $client = Client::create([
+            'firstName' => $request->name,
+            'lastName' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'userID' => $user->id,
+        ]);
+        // dd($client);
         return redirect()->back()->with('success', 'User created successfully');
     }
     public function addMecanic(Request $request)

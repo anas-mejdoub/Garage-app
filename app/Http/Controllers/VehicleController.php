@@ -32,12 +32,13 @@ class VehicleController extends Controller
             'clientID' => auth()->user()->client->id,
         ]);
 
-
+        // dd($vehicle);
         return redirect('/my-vehicles');
     }
     public function userVehicles()
     {
-        $userId = auth()->user()->id;
+        // dd(auth()->user()->client->id);
+        $userId = auth()->user()->client->id;
         $vehicles = Vehicle::where('clientID', $userId)->get();
 
         // dd($vehicles);

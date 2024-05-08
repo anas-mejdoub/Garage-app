@@ -86,7 +86,7 @@ class AdminController extends Controller
         if (auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
-        $users = User::all();
+        $users = User::where('role', 'client')->get();
         
         $data = [
             'totalUsers' => User::count(),
@@ -95,5 +95,11 @@ class AdminController extends Controller
         ];
 
         return Inertia::render('Admin/Dashboard', $data);
+    }
+    public function getMecanics()
+    {
+        $mechanics = User::where('role', 'mecanic')->get(); // Replace with your actual logic to get mechanics
+
+        return Inertia::render('Admin/Mechanic', ['mechanics' => $mechanics]);
     }
 }

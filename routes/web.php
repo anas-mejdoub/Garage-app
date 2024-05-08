@@ -46,6 +46,7 @@ Route::get('/admin/add/user', function(){
 Route::get('/admin/add/mecanic', function(){
     return Inertia::render('Admin/AddMecanic');
 });
+Route::get('/admin/mechanics', [AdminController::class, 'getMecanics']);
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

@@ -5,11 +5,12 @@ const MecanicFrom = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('mecanic');
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        Inertia.post('/admin/add/mecanic', { name, email, password });
+        Inertia.post('/admin/add/mecanic', { name, email, password , role});
     };
 
     return (

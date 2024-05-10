@@ -24,7 +24,7 @@ class RepairController extends Controller
     }
     public function selectToRepair(Request $request)
     {
-        $userId = auth()->user()->id;
+        $userId = auth()->user()->client->id;
         $vehicles = Vehicle::where('clientID', $userId)->get();
 
         return Inertia::render('repairs/SelectVehicle', ['vehicles' => $vehicles]);

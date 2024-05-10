@@ -58,7 +58,6 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'userID' => $user->id,
         ]);
-        // dd($client);
         return redirect()->back()->with('success', 'User created successfully');
     }
     public function addMecanic(Request $request)
@@ -68,21 +67,16 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
         ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
-
         return redirect()->back()->with('success', 'User created successfully');
     }
     public function dashboard()
     {
-        // Ensure the user is an admin
-        // <dd></dd>
-        // $/dd(auth()->user);
         if (auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
@@ -98,8 +92,7 @@ class AdminController extends Controller
     }
     public function getMecanics()
     {
-        $mechanics = User::where('role', 'mecanic')->get(); // Replace with your actual logic to get mechanics
-
+        $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/Mechanic', ['mechanics' => $mechanics]);
     }
 }

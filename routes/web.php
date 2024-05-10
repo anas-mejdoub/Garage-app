@@ -47,6 +47,7 @@ Route::get('/admin/add/mecanic', function(){
     return Inertia::render('Admin/AddMecanic');
 });
 Route::get('/admin/mechanics', [AdminController::class, 'getMecanics']);
+Route::get('/admin/repairs/requests', [AdminController::class, 'repairsRequest']);
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -56,7 +57,7 @@ Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);
 Route::get('/repairs-history', [RepairController::class, 'history']);
 
-Route::get('/clients', [ClientController::class, 'index']);
+Route::get('/clients', [ClientiController::class, 'index']);
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

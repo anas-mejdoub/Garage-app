@@ -101,4 +101,13 @@ class AdminController extends Controller
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/RepairsRequests', ['repairs' => $repairs, 'mechanics' => $mechanics]);
     }
+    public function ForwardMecanic(Request $request)
+    {
+        //dd($request->selectedMechanic);
+        $repairid = $request->selectedRepair;
+        $mecanicid = $request->selectedMechanic;
+        $repair = Repair::where('id', $repairid)->first();
+        $repair->mechanicID = $mecanicid;
+        $repair->save();
+    }
 }

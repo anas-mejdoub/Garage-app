@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MechanicController;
 use App\Http\Middleware\CheckRole;
 
 /*
@@ -48,7 +49,8 @@ Route::get('/admin/add/mecanic', function(){
 });
 Route::get('/admin/mechanics', [AdminController::class, 'getMecanics']);
 Route::get('/admin/repairs/requests', [AdminController::class, 'repairsRequest']);
-
+Route::get('/mechanic/repairs/requests', [MechanicController::class, 'repairs']);
+// Route
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
  });

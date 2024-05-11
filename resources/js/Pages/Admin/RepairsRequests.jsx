@@ -51,19 +51,19 @@ const RepairRequests = ({ repairs, mechanics }) => {
             <div className="max-w-2xl w-[25em] p-6 bg-white rounded-lg shadow-lg">
                 <div className="relative inline-flex w-full justify-center mb-6">
                     <svg className="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.762-9.763 25.591 0 35.354l189.21 189.209c9.372 9.373 24.749 9.373 34.121 0l189.21-189.209c9.763-9.763 9.763-25.592 0-35.354-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg>
+                </div>
+                <ul className="divide-y divide-gray-200">
+                    {repairs.map((repair, index) => (
+                        <li key={index} className=" flex flex-col items-center justify-center gap-4 py-4">
+                            <div className="flex flex-col gap-4 justify-between">
+                                <h1 className="text-2xl font-semibold text-gray-700">
+                                    Request ID: {repair.id}
+                                </h1>
                     <select onChange={handleSelectMechanic} className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full">
                         {mechanics.map((mechanic, index) => (
                             <option key={index} value={mechanic.id}>{mechanic.name}</option>
                         ))}
                     </select>
-                </div>
-                <ul className="divide-y divide-gray-200">
-                    {repairs.map((repair, index) => (
-                        <li key={index} className=" flex flex-col items-center justify-center gap-5 py-4">
-                            <div className="flex justify-between">
-                                <h1 className="text-2xl font-semibold text-gray-700">
-                                    Request ID: {repair.id}
-                                </h1>
                             </div>
                             <p className="text-2xl text-gray-600">{repair.description}</p>
                             <div className="flex items-center">

@@ -17,4 +17,15 @@ class MechanicController extends Controller
         // dd($repairs);
         return Inertia::render('Mechanic/Repairs', ['repairs' => $repairs]);
     }
+    public function changeStatus(Request $request)
+    {
+        $id = auth()->user()->id;
+        // dd($request->newStatus);
+        // dd($request->currentRepai/r);
+        $repair_id = $request->currentRepair['id'];
+        $repair = Repair::where('id', $repair_id)->first();
+        $repair->status = $request->newStatus;
+        // dd($r/epair);
+        $repair->save();
+    }
 }

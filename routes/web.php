@@ -54,6 +54,8 @@ Route::get('/mechanic/repairs/requests', [MechanicController::class, 'repairs'])
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
  });
+ Route::post('/mechanic/change/vehicle-status', [MechanicController::class, 'changeStatus']);
+
 Route::post('/repair-request', [RepairController::class, 'store']);
 Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);

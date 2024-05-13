@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Inertia } from '@inertiajs/inertia';
 import { AiFillCheckCircle, AiFillCloseCircle, AiOutlineCar, AiOutlineSync } from 'react-icons/ai';
+import Modal from 'react-modal';
 
 const MechanicRepairs = ({ repairs, onStatusChange }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [newStatus, setNewStatus] = useState(false);
+    const [currentRepair, setCurrentRepair] = useState("pending");
+
+    const openModal = (repair) => {
+        setCurrentRepair(repair);
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
+    const handleStatusChange = (status) => {
+        onStatusChange(currentRepair.id, status);
+        closeModal();
+    };
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        // console.log("weuhueh",newStatus);
+        Inertia.post('/mechanic/change/vehicle-status', {currentRepair, newStatus});
+    }
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
@@ -29,7 +54,7 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                             )}
                         </div>
                         <button 
-                            onClick={() => onStatusChange(repair.id)} 
+                            onClick={() => openModal(repair)} 
                             className="bg-blue-500 text-white rounded px-2 py-1 flex items-center"
                         >
                             <AiOutlineSync className="mr-1" /> Change Status
@@ -37,6 +62,38 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                     </div>
                 </div>
             ))}
+            <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Change Status Modal"
+            className="m-auto w-11/12 md:w-1/2 lg:w-1/3 border border-gray-300 shadow-lg p-6 rounded-md bg-white"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
+        >
+            <h2 className="text-2xl font-bold mb-4">Change Status</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
+                        Status
+                    </label>
+                    <select 
+                        id="status"
+                        value={newStatus} 
+                        onChange={(e) => setNewStatus(e.target.value)}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                <button
+                onClick={() => {handleSubmit}}
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Confirm
+                </button>
+            </form>
+        </Modal>
         </div>
     );
 };

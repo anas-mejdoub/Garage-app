@@ -21,18 +21,19 @@ class MechanicController extends Controller
     public function changeStatus(Request $request)
     {
         $id = auth()->user()->id;
-        // dd($request->newStatus);
-        // dd($request->currentRepai/r);
         $repair_id = $request->currentRepair['id'];
         $repair = Repair::where('id', $repair_id)->first();
         $repair->status = $request->newStatus;
-        // dd($r/epair);
         $repair->save();
     }
     public function WorkingRepairs(Request $request)
     {
 //        dd($parts);
-        $repair = Repair::where('id', $request->id)->first();
+        $repair = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+            ->where('repairs.id', $request->id)
+            ->select('repairs.*', 'vehicles.photos as vehicle_photos')
+            ->first();
+//        $repair = Repair::where('id', $request->id)->first();
         $parts = SparePart::all();
         return Inertia::render('Mechanic/WorkingRepairs', ['repair' => $repair, 'parts' => $parts]);
     }

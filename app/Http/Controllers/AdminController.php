@@ -28,7 +28,7 @@ class AdminController extends Controller
         }
         $user->delete();
         $users = User::all();
-        
+
         $data = [
             'totalUsers' => User::count(),
             'totalRepairs' => Repair::count(),
@@ -81,7 +81,7 @@ class AdminController extends Controller
             abort(403, 'Unauthorized action.');
         }
         $users = User::where('role', 'client')->get();
-        
+
         $data = [
             'totalUsers' => User::count(),
             'totalRepairs' => Repair::count(),
@@ -95,6 +95,7 @@ class AdminController extends Controller
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/Mechanic', ['mechanics' => $mechanics]);
     }
+
     public function repairsRequest()
     {
         $repairs = Repair::where('status', '<>', 'completed')->get();

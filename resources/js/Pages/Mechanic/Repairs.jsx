@@ -43,7 +43,7 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                     <div className="px-4 py-5 sm:px-6 bg-indigo-100 flex justify-between items-center">
     <div className="flex items-center">
         {repair.status === 'completed' ? (
-            <div className="text-green-500 flex items-center">
+            <div className="text-green-500 flex items-center"> 
                 <AiFillCheckCircle className="mr-1" /> Completed
             </div>
         ) : (

@@ -110,4 +110,13 @@ class AdminController extends Controller
         $repair->mechanicID = $mecanicid;
         $repair->save();
     }
+    public function completedRepairs()
+    {
+        $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+    ->where('repairs.status', 'completed')
+    ->select('repairs.*', 'vehicles.photos as vehicle_photos')
+    ->get();
+    // dd($repairs);
+        return Inertia::render('Admin/CompletedRepairs', ['repairs' => $repairs]);
+    }
 }

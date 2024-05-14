@@ -13,4 +13,11 @@ class SparePart extends Model
     {
         return $this->belongsToMany(Repair::class);
     }
+    protected $fillable = [
+        'partName',
+        'partReference',
+        'supplier',
+        'price',
+    ];
 }
+ 

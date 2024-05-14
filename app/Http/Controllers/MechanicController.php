@@ -31,9 +31,9 @@ class MechanicController extends Controller
     }
     public function WorkingRepairs(Request $request)
     {
+//        dd($parts);
         $repair = Repair::where('id', $request->id)->first();
         $parts = SparePart::all();
-        dd($parts);
         return Inertia::render('Mechanic/WorkingRepairs', ['repair' => $repair, 'parts' => $parts]);
     }
 }

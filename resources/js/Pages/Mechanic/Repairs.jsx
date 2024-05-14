@@ -5,8 +5,8 @@ import Modal from 'react-modal';
 
 const MechanicRepairs = ({ repairs, onStatusChange }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [newStatus, setNewStatus] = useState(false);
-    const [currentRepair, setCurrentRepair] = useState("pending");
+    const [newStatus, setNewStatus] = useState("completed");
+    const [currentRepair, setCurrentRepair] = useState(null);
 
     const openModal = (repair) => {
         setCurrentRepair(repair);
@@ -18,12 +18,12 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
     };
 
     const handleStatusChange = (status) => {
-        onStatusChange(currentRepair.id, status);
         closeModal();
     };
     const handleSubmit = (event) =>{
+        // onStatusChange(newStatus);
+        console.log(newStatus)
         event.preventDefault();
-        // console.log("weuhueh",newStatus);
         Inertia.post('/mechanic/change/vehicle-status', {currentRepair, newStatus});
     }
 
@@ -38,8 +38,7 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                         <h2 className="text-2xl font-semibold text-indigo-600">{repair.title}</h2>
                     </div>
                     <div className="px-4 py-5 sm:p-6">
-                        <p className="mt-1 max-w-2xl text-sm text-gray-700">{repair.description}</p>
-                        {/* Add more repair details here */}
+                        <p className="mt-1 max-w-2xl text-xl text-gray-700">{repair.description}</p>
                     </div>
                     <div className="px-4 py-5 sm:px-6 bg-indigo-100 flex justify-between items-center">
                         <div className="flex items-center">

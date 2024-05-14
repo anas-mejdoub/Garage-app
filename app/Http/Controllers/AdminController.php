@@ -97,7 +97,7 @@ class AdminController extends Controller
     }
     public function repairsRequest()
     {
-        $repairs = Repair::all();
+        $repairs = Repair::where('status', '<>', 'completed')->get();
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/RepairsRequests', ['repairs' => $repairs, 'mechanics' => $mechanics]);
     }

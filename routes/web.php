@@ -47,6 +47,9 @@ Route::get('/admin/add/user', function(){
 Route::get('/admin/add/mecanic', function(){
     return Inertia::render('Admin/AddMecanic');
 });
+Route::get('/mechanic/repairs/working/{id}', function(){
+    return Inertia::render('/Mechanic/WorkingRepairs');
+});
 Route::get('/admin/mechanics', [AdminController::class, 'getMecanics']);
 Route::get('/admin/repairs/requests', [AdminController::class, 'repairsRequest']);
 Route::get('/mechanic/repairs/requests', [MechanicController::class, 'repairs']);

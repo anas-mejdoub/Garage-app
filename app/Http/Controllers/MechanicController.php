@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Repair;
+use App\Models\SparePart;
 use Inertia\Inertia;
 use App\Models\User;
 class MechanicController extends Controller
@@ -27,5 +28,12 @@ class MechanicController extends Controller
         $repair->status = $request->newStatus;
         // dd($r/epair);
         $repair->save();
+    }
+    public function WorkingRepairs(Request $request)
+    {
+        $repair = Repair::where('id', $request->id)->first();
+        $parts = SparePart::all();
+        dd($parts);
+        return Inertia::render('Mechanic/WorkingRepairs', ['repair' => $repair, 'parts' => $parts]);
     }
 }

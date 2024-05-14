@@ -43,7 +43,7 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                     <div className="px-4 py-5 sm:px-6 bg-indigo-100 flex justify-between items-center">
     <div className="flex items-center">
         {repair.status === 'completed' ? (
-            <div className="text-green-500 flex items-center"> 
+            <div className="text-green-500 flex items-center">
                 <AiFillCheckCircle className="mr-1" /> Completed
             </div>
         ) : (
@@ -53,14 +53,15 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
         )}
     </div>
     {repair.status !== 'completed' && (
-        <button 
+        <button
+            onClick={() => Inertia.get(`/mechanic/repairs/working/${repair.id}`)}
             className="bg-yellow-500 text-white rounded px-2 py-1 flex items-center mr-2"
         >
             <AiOutlineSync className="mr-1" /> Working on
         </button>
     )}
-    <button 
-        onClick={() => openModal(repair)} 
+    <button
+        onClick={() => openModal(repair)}
         className="bg-blue-500 text-white rounded px-2 py-1 flex items-center"
     >
         <AiOutlineSync className="mr-1" /> Change Status
@@ -81,9 +82,9 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
                         Status
                     </label>
-                    <select 
+                    <select
                         id="status"
-                        value={newStatus} 
+                        value={newStatus}
                         onChange={(e) => setNewStatus(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >

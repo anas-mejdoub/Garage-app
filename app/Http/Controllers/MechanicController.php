@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Invoice;
 use App\Models\Repair;
 use App\Models\SparePart;
 use Inertia\Inertia;
@@ -36,5 +37,22 @@ class MechanicController extends Controller
 //        $repair = Repair::where('id', $request->id)->first();
         $parts = SparePart::all();
         return Inertia::render('Mechanic/WorkingRepairs', ['repair' => $repair, 'parts' => $parts]);
+    }
+    public function  addPartToInvoice(Request $request)
+    {
+        $inv = Invoice::where('repairID', $request->repair['id'])->first();
+        if ($inv == null) {
+            Invoice::create([
+                'repairID' => $request->repair['id'],
+                'additionalCharges' => 0,
+                'totalAmount' => 0,
+            ]);
+        }
+
+//        dd($request->part['price']);
+        $invoice = Invoice::where('repairID', $request->repair['id'])->first();
+        $invoice->additionalCharges += $request->part['price'];
+        $invoice->totalAmount += $request->part['price'];
+        $invoice->save();
     }
 }

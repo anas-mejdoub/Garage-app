@@ -13,4 +13,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(Repair::class, 'repairID');
     }
+    protected $fillable = [
+        'repairID',
+        'additionalCharges',
+        'totalAmount',
+    ];
 }

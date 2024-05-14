@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import {Card} from "flowbite-react";
 import {FaCar, FaCheckCircle} from "react-icons/fa";
+import { Inertia } from '@inertiajs/inertia';
 
 
 export function Component(props) {
@@ -28,12 +29,15 @@ export function Component(props) {
     );
 }
 const RepairDetails = ({ repair, parts }) => {
-    console.log(repair)
+    // console.log(repair)
     const [currentRepair, setCurrentRepair] = useState(repair);
     const [currentParts, setCurrentParts] = useState(parts);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const addPartToRepair = (part) => {
+        console.log(part);
+        Inertia.post('/mechanic/add/part-to-invoice', { part, repair });
+
         // Add code here to add the part to the repair
     };
 
@@ -73,7 +77,7 @@ const RepairDetails = ({ repair, parts }) => {
                 onRequestClose={closeModal}
                 contentLabel="Add Spare Part Modal"
                 className="m-auto w-11/12 md:w-1/2 lg:w-1/3 border border-gray-300 shadow-lg p-6 rounded-md bg-white"
-                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-20 flex"
             >
                 <h2 className="text-2xl font-bold mb-4">Add Spare Part</h2>
                 <ul className="space-y-2">

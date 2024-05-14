@@ -37,6 +37,7 @@ Route::get('/add-vehicle', function () {
 
 });
 Route::post('/admin/users', [AdminController::class, 'store']);
+Route::post('/mechanic/add/part-to-invoice', [MechanicController::class, 'addPartToInvoice']);
 Route::get('/admin/repairs/completed', [AdminController::class, 'completedRepairs']);
 Route::post('/admin/add/mecanic', [AdminController::class, 'addMecanic']);
 Route::get('/repair-request/{id}', [RepairController::class, 'redirectForm']);

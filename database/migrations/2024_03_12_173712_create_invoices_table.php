@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('repairID');
             $table->foreign('repairID')->references('id')->on('repairs');
             $table->decimal('additionalCharges', 8, 2)->nullable();
-            $table->decimal('totalAmount', 8, 2);
+            $table->decimal('totalAmount', 8, 2)->nullable();
             $table->timestamps();
         });
     }

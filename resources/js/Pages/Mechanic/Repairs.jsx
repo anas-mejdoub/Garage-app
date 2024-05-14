@@ -41,24 +41,31 @@ const MechanicRepairs = ({ repairs, onStatusChange }) => {
                         <p className="mt-1 max-w-2xl text-xl text-gray-700">{repair.description}</p>
                     </div>
                     <div className="px-4 py-5 sm:px-6 bg-indigo-100 flex justify-between items-center">
-                        <div className="flex items-center">
-                            {repair.status === 'completed' ? (
-                                <div className="text-green-500 flex items-center">
-                                    <AiFillCheckCircle className="mr-1" /> Completed
-                                </div>
-                            ) : (
-                                <div className="text-red-500 flex items-center">
-                                    <AiFillCloseCircle className="mr-1" /> Pending
-                                </div>
-                            )}
-                        </div>
-                        <button 
-                            onClick={() => openModal(repair)} 
-                            className="bg-blue-500 text-white rounded px-2 py-1 flex items-center"
-                        >
-                            <AiOutlineSync className="mr-1" /> Change Status
-                        </button>
-                    </div>
+    <div className="flex items-center">
+        {repair.status === 'completed' ? (
+            <div className="text-green-500 flex items-center">
+                <AiFillCheckCircle className="mr-1" /> Completed
+            </div>
+        ) : (
+            <div className="text-red-500 flex items-center">
+                <AiFillCloseCircle className="mr-1" /> Pending
+            </div>
+        )}
+    </div>
+    {repair.status !== 'completed' && (
+        <button 
+            className="bg-yellow-500 text-white rounded px-2 py-1 flex items-center mr-2"
+        >
+            <AiOutlineSync className="mr-1" /> Working on
+        </button>
+    )}
+    <button 
+        onClick={() => openModal(repair)} 
+        className="bg-blue-500 text-white rounded px-2 py-1 flex items-center"
+    >
+        <AiOutlineSync className="mr-1" /> Change Status
+    </button>
+</div>
                 </div>
             ))}
             <Modal

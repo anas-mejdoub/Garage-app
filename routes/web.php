@@ -65,6 +65,7 @@ Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);
 Route::get('/repairs-history', [RepairController::class, 'history']);
 Route::post('admin/repairs/requests/forward', [AdminController::class, 'ForwardMecanic']);
+Route::post('/admin/repairs/requests/update-dates', [AdminController::class, 'ChangeRepairDates']);
 Route::get('/clients', [ClientiController::class, 'index']);
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

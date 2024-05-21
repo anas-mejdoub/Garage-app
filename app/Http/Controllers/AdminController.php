@@ -111,6 +111,15 @@ class AdminController extends Controller
         $repair->mechanicID = $mecanicid;
         $repair->save();
     }
+    public function ChangeRepairDates(Request $request)
+    {
+        //dd($request->selectedMechanic);
+        $repairid = $request->selectedRepair;
+        $repair = Repair::where('id', $repairid)->first();
+        $repair->startDate = $request->startDate;
+        $repair->endDate = $request->endDate;
+        $repair->save();
+    }
     public function completedRepairs()
     {
         $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')

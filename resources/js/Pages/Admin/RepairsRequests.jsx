@@ -23,13 +23,32 @@ const RepairRequests = ({ repairs, mechanics }) => {
     const [selectedMechanic, setSelectedMechanic] = useState(mechanics[0].id);
     const [selectedRepair, setSelectedRepair] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+
+    const openDateModal = (repairId) => {
+        setSelectedRepair(repairId);
+        setIsDateModalOpen(true);
+    };
+
+    const closeDateModal = () => {
+        setIsDateModalOpen(false);
+    };
+
+    const handleDateChange = (event) => {
+        event.preventDefault();
+        // Handle the date change here
+        // You might want to make a POST request to your backend to update the dates
+        Inertia.post('/admin/repairs/requests/update-dates', { selectedRepair, startDate, endDate });
+        closeDateModal();
+    };
 
     const handleSelectMechanic = (event) => {
         setSelectedMechanic(event.target.value);
     };
 
     const handleForwardRequest = (repairId, mechanicId) => {
-        // console.log('egfe',mechanicId)
         setSelectedRepair(repairId);
 
         setIsModalOpen(true);
@@ -56,14 +75,15 @@ const RepairRequests = ({ repairs, mechanics }) => {
                     {repairs.map((repair, index) => (
                         <li key={index} className=" flex flex-col items-center justify-center gap-4 py-4">
                             <div className="flex flex-col gap-4 justify-between">
-                                <h1 className="text-2xl font-semibold text-gray-700">
+                                <h1 className="text-2xl font-semibold text-gray-700">to
                                     Request ID: {repair.id}
                                 </h1>
-                    <select onChange={handleSelectMechanic} className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full">
-                        {mechanics.map((mechanic, index) => (
-                            <option key={index} value={mechanic.id}>{mechanic.name}</option>
-                        ))}
-                    </select>
+                                <select onChange={handleSelectMechanic}
+                                        className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full">
+                                    {mechanics.map((mechanic, index) => (
+                                        <option key={index} value={mechanic.id}>{mechanic.name}</option>
+                                    ))}
+                                </select>
                             </div>
                             <p className="text-2xl text-gray-600">{repair.description}</p>
                             <div className="flex items-center">
@@ -79,15 +99,21 @@ const RepairRequests = ({ repairs, mechanics }) => {
                                     />
                                 )}
                                 <p className="text-2xl text-gray-700">Status: {repair.status}</p>
-                                <br />
+                                <br/>
                                 {/* <br /> */}
                             </div>
-                                <button
-                                    onClick={() => handleForwardRequest(repair.id, selectedMechanic)}
-                                    className="text-lg bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-                                >
-                                    Forward to Mechanic
-                                </button>
+                            <button
+                                onClick={() => openDateModal(repair.id)}
+                                className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Change Dates
+                            </button>
+                            <button
+                                onClick={() => handleForwardRequest(repair.id, selectedMechanic)}
+                                className="text-lg bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Forward to Mechanic
+                            </button>
                         </li>
                     ))}
                 </ul>
@@ -95,7 +121,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
             {isModalOpen && (
                 <Modal onClose={handleModalClose}>
                     <h2 className="text-lg font-semibold text-gray-700">
-                        Forwarding Request {selectedRepair} to Mechanic {selectedMechanic}
+                    Forwarding Request {selectedRepair} to Mechanic {selectedMechanic}
                     </h2>
                     <p className="text-gray-600">
                         Are you sure you want to forward this request to the selected mechanic?
@@ -118,6 +144,49 @@ const RepairRequests = ({ repairs, mechanics }) => {
                             Forward
                         </button>
                     </div>
+                </Modal>
+            )}
+            {isDateModalOpen && (
+                <Modal onClose={closeDateModal}>
+                    <h2 className="text-lg font-semibold text-gray-700">
+                        Change Dates for Request {selectedRepair}
+                    </h2>
+                    <form onSubmit={handleDateChange}>
+                        <div className="flex flex-col gap-4">
+                            <label htmlFor="startDate" className="text-gray-600">Start Date</label>
+                            <input
+                                type="date"
+                                id="startDate"
+                                name="startDate"
+                                value={startDate}
+                                onChange={(e) => setStartDate(e.target.value)}
+                                className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full"
+                            />
+                            <label htmlFor="endDate" className="text-gray-600">End Date</label>
+                            <input
+                                type="date"
+                                id="endDate"
+                                name="endDate"
+                                value={endDate}
+                                onChange={(e) => setEndDate(e.target.value)}
+                                className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full"
+                            />
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                onClick={closeDateModal}
+                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </form>
                 </Modal>
             )}
         </div>

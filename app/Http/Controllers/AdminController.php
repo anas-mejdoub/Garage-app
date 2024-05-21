@@ -159,7 +159,6 @@ class AdminController extends Controller
     ->where('repairs.status', 'completed')
     ->select('repairs.*', 'vehicles.photos as vehicle_photos')
     ->get();
-    // dd($repairs);
         return Inertia::render('Admin/CompletedRepairs', ['repairs' => $repairs]);
     }
 }

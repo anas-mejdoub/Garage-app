@@ -52,6 +52,7 @@ Route::get('/mechanic/repairs/working/{id}', [MechanicController::class, 'Workin
 //    return Inertia::render('/Mechanic/WorkingRepairs');
 //});
 Route::get('/admin/mechanics', [AdminController::class, 'getMecanics']);
+Route::post('/admin/repairs/requests/pick-dates', [AdminController::class, 'DatePriceNewRequest']);
 Route::get('/admin/repairs/requests', [AdminController::class, 'repairsRequest']);
 Route::get('/mechanic/repairs/requests', [MechanicController::class, 'repairs']);
 // Route
@@ -65,6 +66,7 @@ Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);
 Route::get('/repairs-history', [RepairController::class, 'history']);
 Route::post('admin/repairs/requests/forward', [AdminController::class, 'ForwardMecanic']);
+Route::get('admin/repairs/new-requests', [AdminController::class, 'NewRequest']);
 Route::post('/admin/repairs/requests/update-dates', [AdminController::class, 'ChangeRepairDates']);
 Route::get('/clients', [ClientiController::class, 'index']);
 Route::get('/dashboard', function () {

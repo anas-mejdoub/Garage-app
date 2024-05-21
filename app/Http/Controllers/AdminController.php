@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
@@ -111,6 +112,16 @@ class AdminController extends Controller
         $repair->mechanicID = $mecanicid;
         $repair->save();
     }
+    public function NewRequest()
+    {
+//        $repairid = $request->selectedRepair;
+        $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+            ->where('repairs.status', 'Review')
+            ->select('repairs.*', 'vehicles.photos as vehicle_photos')
+            ->get();
+//        dd($repair);
+        return Inertia::render('Admin/NewRequest', ['repairs' => $repairs]);
+    }
     public function ChangeRepairDates(Request $request)
     {
         //dd($request->selectedMechanic);
@@ -119,6 +130,28 @@ class AdminController extends Controller
         $repair->startDate = $request->startDate;
         $repair->endDate = $request->endDate;
         $repair->save();
+    }
+//DatePriceNewRequest
+    public function DatePriceNewRequest(Request $request)
+    {
+//        dd($request);
+        $repairid = $request->selectedRequest;
+        $invoice = Invoice::where('repairID', $repairid)->first();
+        if (!$invoice)
+        {
+            $invoice = Invoice::create([
+                'repairID' => $repairid,
+                'totalAmount' => $request->price,
+                'additionalCharges' => 0,
+            ]);
+        }
+        $invoice->totalAmount = $request->price;
+        $repair = Repair::where('id', $repairid)->first();
+        $repair->startDate = $request->startDate;
+        $repair->endDate = $request->endDate;
+        $repair->status = $request->status;
+        $repair->save();
+        redirect()->back();
     }
     public function completedRepairs()
     {

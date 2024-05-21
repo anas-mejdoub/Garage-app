@@ -15,7 +15,7 @@ class RepairController extends Controller
         $repair = Repair::create([
             'vehicleID' => $request->vehicle_id,
             'description' => $request->description,
-            'status' => $request->status,
+            'status' => "Review",
             'startDate' => $request->startDate,
             'endDate' => $request->endDate,
             'clientNotes' => $request->clientNotes,

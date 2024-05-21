@@ -15,15 +15,6 @@ class ClientController extends Controller
     }
     public function store(Request $request)
     {
-        // dd(auth()->user()->id);
-        // $vehicle =  Vehicle::create([
-        //     'make' => $request->make,
-        //     'model' => $request->model,
-        //     'fuelType' => $request->fuelType,
-        //     'registration'=> $request->registration,
-        //     'photos'=> $request->photos,
-        //     'clientID' => auth()->user()->id,
-        // ]);
         $clients = Client::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -35,7 +26,6 @@ class ClientController extends Controller
             'company'=> $request->company,
             'companyNumber'=> $request->companyNumber,
             'vatNumber'=> $request->vatNumber,
-            // 'clientID' => auth()->user()->id,
         ]);
 
         // // Redirect the user to a success page

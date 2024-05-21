@@ -12,7 +12,7 @@ function RepairRequestForm(props) {
         event.preventDefault();
         const formData = new FormData();
         formData.append('description', description);
-        formData.append('status', status);
+        // formData.append('status', status);
         formData.append('startDate', startDate);
         formData.append('endDate', endDate);
         formData.append('clientNotes', clientNotes);

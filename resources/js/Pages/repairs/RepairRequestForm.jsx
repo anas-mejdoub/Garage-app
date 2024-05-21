@@ -13,8 +13,8 @@ function RepairRequestForm(props) {
         const formData = new FormData();
         formData.append('description', description);
         // formData.append('status', status);
-        formData.append('startDate', startDate);
-        formData.append('endDate', endDate);
+        // formData.append('startDate', startDate);
+        // formData.append('endDate', endDate);
         formData.append('clientNotes', clientNotes);
         formData.append('vehicle_id', props.vehicleId);
         Inertia.post('/repair-request', formData);
@@ -31,24 +31,24 @@ function RepairRequestForm(props) {
                         </label>
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="description" type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </div>
-                    <div className="w-full px-3 mb-4">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="status">
-                            Status
-                        </label>
-                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="status" type="text" value={status} onChange={e => setStatus(e.target.value)} />
-                    </div>
-                    <div className="w-full px-3 mb-4">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="startDate">
-                            Start Date
-                        </label>
-                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="startDate" type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
-                    </div>
-                    <div className="w-full px-3 mb-4">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="endDate">
-                            End Date
-                        </label>
-                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="endDate" type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
-                    </div>
+                    {/*<div className="w-full px-3 mb-4">*/}
+                    {/*    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="status">*/}
+                    {/*        Status*/}
+                    {/*    </label>*/}
+                    {/*    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="status" type="text" value={status} onChange={e => setStatus(e.target.value)} />*/}
+                    {/*</div>*/}
+                    {/*<div className="w-full px-3 mb-4">*/}
+                    {/*    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="startDate">*/}
+                    {/*        Start Date*/}
+                    {/*    </label>*/}
+                    {/*    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="startDate" type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />*/}
+                    {/*</div>*/}
+                    {/*<div className="w-full px-3 mb-4">*/}
+                    {/*    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="endDate">*/}
+                    {/*        End Date*/}
+                    {/*    </label>*/}
+                    {/*    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="endDate" type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />*/}
+                    {/*</div>*/}
                     <div className="w-full px-3 mb-4">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="clientNotes">
                             Client Notes

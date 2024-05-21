@@ -16,8 +16,8 @@ class RepairController extends Controller
             'vehicleID' => $request->vehicle_id,
             'description' => $request->description,
             'status' => "Review",
-            'startDate' => $request->startDate,
-            'endDate' => $request->endDate,
+            'startDate' => date('Y-m-d'),//$request->startDate,
+            'endDate' => date('Y-m-d'),//$request->endDate,
             'clientNotes' => $request->clientNotes,
             'mechanicID' => auth()->user()->id,
         ]);

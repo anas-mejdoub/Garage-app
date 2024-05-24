@@ -12,9 +12,6 @@ function RepairRequestForm(props) {
         event.preventDefault();
         const formData = new FormData();
         formData.append('description', description);
-        // formData.append('status', status);
-        // formData.append('startDate', startDate);
-        // formData.append('endDate', endDate);
         formData.append('clientNotes', clientNotes);
         formData.append('vehicle_id', props.vehicleId);
         Inertia.post('/repair-request', formData);

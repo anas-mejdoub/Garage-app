@@ -20,6 +20,8 @@ const Modal = ({ children, onClose }) => {
 };
 
 const RepairRequests = ({ repairs, mechanics }) => {
+    // console.log(repairs);
+    console.log(mechanics);
     const [selectedMechanic, setSelectedMechanic] = useState(mechanics[0].id);
     const [selectedRepair, setSelectedRepair] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +33,12 @@ const RepairRequests = ({ repairs, mechanics }) => {
         setSelectedRepair(repairId);
         setIsDateModalOpen(true);
     };
-
+    const getNameById = (id) =>{
+        console.log(id);
+        console.log(mechanics)
+        const mechanic = mechanics.find((mechanic) => mechanic.id == id);
+        return mechanic ? mechanic.name : 'Not found';
+    }
     const closeDateModal = () => {
         setIsDateModalOpen(false);
     };
@@ -100,8 +107,13 @@ const RepairRequests = ({ repairs, mechanics }) => {
                                 )}
                                 <p className="text-2xl text-gray-700">Status: {repair.status}</p>
                                 <br/>
+
                                 {/* <br /> */}
                             </div>
+                                <div>
+
+                                <p className="text-2xl text-gray-700">Mechanic Name: {getNameById( repair.mechanicID)}</p>
+                                </div>
                             <button
                                 onClick={() => openDateModal(repair.id)}
                                 className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

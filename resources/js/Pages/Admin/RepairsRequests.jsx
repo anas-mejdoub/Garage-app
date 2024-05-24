@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Checkbox from '../../Components/Checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { Inertia } from '@inertiajs/inertia';
@@ -84,6 +85,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
                             <div className="flex flex-col gap-4 justify-between">
                                 <h1 className="text-2xl font-semibold text-gray-700">
                                     Request ID: {repair.id}
+                                    {/* <Checkbox /> */}
                                 </h1>
                                 <select onChange={handleSelectMechanic}
                                         className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full">
@@ -154,7 +156,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
                                 console.log('Forwarding request...');
                                 forwardAndClose();
                             }}
-                            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+                            className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
                         >
                             Forward
                         </button>

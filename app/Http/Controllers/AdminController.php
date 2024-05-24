@@ -99,7 +99,7 @@ class AdminController extends Controller
 
     public function repairsRequest()
     {
-        $repairs = Repair::where('status', '<>', 'completed')->get();
+        $repairs = Repair::where('status','pending')->get();
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/RepairsRequests', ['repairs' => $repairs, 'mechanics' => $mechanics]);
     }
@@ -119,7 +119,7 @@ class AdminController extends Controller
             ->where('repairs.status', 'Review')
             ->select('repairs.*', 'vehicles.photos as vehicle_photos')
             ->get();
-//        dd($repair);
+
         return Inertia::render('Admin/NewRequest', ['repairs' => $repairs]);
     }
     public function ChangeRepairDates(Request $request)

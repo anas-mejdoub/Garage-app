@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MechanicController;
@@ -37,6 +38,7 @@ Route::get('/add-vehicle', function () {
 
 });
 Route::post('/admin/users', [AdminController::class, 'store']);
+Route::post('/ndashboard', [NotificationController::class, 'getNotifications']);
 Route::post('/mechanic/add/part-to-invoice', [MechanicController::class, 'addPartToInvoice']);
 Route::get('/admin/repairs/completed', [AdminController::class, 'completedRepairs']);
 Route::post('/admin/add/mecanic', [AdminController::class, 'addMecanic']);

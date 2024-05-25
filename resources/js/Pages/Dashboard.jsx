@@ -34,11 +34,6 @@ export default function Dashboard({ auth }) {
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
                     <FaBell className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer" />
-
-                    {/* <FaBars
-                        onClick={() => setSidebarVisible(!isSidebarVisible)}
-                        className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer"
-                    /> */}
                 </div>
             }
         >

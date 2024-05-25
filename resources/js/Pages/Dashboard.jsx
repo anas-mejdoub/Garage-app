@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { FaBell } from 'react-icons/fa';
+import axios from 'axios';
 
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
@@ -60,8 +61,29 @@ function Sidebar() {
 }
 
 export default function Dashboard({ auth }) {
+    axios.defaults.baseURL = 'http://localhost:8000';
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [notifications, setNotifications] = useState([]);
+const userId = auth.user.id;
+
+useEffect(() => {
+    if (userId) {
+        fetch(`http://localhost:8000/api/notifications/${userId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setNotifications(data);
+            })
+            .catch(error => {
+                console.error('Error fetching notifications:', error);
+            });
+    }
+}, [userId]);
 
     return (
         <AuthenticatedLayout

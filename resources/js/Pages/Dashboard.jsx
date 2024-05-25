@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useState } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { FaBell } from 'react-icons/fa';
 
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
@@ -31,13 +31,15 @@ export default function Dashboard({ auth }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <>
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-                    {/* <FaBars 
+                    <FaBell className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer" />
+
+                    {/* <FaBars
                         onClick={() => setSidebarVisible(!isSidebarVisible)}
                         className="ml-4 text-blue-500 hover:text-blue-700 cursor-pointer"
                     /> */}
-                </>
+                </div>
             }
         >
             <Head title="Dashboard" />

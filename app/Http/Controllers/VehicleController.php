@@ -38,10 +38,15 @@ class VehicleController extends Controller
     public function userVehicles()
     {
         // dd(auth()->user()->client->id);
-        $userId = auth()->user()->client->id;
-        $vehicles = Vehicle::where('clientID', $userId)->get();
-
-        // dd($vehicles);
-        return Inertia::render('Vehicles/Index', ['vehicles' => $vehicles]);
+        if (auth()->user()->client && auth()->user()->client->id)
+        {
+            $userId = auth()->user()->client->id;
+            $vehicles = Vehicle::where('clientID', $userId)->get();
+    
+            // dd($vehicles);
+            return Inertia::render('Vehicles/Index', ['vehicles' => $vehicles]);
+        }
+        return Inertia::render('Vehicles/Index', ['vehicles' => null]);
+        // return Iner
     }
 }

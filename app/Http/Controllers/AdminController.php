@@ -8,7 +8,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Repair;
 use App\Models\Vehicle;
-use App\Models\Notification;
+    use App\Models\Notification;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller

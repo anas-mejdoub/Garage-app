@@ -5,9 +5,11 @@ import { FaBell } from 'react-icons/fa';
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 function Modal({ message, onClose }) {
+    const stopPropagation = (e) => e.stopPropagation();
+
     return (
-        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" onClick={onClose}>
+            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0" onClick={stopPropagation}>
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
@@ -35,6 +37,7 @@ function Modal({ message, onClose }) {
         </div>
     );
 }
+
 function Sidebar() {
     return (
         <div className="w-64 min-h-screen bg-gray-200 p-6">
@@ -79,7 +82,6 @@ export default function Dashboard({ auth }) {
                 <div className="py-12 flex-grow">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            {/* <div className="p-6 text-gray-900">You're logged in!</div> */}
                         </div>
                     </div>
                 </div>

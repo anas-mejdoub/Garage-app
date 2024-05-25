@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Repair;
+use App\Models\Vehicle;
+use App\Models\Notification;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
@@ -134,7 +136,6 @@ class AdminController extends Controller
 //DatePriceNewRequest
     public function DatePriceNewRequest(Request $request)
     {
-//        dd($request);
         $repairid = $request->selectedRequest;
         $invoice = Invoice::where('repairID', $repairid)->first();
         if (!$invoice)
@@ -145,6 +146,20 @@ class AdminController extends Controller
                 'additionalCharges' => 0,
             ]);
         }
+        $msg = "your repair of " . $request->vehicleID . " start date has been set to " . $request->startDate . " and the end date will be " . $request->endDate;
+        $vehicleId = $request->selectedRequest;
+
+        $client = Vehicle::join('clients', 'vehicles.clientId', '=', 'clients.id')
+            ->where('vehicles.id', $vehicleId)
+            ->select('clients.*')
+            ->first();
+        $uesrId = $client->userID;
+        $clientId = $client->id;
+        Notification::create([
+            'user_id' => $uesrId,
+            'content' => $msg,
+
+        ]);
         $invoice->totalAmount = $request->price;
         $repair = Repair::where('id', $repairid)->first();
         $repair->startDate = $request->startDate;

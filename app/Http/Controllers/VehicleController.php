@@ -18,9 +18,14 @@ class VehicleController extends Controller
             'registration' => 'required|string',
             'photos' => 'nullable|image',
         ]);
+        // dd(auth()->user()->id);
         $photoPath = null;
         if ($request->hasFile('photos')) {
             $photoPath = $request->file('photos')->store('photos', 'public');
+        }
+        if (auth()->user()->client && auth()->user()->client->id)
+        {
+            $userId = auth()->user()->client->id;
         }
         // dd(auth()->user()->id);
         $vehicle = Vehicle::create([
@@ -29,7 +34,7 @@ class VehicleController extends Controller
             'fuelType' => $request->fuelType,
             'registration' => $request->registration,
             'photos' => $photoPath,
-            'clientID' => auth()->user()->client->id,
+            'clientID' => $userId,
         ]);
 
         // dd($vehicle);

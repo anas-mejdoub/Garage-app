@@ -36,9 +36,13 @@ class RepairController extends Controller
     }
     public function history(Request $request)
     {
-    $userId = auth()->user()->id;
-    $repairs = Repair::where('mechanicID', $userId)->get();
-
-    return Inertia::render('repairs/History', ['repairs' => $repairs]);
+        if (auth()->user() && auth()->user()->id)
+        {
+            $userId = auth()->user()->id;
+            $repairs = Repair::where('mechanicID', $userId)->get();
+            return Inertia::render('repairs/History', ['repairs' => $repairs]);
+        }
+        return Inertia::render('repairs/History', ['repairs' => null]);
+            
     }
 }

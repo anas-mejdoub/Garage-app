@@ -1,4 +1,19 @@
 function History({ repairs }) {
+
+    const StartDate = (repair) =>
+    {
+        if (repair.status == 'Review')
+            return ('the start date has not been set yet !')
+        else
+            return (repair.startDate)
+    }
+    const EndDate = (repair) =>
+    {
+        if (repair.status == 'Review')
+            return ('the end date has not been set yet !')
+        else
+            return (repair.endDate)
+    }
     return (
         <div className="p-6">
             <h1 className="text-3xl font-bold mb-4">Repair History</h1>
@@ -15,11 +30,11 @@ function History({ repairs }) {
                             </div>
                             <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Start Date</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{repair.startDate}</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{StartDate(repair)}</dd>
                             </div>
                             <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">End Date</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{repair.endDate}</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{EndDate(repair)}</dd>
                             </div>
                             <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Notes</dt>

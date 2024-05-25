@@ -16,7 +16,8 @@ class NotificationController extends Controller
 
         // return response()->json($notifications);
         return Inertia::render('Notifications', [
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'auth' => auth(),
         ]);
     }
 }

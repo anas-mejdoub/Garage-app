@@ -5,9 +5,7 @@ import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
-function Modal({ message, onClose }) {
-    // const stopPropagation = (e) => e.stopPropagation();
-    // console.log(message);
+function Modal({ messages, onClose }) {
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" onClick={onClose}>
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -18,12 +16,17 @@ function Modal({ message, onClose }) {
                         <div className="sm:flex sm:items-start">
                             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                    Notification
+                                    Notifications
                                 </h3>
                                 <div className="mt-2">
-                                    <p className="text-sm text-gray-500">
-                                        {message.content}
-                                    </p>
+                                {messages.map((message, index) => (
+                                        <div key={index}>
+                                            <p className="text-sm text-gray-500">
+                                                {message.content}
+                                            </p>
+                                            <hr />
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

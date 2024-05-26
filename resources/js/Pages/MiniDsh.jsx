@@ -2,15 +2,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useState , useEffect} from 'react';
 import { FaBell } from 'react-icons/fa';
 import axios from 'axios';
-
+import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 function Modal({ message, onClose }) {
-    const stopPropagation = (e) => e.stopPropagation();
-
+    // const stopPropagation = (e) => e.stopPropagation();
+    // console.log(message);
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" onClick={onClose}>
-            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0" onClick={stopPropagation}>
+            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
@@ -22,7 +22,7 @@ function Modal({ message, onClose }) {
                                 </h3>
                                 <div className="mt-2">
                                     <p className="text-sm text-gray-500">
-                                        {message}
+                                        {message.content}
                                     </p>
                                 </div>
                             </div>
@@ -61,27 +61,27 @@ function Sidebar() {
 }
 
 export default function MiniDsh({ auth , notifications}) {
-    console.log(auth);
-    const {user, notifications} = auth;
-    console.log(user);
-    axios.defaults.baseURL = 'http://localhost:8000';
-    const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [isModalVisible, setModalVisible] = useState(false);
-    // const [notifications, setNotifications] = useState([]);
-const userId = auth.user.id;
+    const [selectedNotification, setSelectedNotification] = useState(null);
 
-
+    const handleNotificationClick = (notification) => {
+        setSelectedNotification(notification);
+        setModalVisible(true);
+    }
 
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={auth}
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-                    <FaBell 
-                        onClick={() => setModalVisible(true)}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer" 
-                    />
+                    {notifications.map((notification, index) => (
+                        <FaBell 
+                            key={index}
+                            onClick={() => handleNotificationClick(notification)}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer" 
+                        />
+                    ))}
                 </div>
             }
         >
@@ -95,7 +95,7 @@ const userId = auth.user.id;
                     </div>
                 </div>
             </div>
-            {isModalVisible && <Modal message="No notification" onClose={() => setModalVisible(false)} />}
+            {isModalVisible && selectedNotification && <Modal message={selectedNotification} onClose={() => setModalVisible(false)} />}
         </AuthenticatedLayout>
     );
 }

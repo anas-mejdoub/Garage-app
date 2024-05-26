@@ -38,7 +38,7 @@ Route::get('/add-vehicle', function () {
 
 });
 Route::post('/admin/users', [AdminController::class, 'store']);
-Route::post('/ndashboard', [NotificationController::class, 'getNotifications']);
+Route::get('/ndashboard/{id}', [NotificationController::class, 'index']);
 Route::post('/mechanic/add/part-to-invoice', [MechanicController::class, 'addPartToInvoice']);
 Route::get('/admin/repairs/completed', [AdminController::class, 'completedRepairs']);
 Route::post('/admin/add/mecanic', [AdminController::class, 'addMecanic']);

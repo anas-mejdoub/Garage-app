@@ -146,19 +146,20 @@ class AdminController extends Controller
                 'additionalCharges' => 0,
             ]);
         }
-        $msg = "your repair of " . $request->vehicleID . " start date has been set to " . $request->startDate . " and the end date will be " . $request->endDate;
         $vehicleId = $request->selectedRequest;
+        dd($vehicleId);
+        $msg = "your repair of " . $vehicleId . " start date has been set to " . $request->startDate . " and the end date will be " . $request->endDate;
 
         $client = Vehicle::join('clients', 'vehicles.clientId', '=', 'clients.id')
             ->where('vehicles.id', $vehicleId)
             ->select('clients.*')
             ->first();
-        $uesrId = $client->userID;
+            $uesrId = $client->userID;
+            // dd($uesrId);
         $clientId = $client->id;
         Notification::create([
             'user_id' => $uesrId,
             'content' => $msg,
-
         ]);
         $invoice->totalAmount = $request->price;
         $repair = Repair::where('id', $repairid)->first();

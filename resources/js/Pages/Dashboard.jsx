@@ -1,6 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useState , useEffect} from 'react';
 import { FaBell } from 'react-icons/fa';
+import { Inertia } from '@inertiajs/inertia';
+
 // import {MiniDsh} from './MiniDsh';
 import axios from 'axios';
 
@@ -62,8 +64,12 @@ function Sidebar() {
 }
 
 export default function Dashboard({ auth }) {
+
+    const user = auth.user;
+    // console.log("ehuif", user.id);
+    Inertia.get(`/ndashboard/${user.id}`);
     console.log(auth);
-    const {user, notifications} = auth;
+    // const {user, notifications} = auth;
     console.log(user);
     axios.defaults.baseURL = 'http://localhost:8000';
     const [isSidebarVisible, setSidebarVisible] = useState(true);

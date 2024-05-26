@@ -11,13 +11,11 @@ class NotificationController extends Controller
     //
     public function index(Request $request)
     {
-        dd($request);
-        $notifications = Notification::where('user_id', $request->userId)->get();
-
-        // return response()->json($notifications);
-        return Inertia::render('Notifications', [
-            'notifications' => $notifications,
-            'auth' => auth(),
-        ]);
+        // dd($request->user['id']);
+        // dd($request->id);
+        // dd($request->id);
+        $notifications = Notification::where('user_id', $request->id)->get();
+        return Inertia::render('MiniDsh', ['auth' => auth()->user() ,'notifications' => $notifications]);
+        // return redirect('/ndashboard');
     }
 }

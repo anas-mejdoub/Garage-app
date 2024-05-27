@@ -147,7 +147,7 @@ class AdminController extends Controller
             ]);
         }
         $vehicleId = $request->selectedRequest;
-        dd($vehicleId);
+        // dd($vehicleId);
         $msg = "your repair of " . $vehicleId . " start date has been set to " . $request->startDate . " and the end date will be " . $request->endDate;
 
         $client = Vehicle::join('clients', 'vehicles.clientId', '=', 'clients.id')

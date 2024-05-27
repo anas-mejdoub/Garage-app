@@ -6,6 +6,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 function Modal({ messages, onClose }) {
+    console.log(messages)
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" onClick={onClose}>
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -19,14 +20,20 @@ function Modal({ messages, onClose }) {
                                     Notifications
                                 </h3>
                                 <div className="mt-2">
-                                {messages.map((message, index) => (
-                                        <div key={index}>
-                                            <p className="text-sm text-gray-500">
-                                                {message.content}
-                                            </p>
-                                            <hr />
-                                        </div>
-                                    ))}
+                                    {messages && messages.length > 0 ? (
+                                        messages.map((message, index) => (
+                                            <div key={index}>
+                                                <p className="text-sm text-gray-500">
+                                                    {message.content}
+                                                </p>
+                                                {index < messages.length - 1 && <hr />}
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-sm text-gray-500">
+                                            No notifications
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -65,10 +72,10 @@ function Sidebar() {
 
 export default function MiniDsh({ auth , notifications}) {
     const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedNotification, setSelectedNotification] = useState(null);
+    const [selectedNotification, setSelectedNotification] = useState([]);
 
     const handleNotificationClick = (notification) => {
-        setSelectedNotification(notification);
+        setSelectedNotification(...selectedNotification, notification);
         setModalVisible(true);
     }
 
@@ -98,7 +105,7 @@ export default function MiniDsh({ auth , notifications}) {
                     </div>
                 </div>
             </div>
-            {isModalVisible && selectedNotification && <Modal message={selectedNotification} onClose={() => setModalVisible(false)} />}
+            {isModalVisible && <Modal messages={[selectedNotification]} onClose={() => setModalVisible(false)} />}
         </AuthenticatedLayout>
     );
 }

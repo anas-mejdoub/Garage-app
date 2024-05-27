@@ -146,14 +146,13 @@ class AdminController extends Controller
                 'additionalCharges' => 0,
             ]);
         }
-        $vehicleId = $request->selectedRequest;
-        // dd($vehicleId);
+        $vehicleId = Repair ::where('id',$repairid)->first()->vehicleID;
         $msg = "your repair of " . $vehicleId . " start date has been set to " . $request->startDate . " and the end date will be " . $request->endDate;
-
         $client = Vehicle::join('clients', 'vehicles.clientId', '=', 'clients.id')
             ->where('vehicles.id', $vehicleId)
             ->select('clients.*')
             ->first();
+        // dd($client);
             $uesrId = $client->userID;
             // dd($uesrId);
         $clientId = $client->id;

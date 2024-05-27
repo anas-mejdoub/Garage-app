@@ -45,6 +45,7 @@ const NewRequests = ({repairs}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(selectedRequest, startDate, status, endDate, price);
+        console.log(selectedRequest, startDate, status, endDate, price);
         Inertia.post('/admin/repairs/requests/pick-dates', { selectedRequest, startDate, status, endDate, price });
         setModalIsOpen(false);
     };

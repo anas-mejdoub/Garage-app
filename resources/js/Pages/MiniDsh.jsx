@@ -8,11 +8,12 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 function Modal({ messages, onClose }) {
     console.log(messages)
     return (
-        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" onClick={onClose}>
+        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onClose}></div>
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    {/* ... rest of your code ... */}
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div className="sm:flex sm:items-start">
                             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -72,11 +73,9 @@ function Sidebar() {
 
 export default function MiniDsh({ auth , notifications}) {
     const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedNotification, setSelectedNotification] = useState([]);
 
-    const handleNotificationClick = (notification) => {
-        setSelectedNotification(...selectedNotification, notification);
-        setModalVisible(true);
+    const handleNotificationClick = () => {
+        setModalVisible(true);  
     }
 
     return (
@@ -85,13 +84,10 @@ export default function MiniDsh({ auth , notifications}) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-                    {notifications.map((notification, index) => (
-                        <FaBell 
-                            key={index}
-                            onClick={() => handleNotificationClick(notification)}
-                            className="text-blue-500 hover:text-blue-700 cursor-pointer" 
-                        />
-                    ))}
+                    <FaBell 
+                        onClick={handleNotificationClick}
+                        className="text-blue-500 hover:text-blue-700 cursor-pointer" 
+                    />
                 </div>
             }
         >
@@ -105,7 +101,7 @@ export default function MiniDsh({ auth , notifications}) {
                     </div>
                 </div>
             </div>
-            {isModalVisible && <Modal messages={[selectedNotification]} onClose={() => setModalVisible(false)} />}
+            {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
         </AuthenticatedLayout>
     );
 }

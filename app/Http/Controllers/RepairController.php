@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Repair;
 use App\Models\Vehicle;
+use App\Models\Client;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -42,7 +43,11 @@ class RepairController extends Controller
         if (auth()->user() && auth()->user()->id)
         {
             $userId = auth()->user()->id;
-            $repairs = Repair::where('mechanicID', $userId)->get();
+            $cid = Client::where('userID', $userId)->first()->id;
+            $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+                 ->where('vehicles.clientID', $cid)
+                 ->select('repairs.*') 
+                 ->get();
             return Inertia::render('repairs/History', ['repairs' => $repairs]);
         }
         return Inertia::render('repairs/History', ['repairs' => null]);

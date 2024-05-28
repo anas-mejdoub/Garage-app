@@ -127,7 +127,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
                         ))}
                     </tbody>
                 </table>
-                <div className="flex justify-center space-x-4">
+                <div className="flex justify-center space-x-4 mt-4">
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}
                         disabled={currentPage === 1}

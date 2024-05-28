@@ -23,15 +23,15 @@ function History({ repairs }) {
                     </div>
                     <div className="border-t border-gray-200">
                         <dl>
-                        <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-    <dt className="text-sm font-medium text-gray-500">Status</dt>
-    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
-        <span>{repair.status}</span>
-        {repair.status === 'completed' && (
-            <FaPrint className="ml-2" size={30} />
-        )}
-    </dd>
-</div>
+                            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500">Status</dt>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
+                                    <span>{repair.status}</span>
+                                    {repair.status === 'completed' && (
+                                        <FaPrint className="ml-2" size={30} />
+                                    )}
+                                </dd>
+                            </div>
                             <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">Start Date</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{StartDate(repair)}</dd>

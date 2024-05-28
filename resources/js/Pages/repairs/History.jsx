@@ -1,4 +1,5 @@
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Inertia } from '@inertiajs/inertia';
 import { FaPrint } from 'react-icons/fa';
 function History({ repairs }) {
     const StartDate = (repair) => {
@@ -31,6 +32,7 @@ function History({ repairs }) {
                                         <button onClick={() => {
                                             // Add the action you want to perform here
                                             console.log('Print icon clicked');
+                                            Inertia.get(`/generate-invoice/${repair.id}`);
                                         }}>
                                             <FaPrint className="ml-2" size={30} />
                                         </button>

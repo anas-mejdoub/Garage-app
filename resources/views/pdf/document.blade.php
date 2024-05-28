@@ -5,6 +5,6 @@
 </head>
 <body>
     <h1>{{ $title }}</h1>
-    <p>This PDF document is generated using domPDF in Laravel.</p>
+    <p>totalAmount : {{$total}}</p>
 </body>
 </html>

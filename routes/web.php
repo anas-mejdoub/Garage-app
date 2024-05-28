@@ -33,7 +33,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
+Route::get('/generate-invoice/{id}', [PDFController::class, 'generatePDF']);
 Route::delete('/users/{id}', [AdminController::class, 'destroy']);
 Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/add-vehicle', function () {

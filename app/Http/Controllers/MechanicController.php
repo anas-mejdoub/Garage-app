@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Repair;
+use App\Models\Vehicle;
+use App\Models\Notification;
 use App\Models\SparePart;
 use Inertia\Inertia;
 use App\Models\User;
@@ -23,9 +25,21 @@ class MechanicController extends Controller
     {
         $id = auth()->user()->id;
         $repair_id = $request->currentRepair['id'];
+        $vehicleId = Repair ::where('id',$repair_id)->first()->vehicleID;
+        $msg = "your repair of " . $vehicleId . " has been completed you can get your car now !";
+        $client = Vehicle::join('clients', 'vehicles.clientId', '=', 'clients.id')
+            ->where('vehicles.id', $vehicleId)
+            ->select('clients.*')
+            ->first();
+            $uesrId = $client->userID;
+        $clientId = $client->id;
+        Notification::create([
+            'user_id' => $uesrId,
+            'content' => $msg,
+        ]);
         $repair = Repair::where('id', $repair_id)->first();
         $repair->status = $request->newStatus;
-        $repair->save();
+        $repair->save(); 
     }
     public function WorkingRepairs(Request $request)
     {

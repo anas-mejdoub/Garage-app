@@ -21,6 +21,9 @@ const Modal = ({ children, onClose }) => {
 };
 
 const RepairRequests = ({ repairs, mechanics }) => {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const repairsPerPage = 10;
     // console.log(repairs);
     console.log(mechanics);
     const [selectedMechanic, setSelectedMechanic] = useState(mechanics[0].id);
@@ -29,12 +32,14 @@ const RepairRequests = ({ repairs, mechanics }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-
+    const indexOfLastRepair = currentPage * repairsPerPage;
+    const indexOfFirstRepair = indexOfLastRepair - repairsPerPage;
+    const currentRepairs = repairs.slice(indexOfFirstRepair, indexOfLastRepair);
     const openDateModal = (repairId) => {
         setSelectedRepair(repairId);
         setIsDateModalOpen(true);
     };
-    const getNameById = (id) =>{
+    const getNameById = (id) => {
         console.log(id);
         console.log(mechanics)
         const mechanic = mechanics.find((mechanic) => mechanic.id == id);
@@ -68,77 +73,81 @@ const RepairRequests = ({ repairs, mechanics }) => {
     const forwardAndClose = () => {
         console.log(selectedMechanic);
         console.log(selectedRepair);
-        Inertia.post('/admin/repairs/requests/forward', { selectedMechanic, selectedRepair});
+        Inertia.post('/admin/repairs/requests/forward', { selectedMechanic, selectedRepair });
         setIsModalOpen(false);
     };
 
     return (
-        <div className="p-6  flex flex-col gap-4 items-center">
+        <div className="p-6 flex flex-col gap-4 items-center">
             <h1 className="text-5xl font-semibold text-gray-800 leading-tight mb-6">Repair Requests</h1>
-            <div className="max-w-2xl w-[60em] p-6 bg-white rounded-lg">
-                <div className="relative inline-flex w-full justify-center mb-6">
-                    <svg className="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.762-9.763 25.591 0 35.354l189.21 189.209c9.372 9.373 24.749 9.373 34.121 0l189.21-189.209c9.763-9.763 9.763-25.592 0-35.354-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg>
+            <div className="max-w-2xl w-[60em] p-6 bg-white rounded-lg min-w-full">
+                <table className="table-auto w-full border-collapse border border-gray-300 min-w-full">
+                    <thead>
+                        <tr>
+                            <th className="px-4 py-2 border border-gray-300">Request ID</th>
+                            <th className="px-4 py-2 border border-gray-300">Description</th>
+                            <th className="px-4 py-2 border border-gray-300">Status</th>
+                            <th className="px-4 py-2 border border-gray-300">Mechanic Name</th>
+                            <th className="px-4 py-2 border border-gray-300">Forward to Mechanic</th>
+                            <th className="px-4 py-2 border border-gray-300">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {currentRepairs.map((repair, index) => (
+                            <tr key={index}>
+                                <td className="border px-4 py-2 border-gray-300">{repair.id}</td>
+                                <td className="border px-4 py-2 border-gray-300">{repair.description}</td>
+                                <td className="border px-4 py-2 border-gray-300">{repair.status}</td>
+                                <td className="border px-4 py-2 border-gray-300">{getNameById(repair.mechanicID)}</td>
+                                <td className="border px-4 py-2 border-gray-300">
+                                    <select value={selectedMechanic} onChange={(e) => setSelectedMechanic(e.target.value)}>
+                                        {mechanics.map((mechanic, index) => (
+                                            <option key={index} value={mechanic.id}>
+                                                {mechanic.name}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                </td>
+                                <td className="border px-4 py-2 border-gray-300">
+                                    <button
+                                        onClick={() => openDateModal(repair.id)}
+                                        className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                                    >
+                                        Change Dates
+                                    </button>
+                                    <button
+                                        onClick={() => handleForwardRequest(repair.id, selectedMechanic)}
+                                        className="text-lg text-red-500 border-red-500 bg-white font-bold py-2 px-4 rounded border hover:bg-red-50"
+                                    >
+                                        Forward to Mechanic
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div className="flex justify-center space-x-4">
+                    <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Previous
+                    </button>
+                    <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === Math.ceil(repairs.length / repairsPerPage)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Next
+                    </button>
                 </div>
-                <ul className="divide-y divide-gray-200">
-                    {repairs.map((repair, index) => (
-                        <li key={index} className="shadow-lg p-4 flex flex-col items-center justify-center gap-4 py-4">
-                            <div className="flex flex-col gap-4 justify-between">
-                                <h1 className="text-2xl font-semibold text-gray-700">
-                                    Request ID: {repair.id}
-                                    {/* <Checkbox /> */}
-                                </h1>
-                                <select onChange={handleSelectMechanic}
-                                        className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full">
-                                    {mechanics.map((mechanic, index) => (
-                                        <option key={index} value={mechanic.id}>{mechanic.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <p className="text-2xl text-gray-600">{repair.description}</p>
-                            <div className="flex items-center">
-                                {repair.status === 'completed' ? (
-                                    <FontAwesomeIcon
-                                        icon={faCheckCircle}
-                                        className="text-green-500 mr-2"
-                                    />
-                                ) : (
-                                    <FontAwesomeIcon
-                                        icon={faExclamationCircle}
-                                        className="text-yellow-500 mr-2"
-                                    />
-                                )}
-                                <p className="text-2xl text-gray-700">Status: {repair.status}</p>
-                                <br/>
-
-                                {/* <br /> */}
-                            </div>
-                                <div>
-
-                                <p className="text-2xl text-gray-700">Mechanic Name: {getNameById( repair.mechanicID)}</p>
-                                </div>
-                            <div>
-
-                            <button
-                                onClick={() => openDateModal(repair.id)}
-                                className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
-                            >
-                                Change Dates
-                            </button>
-                            <button
-                                onClick={() => handleForwardRequest(repair.id, selectedMechanic)}
-                                className="text-lg text-red-500 border-red-500 bg-white font-bold py-2 px-4 rounded border hover:bg-red-50"
-                            >
-                                Forward to Mechanic
-                            </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
             </div>
             {isModalOpen && (
                 <Modal onClose={handleModalClose}>
                     <h2 className="text-lg font-semibold text-gray-700">
-                    Forwarding Request {selectedRepair} to Mechanic {getNameById(selectedMechanic)}
+                        Forwarding Request {selectedRepair} to Mechanic {getNameById(selectedMechanic)}
                     </h2>
                     <p className="text-gray-600">
                         Are you sure you want to forward this request to the selected mechanic?

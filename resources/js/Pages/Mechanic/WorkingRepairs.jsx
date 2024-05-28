@@ -5,29 +5,29 @@ import {FaCar, FaCheckCircle} from "react-icons/fa";
 import { Inertia } from '@inertiajs/inertia';
 
 
-export function Component(props) {
-    return (
-        <Card
-            className="max-w-sm rounded overflow-hidden shadow-lg m-4"
-            imgSrc={`/storage/${props.img}`}
-        >
-            <div className="px-6 py-4">
-                <div className="flex items-center">
-                    <FaCar className="mr-2"/>
-                    <h5 className="font-bold text-xl mb-2 text-gray-700 dark:text-white">
-                        {props.carName}
-                    </h5>
+    export function Component(props) {
+        return (
+            <Card
+                className="max-w-sm rounded overflow-hidden shadow-lg m-4"
+                imgSrc={`/storage/${props.img}`}
+            >
+                <div className="px-6 py-4">
+                    <div className="flex items-center">
+                        <FaCar className="mr-2"/>
+                        <h5 className="font-bold text-xl mb-2 text-gray-700 dark:text-white">
+                            {props.carName}
+                        </h5>
+                    </div>
+                    <div className="flex items-center">
+                        <FaCheckCircle className="mr-2"/>
+                        <p className="text-gray-700 dark:text-gray-400 text-base">
+                            {props.status}
+                        </p>
+                    </div>
                 </div>
-                <div className="flex items-center">
-                    <FaCheckCircle className="mr-2"/>
-                    <p className="text-gray-700 dark:text-gray-400 text-base">
-                        {props.status}
-                    </p>
-                </div>
-            </div>
-        </Card>
-    );
-}
+            </Card>
+        );
+    }
 const RepairDetails = ({ repair, parts }) => {
     // console.log(repair)
     const [currentRepair, setCurrentRepair] = useState(repair);

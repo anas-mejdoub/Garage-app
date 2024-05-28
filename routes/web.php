@@ -11,6 +11,8 @@ use App\Http\Controllers\RepairController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Middleware\CheckRole;
+use App\Http\Controllers\PDFController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
 Route::delete('/users/{id}', [AdminController::class, 'destroy']);
 Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/add-vehicle', function () {

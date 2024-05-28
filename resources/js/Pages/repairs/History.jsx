@@ -28,7 +28,12 @@ function History({ repairs }) {
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                                     <span>{repair.status}</span>
                                     {repair.status === 'completed' && (
-                                        <FaPrint className="ml-2" size={30} />
+                                        <button onClick={() => {
+                                            // Add the action you want to perform here
+                                            console.log('Print icon clicked');
+                                        }}>
+                                            <FaPrint className="ml-2" size={30} />
+                                        </button>
                                     )}
                                 </dd>
                             </div>

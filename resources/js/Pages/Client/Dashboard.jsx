@@ -100,7 +100,7 @@ export default function MiniDsh({ auth, notifications }) {
                     <img src="/background_.jpg" alt="" className="absolute inset-0 h-full w-full object-cover z-0" />
                     <div className="py-12 flex-grow relative z-10">
                         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div className="bg-white opacity-80 overflow-hidden shadow-sm sm:rounded-lg">
                                 {auth.role === 'client' && (
                                     <div className="p-6 bg-white rounded shadow">
                                         <h2 className="text-2xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>

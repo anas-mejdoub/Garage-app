@@ -127,21 +127,23 @@
                 </td>
             </tr>
             
+            
+            <tr class="total">
+                <td>
+                    Additional charges
+                </td>
+                
+                <td>
+                    {{$invoice->additionalCharges}} DH
+                </td>
+            </tr>
             <tr class="item">
                 <td>
-                    Repair service
+                    Repair Total
                 </td>
                 
                 <td>
                     {{ $total }} DH
-                </td>
-            </tr>
-            
-            <tr class="total">
-                <td></td>
-                
-                <td>
-                   Total: {{ $repair->total }} DH
                 </td>
             </tr>
         </table>

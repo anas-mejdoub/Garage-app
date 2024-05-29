@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { FaBell } from 'react-icons/fa';
 import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
@@ -71,11 +71,11 @@ function Sidebar() {
     );
 }
 
-export default function MiniDsh({ auth , notifications}) {
+export default function MiniDsh({ auth, notifications }) {
     const [isModalVisible, setModalVisible] = useState(false);
 
     const handleNotificationClick = () => {
-        setModalVisible(true);  
+        setModalVisible(true);
     }
 
     return (
@@ -84,31 +84,37 @@ export default function MiniDsh({ auth , notifications}) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-                    <FaBell 
+                    <FaBell
                         onClick={handleNotificationClick}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer" 
+                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
                     />
                 </div>
             }
         >
             <Head title="Dashboard" />
             <div className="flex">
-            {auth.role === 'client' && <Sidebar/>}
-                <div className="py-12 flex-grow">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            {auth.role === 'client' && (
-                                <div>
 
-                                    <h2>Welcome, {auth.name}!</h2>
-                                    {console.log(auth)}
-                                    <p>This is your client dashboard.</p>
-                                </div>
-                                // Add any client-specific components or data here
-                            )}
+                {auth.role === 'client' && <Sidebar />}
+                {/* pp */}
+                <div className="relative w-full h-screen">
+                    <img src="/background_.jpg" alt="" className="absolute inset-0 h-full w-full object-cover z-0" />
+                    <div className="py-12 flex-grow relative z-10">
+                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                {auth.role === 'client' && (
+                                    <div className="p-6 bg-white rounded shadow">
+                                        <h2 className="text-2xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
+                                        <p className="mt-2 text-gray-600">This is your client dashboard.</p>
+                                        {/* Add more client-specific components or data here */}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
             {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
         </AuthenticatedLayout>

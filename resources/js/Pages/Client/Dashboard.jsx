@@ -93,10 +93,19 @@ export default function MiniDsh({ auth , notifications}) {
         >
             <Head title="Dashboard" />
             <div className="flex">
-            <Sidebar/>
+            {auth.role === 'client' && <Sidebar/>}
                 <div className="py-12 flex-grow">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            {auth.role === 'client' && (
+                                <div>
+
+                                    <h2>Welcome, {auth.name}!</h2>
+                                    {console.log(auth)}
+                                    <p>This is your client dashboard.</p>
+                                </div>
+                                // Add any client-specific components or data here
+                            )}
                         </div>
                     </div>
                 </div>

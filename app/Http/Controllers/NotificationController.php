@@ -8,13 +8,8 @@ use Inertia\Inertia;
 
 class NotificationController extends Controller
 {
-    //
     public function index(Request $request)
     {
-        // dd(auth()->user());
-        // dd($request->user['id']);
-        // dd($request->id);
-        // dd($request->id);
         $notifications = Notification::where('user_id', $request->id)->get();
         if (auth()->user()->role == 'admin')
         {
@@ -29,6 +24,5 @@ class NotificationController extends Controller
             return Inertia::render('Client/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications]);
         }
         return Inertia::render('MiniDsh', ['auth' => auth()->user() ,'notifications' => $notifications]);
-        // return redirect('/ndashboard');
     }
 }

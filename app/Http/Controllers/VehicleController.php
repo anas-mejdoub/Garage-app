@@ -27,7 +27,6 @@ class VehicleController extends Controller
         {
             $userId = auth()->user()->client->id;
         }
-        // dd(auth()->user()->id);
         $vehicle = Vehicle::create([
             'make' => $request->make,
             'model' => $request->model,
@@ -37,21 +36,17 @@ class VehicleController extends Controller
             'clientID' => $userId,
         ]);
 
-        // dd($vehicle);
         return redirect('/my-vehicles');
     }
     public function userVehicles()
     {
-        // dd(auth()->user()->client->id);
         if (auth()->user()->client && auth()->user()->client->id)
         {
             $userId = auth()->user()->client->id;
             $vehicles = Vehicle::where('clientID', $userId)->get();
     
-            // dd($vehicles);
             return Inertia::render('Vehicles/Index', ['vehicles' => $vehicles]);
         }
         return Inertia::render('Vehicles/Index', ['vehicles' => null]);
-        // return Iner
     }
 }

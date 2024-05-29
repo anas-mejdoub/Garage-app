@@ -61,6 +61,9 @@
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
+            <!-- <td class="title">
+                                <img src="{{ asset('Classic-Garage-Logo-Design-by-jdrdesigns.jpg') }}" style="width:100%; max-width:300px;">
+                            </td> -->
                 <td colspan="2">
                     <table>
                         <tr>

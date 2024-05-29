@@ -17,7 +17,8 @@ class PDFController extends Controller
 
 
     $inv = Invoice::where('repairID', $id)->first();
-    $data = ['title' => 'Repair Invoice', 'total' => $inv->totalAmount];
+    $rep = Repair::where('id',$id)->first();
+    $data = ['title' => 'Repair Invoice', 'total' => $inv->totalAmount, 'repair'=> $rep];
 
     $pdf = PDF::loadView('pdf.document', $data);
     $fileName = 'invoice_' . $id . '.pdf';

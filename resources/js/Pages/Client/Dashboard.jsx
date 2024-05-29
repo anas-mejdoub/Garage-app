@@ -108,8 +108,7 @@ export default function MiniDsh({ auth, notifications, repairs }) {
                                         <div className="p-6 bg-white rounded shadow">
 
                                             <h2 className="text-2xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
-                                            <p className="mt-2 text-gray-600">This is your client dashboard.</p>
-                                            {/* Add more client-specific components or data here */}
+                                            <p className="mt-2 text-gray-600">Your space to request your repair easily !</p>
                                         </div>
 
                                     )}

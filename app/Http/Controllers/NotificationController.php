@@ -13,6 +13,10 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->id != auth()->user()->id)
+        {
+           return redirect('/not_found');
+        }
         $notifications = Notification::where('user_id', $request->id)->get();
         if (auth()->user()->role == 'admin')
         {

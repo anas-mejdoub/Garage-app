@@ -57,24 +57,29 @@ function Modal({ messages, onClose }) {
 
 function Sidebar() {
     return (
-        <div className="w-64 min-h-screen bg-gray-200 p-6">
+        <div className="w-64 min-h-screen bg-gradient-to-r from-slate-950 to-slate-800 text-white p-6">
             <ul className="space-y-4">
-                <li>
-                    <a href="/add-vehicle" className="text-lg text-indigo-600 hover:text-indigo-900">Add Vehicle</a>
+                <li className="transition duration-300 transform hover:scale-110">
+                    <a href="/add-vehicle" className="text-lg text-white hover:text-gray-200">Add Vehicle</a>
                 </li>
-                <li>
-                    <InertiaLink className="text-lg text-indigo-600 hover:text-indigo-900" href="/my-vehicles">My Vehicles</InertiaLink>
+                <li className="transition duration-300 transform hover:scale-110">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/my-vehicles">My Vehicles</InertiaLink>
                 </li>
-                <li>
-                    <InertiaLink className="text-lg text-indigo-600 hover:text-indigo-900" href="/select-vehicle">repair-request</InertiaLink>
+                <li className="transition duration-300 transform hover:scale-110">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/select-vehicle">Repair Request</InertiaLink>
                 </li>
-                <li>
-                    <InertiaLink className="text-lg text-indigo-600 hover:text-indigo-900" href="/repairs-history">repairs-history</InertiaLink>
+                <li className="transition duration-300 transform hover:scale-110">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/repairs-history">Repairs History</InertiaLink>
                 </li>
             </ul>
         </div>
     );
 }
+
+
+
+
+
 
 export default function MiniDsh({ auth, notifications, repair, repairs }) {
     console.log("test", repairs);

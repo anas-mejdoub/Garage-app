@@ -82,6 +82,35 @@ function Sidebar() {
 
 
 export default function MiniDsh({ auth, notifications, repair, repairs }) {
+    // if (!repair)
+    let reps = repairs || [
+        {
+          id: 0,
+          description: "",
+          status: "",
+          clientNotes: "",
+          created_at: "",
+          endDate: "",
+          mechanicID: 0,
+          mechanicNotes: "",
+          startDate: "",
+          updated_at: "",
+          vehicleID: 0
+        }
+      ];
+      let rep = repair || {
+        id: 0,
+          description: "",
+          status: "",
+          clientNotes: "",
+          created_at: "",
+          endDate: "",
+          mechanicID: 0,
+          mechanicNotes: "",
+          startDate: "",
+          updated_at: "",
+          vehicleID: 0
+      };
     console.log("test", repairs);
     const [isModalVisible, setModalVisible] = useState(false);
 
@@ -125,40 +154,48 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                 </div>
                                 <div className='flex gap-3'>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        {auth.role === 'client' && repair && (
-                                            <div className="p-6 bg-white rounded shadow">
-                                                <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
-                                                <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {repair.id}</p>
-                                                <p className="text-2xl text-gray-600"><strong>Description:</strong> {repair.description}</p>
-                                                <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(repair.startDate).toLocaleDateString()}</p>
-                                                <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(repair.endDate).toLocaleDateString()}</p>
-
-                                            </div>
-                                        )}
+                                        {/* {auth.role === 'client' && ( */}
+                                            {repair != null ?
+                                                <div className="p-6 bg-white rounded shadow">
+                                                  <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
+                                                  <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {rep?.id ?? 0}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p>
+                                                </div>
+                                              : 
+                                              <div className="p-6 bg-white rounded shadow flex flex-col items-center justify-center">
+                                                  <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
+                                                   <p className="mt-4 text-2xl text-gray-600"><strong>No repair</strong> </p>
+                                                  {/* <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p> */}
+                                                </div>}
+                                        {/* )} */}
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        {auth.role === 'client' && repair && (
+                                        {auth.role === 'client' && reps && (
                                             <div className="p-6 bg-white rounded shadow flex ">
                                                 <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mt-2 mr-2 h-6 w-6" />
-                                                <div className='flex flex-col center gap-9 items-center'>
+                                                <div className='flex flex-col center gap-9 md-4 items-center'>
                                               <h2 className="text-3xl font-semibold text-gray-700">completed Repairs</h2>
                                               <div className='flex'>
 
-                                              <h1 className="text-2xl  font-semibold text-gray-700">{repairs.filter((e) => e.status === 'completed').length} repair</h1>
+                                              <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'completed').length} repair</h1>
                                               </div>
                                             </div>
                                             </div>
                                         )}
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        {auth.role === 'client' && repair && (
+                                        {auth.role === 'client' && reps && (
                                         <div className="p-6 bg-white rounded shadow flex">
                                             <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
                                             <div className='flex flex-col center gap-9 items-center'>
                                               <h2 className="text-3xl font-semibold text-gray-700">Pending Repairs</h2>
                                               <div className='flex'>
 
-                                              <h1 className="text-2xl  font-semibold text-gray-700">{repairs.filter((e) => e.status === 'pending').length} repair</h1>
+                                              <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'pending').length} repair</h1>
                                               </div>
                                             </div>
                                           </div>

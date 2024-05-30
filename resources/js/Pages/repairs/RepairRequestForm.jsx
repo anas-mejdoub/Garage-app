@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
-
+import image from './cars_2.jpg'; 
 function RepairRequestForm(props) {
     const [description, setDescription] = useState('');
-    const [status, setStatus] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
     const [clientNotes, setClientNotes] = useState('');
 
     const handleSubmit = (event) => {
@@ -18,21 +15,21 @@ function RepairRequestForm(props) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <form onSubmit={handleSubmit} className="w-full max-w-md mt-16 bg-white p-6 rounded shadow-md">
-                <h2 className="text-2xl font-bold mb-6 text-center">Request a Repair</h2>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-grey-500" style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <form onSubmit={handleSubmit} className="w-full max-w-md mt-16 bg-gradient-to-b from-slate-950 to-slate-800 opacity-11 p-6 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold mb-6 text-white text-center">Request a Repair</h2>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3 mb-4">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
+                        <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="description">
                             Description
                         </label>
-                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="description" type="text" value={description} onChange={e => setDescription(e.target.value)} />
+                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder='Description for your car situation' id="description" type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </div>
                     <div className="w-full px-3 mb-4">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="clientNotes">
+                        <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="clientNotes">
                             Client Notes
                         </label>
-                        <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="clientNotes" value={clientNotes} onChange={e => setClientNotes(e.target.value)} />
+                        <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder='Your notes for here' id="clientNotes" value={clientNotes} onChange={e => setClientNotes(e.target.value)} />
                     </div>
                 </div>
                 <div className="flex items-center justify-between">

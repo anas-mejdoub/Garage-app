@@ -25,12 +25,18 @@ class NotificationController extends Controller
         else if (auth()->user()->role == 'client')
         {
             $cid = Client::where('userID', $request->id)->first()->id;
-            $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+            $repair = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
                  ->where('vehicles.clientID', $cid)
                  ->select('repairs.*')
                  ->orderBy('created_at', 'desc')
                  ->first();
-            return Inertia::render('Client/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications, 'repairs' => $repairs]);
+          $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+          ->where('vehicles.clientID', $cid)
+          ->select('repairs.*')
+          ->get();
+        //   dd($repairs);
+
+            return Inertia::render('Client/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications, 'repair' => $repair, 'repairs' => $repairs]);
         }
         return Inertia::render('MiniDsh', ['auth' => auth()->user() ,'notifications' => $notifications]);
     }

@@ -71,8 +71,8 @@ function Sidebar() {
     );
 }
 
-export default function MiniDsh({ auth, notifications, repairs }) {
-    console.log(repairs);
+export default function MiniDsh({ auth, notifications, repair, repairs }) {
+    console.log("test", repairs);
     const [isModalVisible, setModalVisible] = useState(false);
 
     const handleNotificationClick = () => {
@@ -101,29 +101,47 @@ export default function MiniDsh({ auth, notifications, repairs }) {
                     <img src="/background_.jpg" alt="" className="absolute inset-0 h-full w-full object-cover z-0" />
                     <div className="py-12 flex-grow relative z-10">
                         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                            <div className="flex flex-col gap-4">
-                                <div className="bg-white opacity-80 overflow-hidden shadow-sm sm:rounded-lg">
+                            <div className="flex flex-col gap-6">
+                                <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg">
 
                                     {auth.role === 'client' && (
                                         <div className="p-6 bg-white rounded shadow">
 
-                                            <h2 className="text-2xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
-                                            <p className="mt-2 text-gray-600">Your space to request your repair easily !</p>
+                                            <h2 className="text-3xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
+                                            <p className="mt-2 text-2xl text-gray-600"><strong>Your space to request your repair easily !</strong> </p>
                                         </div>
 
                                     )}
                                 </div>
-                                <div className="bg-white opacity-80 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                    {auth.role === 'client' && repairs && (
-                                        <div className="p-6 bg-white rounded shadow">
-                                            <h2 className="text-2xl font-semibold text-gray-700">Latest Repair</h2>
-                                            <p className="mt-2 text-gray-600"><strong>Repair ID:</strong> {repairs.id}</p>
-                                            <p className="text-gray-600"><strong>Description:</strong> {repairs.description}</p>
-                                            <p className="text-gray-600"><strong>Start Date:</strong> {new Date(repairs.startDate).toLocaleDateString()}</p>
-                                            <p className="text-gray-600"><strong>End Date:</strong>{new Date(repairs.endDate).toLocaleDateString()}</p>
-                                            {/* Add more repair details here */}
-                                        </div>
-                                    )}
+                                <div className='flex gap-3'>
+                                    <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
+                                        {auth.role === 'client' && repair && (
+                                            <div className="p-6 bg-white rounded shadow">
+                                                <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
+                                                <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {repair.id}</p>
+                                                <p className="text-2xl text-gray-600"><strong>Description:</strong> {repair.description}</p>
+                                                <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(repair.startDate).toLocaleDateString()}</p>
+                                                <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(repair.endDate).toLocaleDateString()}</p>
+
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
+                                        {auth.role === 'client' && repair && (
+                                            <div className="p-6 bg-white rounded shadow">
+                                                <h2 className="text-3xl font-semibold text-gray-700">Completed repairs</h2>
+                                                <h1 className="text-2xl font-semibold text-gray-700">{repairs.filter((e)=> e.status == 'completed').length} repair</h1>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
+                                        {auth.role === 'client' && repair && (
+                                            <div className="p-6 bg-white rounded shadow">
+                                                <h2 className="text-3xl font-semibold text-gray-700">Pending Repairs</h2>
+                                                <h1 className="text-2xl font-semibold text-gray-700">{repairs.filter((e)=> e.status == 'pending').length} repair</h1>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

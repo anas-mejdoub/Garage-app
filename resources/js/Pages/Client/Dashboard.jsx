@@ -57,18 +57,18 @@ function Modal({ messages, onClose }) {
 
 function Sidebar() {
     return (
-        <div className="w-64 min-h-screen bg-gradient-to-r from-slate-950 to-slate-800 text-white p-6">
+        <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6">
             <ul className="space-y-4">
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                 <InertiaLink className="text-lg text-white hover:text-gray-200" href="/add-vehicle">Add Vehicles</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/my-vehicles">My Vehicles</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/select-vehicle">Repair Request</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/repairs-history">Repairs History</InertiaLink>
                 </li>
             </ul>

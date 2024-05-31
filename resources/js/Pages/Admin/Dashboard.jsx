@@ -55,32 +55,36 @@ function Modal({ messages, onClose }) {
     );
 }
 
+
+
 function Sidebar() {
     return (
-        <div className="w-64 min-h-screen bg-gradient-to-r from-slate-950 to-slate-800 text-white p-6">
+        <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6">
             <ul className="space-y-4">
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/user">Add Client</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic">Add Mechanic</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/new-requests">New Repair Request</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics">Delete Mechanics </InertiaLink>
-                </li><li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics">Delete Mechanics</InertiaLink>
+                </li>
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/completed">Completed Repairs</InertiaLink>
                 </li>
-                <li className="transition duration-300 transform hover:scale-110">
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/requests">Pending Repairs</InertiaLink>
                 </li>
-
             </ul>
         </div>
     );
 }
+
+
 
 
 
@@ -126,7 +130,9 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
 
     return (
         <AuthenticatedLayout
+        
             user={auth}
+            style={{ backgroundColor: '#161D32' }}
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
@@ -138,6 +144,9 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
             }
         >
             <Head title="Dashboard" />
+
+
+        
             <div className="flex">
 
                 {auth.role === 'admin' && <Sidebar />}
@@ -217,6 +226,6 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
 
             </div>
             {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
-        </AuthenticatedLayout>
+         </AuthenticatedLayout>
     );
 }

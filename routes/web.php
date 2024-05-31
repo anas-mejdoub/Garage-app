@@ -12,6 +12,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\AuthenticatedSessionController;
+
 
 
 /*
@@ -84,5 +86,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
 require __DIR__.'/auth.php';

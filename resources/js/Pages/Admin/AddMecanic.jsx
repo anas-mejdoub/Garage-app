@@ -15,7 +15,7 @@ const MecanicFrom = () => {
 
     return (
         <div className="w-full max-w-md mx-auto mt-6 bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold text-center mb-6">Add User</h1>
+            <h1 className="text-2xl font-bold text-center mb-6">Add Mechanic</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Name:</label>

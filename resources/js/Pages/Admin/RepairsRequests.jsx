@@ -26,6 +26,8 @@ const RepairRequests = ({ repairs, mechanics }) => {
     const repairsPerPage = 10;
     // console.log(repairs);
     console.log(mechanics);
+    const [selectedMechanics, setSelectedMechanics] = useState({});
+
     const [selectedMechanic, setSelectedMechanic] = useState(mechanics[0].id);
     const [selectedRepair, setSelectedRepair] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,13 +59,15 @@ const RepairRequests = ({ repairs, mechanics }) => {
         closeDateModal();
     };
 
-    const handleSelectMechanic = (event) => {
-        setSelectedMechanic(event.target.value);
+    const handleSelectMechanic = (event, repairId) => {
+        setSelectedMechanics(prevMechanics => ({
+            ...prevMechanics,
+            [repairId]: event.target.value
+        }));
     };
 
-    const handleForwardRequest = (repairId, mechanicId) => {
+    const handleForwardRequest = (repairId) => {
         setSelectedRepair(repairId);
-
         setIsModalOpen(true);
     };
 
@@ -73,8 +77,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
     const forwardAndClose = () => {
         console.log(selectedMechanic);
         console.log(selectedRepair);
-        Inertia.post('/admin/repairs/requests/forward', { selectedMechanic, selectedRepair });
-        setIsModalOpen(false);
+        Inertia.post('/admin/repairs/requests/forward', { selectedMechanic: selectedMechanics[selectedRepair], selectedRepair });        setIsModalOpen(false);
     };
 
     return (
@@ -100,7 +103,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
                                 <td className="border px-4 py-2 border-gray-300">{repair.status}</td>
                                 <td className="border px-4 py-2 border-gray-300">{getNameById(repair.mechanicID)}</td>
                                 <td className="border px-4 py-2 border-gray-300">
-                                    <select value={selectedMechanic} onChange={(e) => setSelectedMechanic(e.target.value)}>
+                                    <select value={selectedMechanics[repair.id] || ''} onChange={(e) => handleSelectMechanic(e, repair.id)}>
                                         {mechanics.map((mechanic, index) => (
                                             <option key={index} value={mechanic.id}>
                                                 {mechanic.name}
@@ -147,8 +150,9 @@ const RepairRequests = ({ repairs, mechanics }) => {
             {isModalOpen && (
                 <Modal onClose={handleModalClose}>
                     <h2 className="text-lg font-semibold text-gray-700">
-                        Forwarding Request {selectedRepair} to Mechanic {getNameById(selectedMechanic)}
+                        Forwarding Request {selectedRepair} to Mechanic {getNameById(selectedMechanics[selectedRepair])}
                     </h2>
+
                     <p className="text-gray-600">
                         Are you sure you want to forward this request to the selected mechanic?
                     </p>

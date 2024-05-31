@@ -60,17 +60,23 @@ function Sidebar() {
         <div className="w-64 min-h-screen bg-gradient-to-r from-slate-950 to-slate-800 text-white p-6">
             <ul className="space-y-4">
                 <li className="transition duration-300 transform hover:scale-110">
-                <InertiaLink className="text-lg text-white hover:text-gray-200" href="/add-vehicle">Add Vehicles</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/user">Add Client</InertiaLink>
                 </li>
                 <li className="transition duration-300 transform hover:scale-110">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/my-vehicles">My Vehicles</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic">Add Mechanic</InertiaLink>
                 </li>
                 <li className="transition duration-300 transform hover:scale-110">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/select-vehicle">Repair Request</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/new-requests">New Repair Request</InertiaLink>
                 </li>
                 <li className="transition duration-300 transform hover:scale-110">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/repairs-history">Repairs History</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics">Delete Mechanics </InertiaLink>
+                </li><li className="transition duration-300 transform hover:scale-110">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/completed">Completed Repairs</InertiaLink>
                 </li>
+                <li className="transition duration-300 transform hover:scale-110">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/requests">Pending Repairs</InertiaLink>
+                </li>
+
             </ul>
         </div>
     );
@@ -85,32 +91,32 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
     // if (!repair)
     let reps = repairs || [
         {
-          id: 0,
-          description: "",
-          status: "",
-          clientNotes: "",
-          created_at: "",
-          endDate: "",
-          mechanicID: 0,
-          mechanicNotes: "",
-          startDate: "",
-          updated_at: "",
-          vehicleID: 0
+            id: 0,
+            description: "",
+            status: "",
+            clientNotes: "",
+            created_at: "",
+            endDate: "",
+            mechanicID: 0,
+            mechanicNotes: "",
+            startDate: "",
+            updated_at: "",
+            vehicleID: 0
         }
-      ];
-      let rep = repair || {
+    ];
+    let rep = repair || {
         id: 0,
-          description: "",
-          status: "",
-          clientNotes: "",
-          created_at: "",
-          endDate: "",
-          mechanicID: 0,
-          mechanicNotes: "",
-          startDate: "",
-          updated_at: "",
-          vehicleID: 0
-      };
+        description: "",
+        status: "",
+        clientNotes: "",
+        created_at: "",
+        endDate: "",
+        mechanicID: 0,
+        mechanicNotes: "",
+        startDate: "",
+        updated_at: "",
+        vehicleID: 0
+    };
     console.log("test", repairs);
     const [isModalVisible, setModalVisible] = useState(false);
 
@@ -147,7 +153,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                         <div className="p-6 bg-white rounded shadow">
 
                                             <h2 className="text-3xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
-                                            <p className="mt-2 text-2xl text-gray-600"><strong>Your space to request your repair easily !</strong> </p>
+                                            <p className="mt-2 text-2xl text-gray-600"><strong>Your space To Manage Your Garage Easily !</strong> </p>
                                         </div>
 
                                     )}
@@ -155,22 +161,22 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                 <div className='flex gap-3'>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
                                         {/* {auth.role === 'client' && ( */}
-                                            {repair != null ?
-                                                <div className="p-6 bg-white rounded shadow">
-                                                  <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
-                                                  <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {rep?.id ?? 0}</p>
-                                                  <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
-                                                  <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
-                                                  <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p>
-                                                </div>
-                                              : 
-                                              <div className="p-6 bg-white rounded shadow flex flex-col items-center justify-center">
-                                                  <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
-                                                   <p className="mt-4 text-2xl text-gray-600"><strong>No repair</strong> </p>
-                                                  {/* <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
+                                        {repair != null ?
+                                            <div className="p-6 bg-white rounded shadow">
+                                                <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
+                                                <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {rep?.id ?? 0}</p>
+                                                <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
+                                                <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
+                                                <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p>
+                                            </div>
+                                            :
+                                            <div className="p-6 bg-white rounded shadow flex flex-col items-center justify-center">
+                                                <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
+                                                <p className="mt-4 text-2xl text-gray-600"><strong>No repair</strong> </p>
+                                                {/* <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
                                                   <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
                                                   <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p> */}
-                                                </div>}
+                                            </div>}
                                         {/* )} */}
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
@@ -178,27 +184,27 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                             <div className="p-6 bg-white rounded shadow flex ">
                                                 <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mt-2 mr-2 h-6 w-6" />
                                                 <div className='flex flex-col center gap-9 md-4 items-center'>
-                                              <h2 className="text-3xl font-semibold text-gray-700">Completed Repairs</h2>
-                                              <div className='flex'>
+                                                    <h2 className="text-3xl font-semibold text-gray-700">Completed Repairs</h2>
+                                                    <div className='flex'>
 
-                                              <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'completed').length} repair</h1>
-                                              </div>
-                                            </div>
+                                                        <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'completed').length} repair</h1>
+                                                    </div>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
                                         {auth.role === 'admin' && reps && (
-                                        <div className="p-6 bg-white rounded shadow flex">
-                                            <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
-                                            <div className='flex flex-col center gap-9 items-center'>
-                                              <h2 className="text-3xl font-semibold text-gray-700">Pending Repairs</h2>
-                                              <div className='flex'>
+                                            <div className="p-6 bg-white rounded shadow flex">
+                                                <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
+                                                <div className='flex flex-col center gap-9 items-center'>
+                                                    <h2 className="text-3xl font-semibold text-gray-700">Pending Repairs</h2>
+                                                    <div className='flex'>
 
-                                              <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'pending').length} repair</h1>
-                                              </div>
+                                                        <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'pending').length} repair</h1>
+                                                    </div>
+                                                </div>
                                             </div>
-                                          </div>
                                         )}
                                     </div>
                                 </div>

@@ -71,7 +71,7 @@ Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::get('/my-vehicles', [VehicleController::class, 'userVehicles']);
 Route::get('/repairs-history', [RepairController::class, 'history']);
 Route::post('admin/repairs/requests/forward', [AdminController::class, 'ForwardMecanic']);
-Route::get('admin/repairs/new-requests', [AdminController::class, 'NewRequest']);
+Route::get('/admin/repairs/new-requests', [AdminController::class, 'NewRequest']);
 Route::post('/admin/repairs/requests/update-dates', [AdminController::class, 'ChangeRepairDates']);
 Route::get('/clients', [ClientiController::class, 'index']);
 Route::get('/dashboard', function () {

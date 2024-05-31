@@ -2,13 +2,18 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import Dropdown from '@/Components/Dropdown';
+import NavLink from '@/Components/NavLink';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import { Link } from '@inertiajs/react';
 import { Head } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
 
 function NavBar({auth}) {
+    const dsh = `/ndashboard/${auth.user.id}`;
     console.log(auth);
-    const img = `https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`;
+    const img = `https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.user.name}`;
     async function getImg() {
         const img = await axios.get(`https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`);
         // console.log(img);   
@@ -68,9 +73,13 @@ function NavBar({auth}) {
                                 <li>
                                     <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
                                 </li>
-                                
                                 <li>
-                                    <a href="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                                    <a href={dsh} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                                </li>
+                                <li>
+                                     <Dropdown.Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" href={route('logout')} method="post" as="button">
+                                            Log Out
+                                        </Dropdown.Link>
                                 </li>
                             </ul>
                         </div>

@@ -92,6 +92,7 @@ function Sidebar() {
 
 
 function NavBar({auth}) {
+    const dsh = '/ndashboard/' + auth.id;
     const img = `https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`;
     async function getImg() {
         const img = await axios.get(`https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`);
@@ -151,11 +152,11 @@ function NavBar({auth}) {
                                 
                                 <li>
                                     <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                                </li><li>
+                                    <a href={dsh} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                                 </li>
                                 
                                 <li>
-                                    {/* <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                                     */}
                                      <Dropdown.Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>

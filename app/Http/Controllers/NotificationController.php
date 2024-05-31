@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\Repair;
+use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Client;
 use Inertia\Inertia;
@@ -20,7 +21,8 @@ class NotificationController extends Controller
         $notifications = Notification::where('user_id', $request->id)->get();
         if (auth()->user()->role == 'admin')
         {
-            return Inertia::render('MiniDsh', ['auth' => auth()->user() ,'notifications' => $notifications]);
+            $users = User::all();
+            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications, 'users' => $users]);
         }
         else if (auth()->user()->role == 'mechanic')
         {

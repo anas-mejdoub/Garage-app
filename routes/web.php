@@ -62,7 +62,7 @@ Route::get('/admin/repairs/requests', [AdminController::class, 'repairsRequest']
 Route::get('/mechanic/repairs/requests', [MechanicController::class, 'repairs']);
 // Route
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/users', [AdminController::class, 'dashboard'])->name('admin.dashboard');
  });
  Route::post('/mechanic/change/vehicle-status', [MechanicController::class, 'changeStatus']);
 

@@ -91,7 +91,7 @@ class AdminController extends Controller
             'users' => $users,
         ];
 
-        return Inertia::render('Admin/Dashboard', $data);
+        return Inertia::render('Admin/Users', $data);
     }
     public function getMecanics()
     {

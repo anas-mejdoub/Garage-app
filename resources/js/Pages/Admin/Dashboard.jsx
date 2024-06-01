@@ -168,7 +168,7 @@ function NavBar({ auth, notifications }) {
 
 
 function MyChart({ invoices }) {
-    const chartRef = useRef(null); 
+    const chartRef = useRef(null);
 
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
@@ -176,7 +176,6 @@ function MyChart({ invoices }) {
         const sixMonthsAgo = new Date();
         sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-        // Group invoices by month and sum total amount for each month
         const monthlyTotals = {};
         invoices.forEach(invoice => {
             const invoiceDate = new Date(invoice.created_at);
@@ -189,14 +188,13 @@ function MyChart({ invoices }) {
             }
         });
 
-        // Ensure data for all six months, even if some months have zero total amounts
         const labels = [];
         const data = [];
         for (let i = 5; i >= 0; i--) {
             const monthKey = `${sixMonthsAgo.getFullYear()}-${sixMonthsAgo.getMonth() + 1}`;
             labels.push(monthKey);
             data.push(monthlyTotals[monthKey] || 0);
-            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() + 1); // Move to the next month
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() + 1);
         }
 
         const myChart = new Chart(ctx, {
@@ -205,7 +203,7 @@ function MyChart({ invoices }) {
                 labels: labels,
                 datasets: [{
                     label: '$ Dollars',
-                    backgroundColor: 'rgb(22, 29, 50)', 
+                    backgroundColor: 'rgb(22, 29, 50)',
                     data: data,
                     borderWidth: 1
                 }]
@@ -215,17 +213,17 @@ function MyChart({ invoices }) {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            color: 'white', 
+                            color: 'rgb(22, 29, 50)',
                             font: {
-                                size: 20 
+                                size: 20
                             }
                         }
                     },
                     x: {
                         ticks: {
-                            color: 'white', 
+                            color: 'rgb(22, 29, 50)',
                             font: {
-                                size: 20 
+                                size: 20
                             }
                         }
                     }
@@ -233,9 +231,9 @@ function MyChart({ invoices }) {
                 plugins: {
                     legend: {
                         labels: {
-                            color: 'white', 
+                            color: 'rgb(22, 29, 50)',
                             font: {
-                                size: 20 
+                                size: 20
                             }
                         }
                     }
@@ -247,11 +245,11 @@ function MyChart({ invoices }) {
         return () => {
             myChart.destroy();
         };
-    }, [invoices]); 
+    }, [invoices]);
 
     return (
         <div>
-            <canvas ref={chartRef} id="myChart"></canvas>
+            <canvas ref={chartRef} id="myChart"  width="800" height="900"></canvas>
         </div>
     );
 }
@@ -267,9 +265,9 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
     const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
     const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
-    const invoicesToday = invoices.filter(invoice =>  new Date(invoice.created_at) >=  (startOfToday));
-    const invoicesThisMonth = invoices.filter(invoice =>  new Date(invoice.created_at) >= (startOfMonth));
-    const invoicesThisYear = invoices.filter(invoice =>  new Date(invoice.created_at) >= (startOfYear));
+    const invoicesToday = invoices.filter(invoice => new Date(invoice.created_at) >= (startOfToday));
+    const invoicesThisMonth = invoices.filter(invoice => new Date(invoice.created_at) >= (startOfMonth));
+    const invoicesThisYear = invoices.filter(invoice => new Date(invoice.created_at) >= (startOfYear));
     const earningsToday = invoicesToday.reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
     const earningsThisMonth = invoicesThisMonth.reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
     const earningsThisYear = invoicesThisYear.reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
@@ -323,7 +321,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
 
                 {auth.role === 'admin' && <Sidebar />}
                 <div className="flex-grow overflow-y-auto">
-                    <img src="/background_.jpg" alt="" className="fixed inset-0 h-screen w-screen object-cover z-0" style={{ zIndex: -1 }}/>
+                    <img src="/background_.jpg" alt="" className="fixed inset-0 h-screen w-screen object-cover z-0" style={{ zIndex: -1 }} />
                     <div className="py-12 flex-grow relative z-10">
                         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div className="flex flex-col gap-4">
@@ -380,10 +378,10 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
                                     </div>
 
                                 </div>
-                                <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-xl">
                                     {auth.role === 'admin' && (
-                                        <div className="p-6 bg-white rounded shadow">
-                                            <h2 className="text-3xl font-semibold text-gray-700">Earnings</h2>
+                                        <div className="p-6 bg-white flex items-center flex-col rounded shadow">
+                                            <h2 className="text-3xl center font-semibold text-gray-700">Earnings</h2>
                                             <table className="mt-7 w-full">
                                                 <thead>
                                                     <tr>
@@ -403,7 +401,10 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
                                         </div>
                                     )}
                                 </div>
-                                <MyChart invoices={invoices}/>
+                                <div className="flex flex-col center p-6 bg-white opacity-85 rounded-xl shadow">
+                                    <h2 className="text-3xl text-center font-semibold text-gray-700">Last 6 Months</h2>
+                                    <MyChart invoices={invoices} />
+                                </div>
 
 
 

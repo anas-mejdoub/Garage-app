@@ -1,8 +1,9 @@
 import { Inertia } from '@inertiajs/inertia';
 import React from 'react';
+import NavBar from './Navbar';
 
-export default function Mechanics({ auth, mechanics }) {
-    if (auth.user.role !== 'admin') {
+export default function Mechanics({ auth, mechanics , notifications}) {
+    if (auth.role !== 'admin') {
         return (
             <div className="flex items-center justify-center h-screen">
                 <h1 className="text-2xl text-red-500">You do not have permission to view this page.</h1>
@@ -13,8 +14,10 @@ export default function Mechanics({ auth, mechanics }) {
     const deleteMechanic = (mechanicId) => {
         Inertia.delete(`/mechanics/${mechanicId}`);
     }
-
+    console.log(auth);
     return (
+        <div>
+            <NavBar auth={auth} notifications={notifications} />
         <div  className="p-6" style={{ background: '#161D32', minHeight: '100vh' }}>
             <h2 className="text-2xl font-semibold  text-gray-400 leading-tight mb-4">Mechanics</h2>
             <div className="bg-gray-900 shadow sm:rounded-lg p-6">
@@ -50,6 +53,7 @@ export default function Mechanics({ auth, mechanics }) {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }

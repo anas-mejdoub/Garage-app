@@ -37,6 +37,9 @@ class AdminController extends Controller
             'totalUsers' => User::count(),
             'totalRepairs' => Repair::count(),
             'users' => $users,
+            'notifications' => Notification::all(),
+            'auth' =>auth()->user(),
+
         ];
         return Inertia::render('Admin/Dashboard', $data);
     }
@@ -81,30 +84,35 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
+
         if (auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
         $users = User::where('role', 'client')->get();
-
+        $notifications = Notification::all();
         $data = [
             'totalUsers' => User::count(),
             'totalRepairs' => Repair::count(),
             'users' => $users,
+            'auth' =>auth()->user(),  'notifications' => $notifications
+            
         ];
 
         return Inertia::render('Admin/Users', $data);
     }
     public function getMecanics()
     {
+        $notifications = Notification::all();
         $mechanics = User::where('role', 'mecanic')->get();
-        return Inertia::render('Admin/Mechanic', ['mechanics' => $mechanics]);
+        return Inertia::render('Admin/Mechanic', ['mechanics' => $mechanics, 'auth' =>auth()->user(),  'notifications' => $notifications]);
     }
 
     public function repairsRequest()
     {
+        $notifications = Notification::all();
         $repairs = Repair::where('status', 'pending')->get();
         $mechanics = User::where('role', 'mecanic')->get();
-        return Inertia::render('Admin/RepairsRequests', ['repairs' => $repairs, 'mechanics' => $mechanics]);
+        return Inertia::render('Admin/RepairsRequests', ['auth' =>auth()->user(),  'notifications' => $notifications,'repairs' => $repairs, 'mechanics' => $mechanics]);
     }
     public function ForwardMecanic(Request $request)
     {
@@ -124,10 +132,11 @@ class AdminController extends Controller
             ->where('repairs.status', 'Review')
             ->select('repairs.id as repair_id', 'vehicles.id as vehicle_id', 'clients.id as client_id', 'users.id as user_id', 'repairs.*', 'vehicles.*', 'clients.*', 'users.*')
             ->get();
+            $notifications = Notification::all();
         // dd($repairs);
         // $test = Repair::where('status', 'Review')->first();
         // dd($test);
-        return Inertia::render('Admin/NewRequest', ['repairs' => $repairs, 'mechanics' => $mechanics]);
+        return Inertia::render('Admin/NewRequest', ['auth' =>auth()->user() ,'repairs' => $repairs, 'mechanics' => $mechanics, 'notifications' => $notifications]);
     }
     public function ChangeRepairDates(Request $request)
     {

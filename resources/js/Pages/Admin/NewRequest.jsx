@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import Modal from 'react-modal';
+import NavBar from './Navbar';
 import { FaCar, FaCheckCircle } from "react-icons/fa";
 import Swal from 'sweetalert2'
-const NewRequests = ({ repairs , mechanics}) => {
+const NewRequests = ({ repairs , mechanics, auth, notifications}) => {
     console.log(repairs)
     const [requests, setRequests] = useState(repairs || []);
     const [selectedRequest, setSelectedRequest] = useState(null);
@@ -48,6 +49,8 @@ const NewRequests = ({ repairs , mechanics}) => {
     };
 
     return (
+        <div>
+        <NavBar auth={auth} notifications={notifications} />
         <div className="p-6" style={{ background: '#161D32',minHeight: '100vh' }}>
             {requests.length === 0 && <h1 className="text-xl font-bold text-white">No new requests</h1>}
             {requests.length > 0 && (
@@ -183,6 +186,7 @@ const NewRequests = ({ repairs , mechanics}) => {
                 
                 )}
             </Modal>
+        </div>
         </div>
     );
 };

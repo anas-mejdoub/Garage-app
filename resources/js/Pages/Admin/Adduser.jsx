@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
+import NavBar from './Navbar';
 
-const UserForm = () => {
+const UserForm = ({ auth, notifications}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,6 +21,8 @@ const UserForm = () => {
     };
 
     return (
+        <div>
+            <NavBar auth={auth.user} notifications={notifications} />
         <div style={{ background: '#161D32' }} className="flex flex-col gap-7 items-center justify-center w-screen h-screen p-8 m-0">
             <h1 className='text-white text-3xl'><strong>Add User</strong></h1>
             <form style={{ background: '#161D32' }} className="max-w-sm w-full bg-gray-800 p-6 border border-gray-700 rounded-lg shadow-lg" onSubmit={handleSubmit}>
@@ -57,6 +60,7 @@ const UserForm = () => {
                 </div>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add new user</button>
             </form>
+        </div>
         </div>
     );
 };

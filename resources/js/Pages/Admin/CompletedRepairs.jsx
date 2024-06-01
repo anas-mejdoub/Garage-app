@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { FaCar, FaCheckCircle } from 'react-icons/fa';
 import Modal from 'react-modal';
+import NavBar from './Navbar';
 // import Image from 'path/to/your/image';
 
 
-const CompletedRepairs = ({ repairs }) => {
+const CompletedRepairs = ({ repairs , auth, notifications}) => {
     const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
     const [selectedRepairDetails, setSelectedRepairDetails] = useState(null);
 
@@ -15,6 +16,8 @@ const CompletedRepairs = ({ repairs }) => {
     };
 
     return (
+        <div>
+            <NavBar auth={auth.user} notifications={notifications} />
         <div className="p-6" style={{ background: '#161D32', minHeight: '100vh' }}>
             {repairs.length === 0 && <h1 className="text-xl font-bold text-white">No completed repairs</h1>}
             {repairs.length > 0 && (
@@ -88,6 +91,7 @@ const CompletedRepairs = ({ repairs }) => {
                     </div>
                 )}
             </Modal>
+        </div>
         </div>
     );
 };

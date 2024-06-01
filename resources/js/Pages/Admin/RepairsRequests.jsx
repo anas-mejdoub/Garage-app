@@ -3,6 +3,7 @@ import Checkbox from '../../Components/Checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { Inertia } from '@inertiajs/inertia';
+import NavBar from './Navbar';
 
 const Modal = ({ children, onClose }) => {
     return (
@@ -20,7 +21,7 @@ const Modal = ({ children, onClose }) => {
     );
 };
 
-const RepairRequests = ({ repairs, mechanics }) => {
+const RepairRequests = ({ repairs, mechanics , auth, notifications}) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const repairsPerPage = 10;
@@ -81,6 +82,8 @@ const RepairRequests = ({ repairs, mechanics }) => {
     };
 
     return (
+        <div>
+            <NavBar auth={auth} notifications={notifications} />
         <div className="p-6 bg-gray-800 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
             <h1 className="text-5xl font-semibold text-gray-300 leading-tight mb-6">Repair Requests</h1>
             <div className="max-w-2xl w-[60em] p-6 bg-gray-900 text-gray-400 rounded-lg min-w-full">
@@ -219,6 +222,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
                     </form>
                 </Modal>
             )}
+        </div>
         </div>
     );
 };

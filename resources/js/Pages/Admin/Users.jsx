@@ -3,7 +3,7 @@ import React from 'react';
 // import AuthenticatedLayout from './path/to/AuthenticatedLayout';
 // import React from 'react';
 
-export default function Dashboard({ auth, users }) {
+export default function Dashboard({ auth, users , notification}) {
     // if (auth.user.role !== 'admin') {
     //     return (
     //         <div className="flex items-center justify-center h-screen">

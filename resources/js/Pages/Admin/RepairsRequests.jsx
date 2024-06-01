@@ -86,7 +86,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
             <div className="max-w-2xl w-[60em] p-6 bg-gray-900 text-gray-400 rounded-lg min-w-full">
             <table className="table-auto w-full border-collapse  min-w-full">
                     <thead>
-                        <tr>
+                        <tr className="hover:bg-gray-700 transition-colors duration-300">
                             <th className="px-4 py-2 border-b border-gray-300">Request ID</th>
                             <th className="px-4 py-2 border-b border-gray-300">Description</th>
                             <th className="px-4 py-2 border-b border-gray-300">Status</th>
@@ -97,7 +97,7 @@ const RepairRequests = ({ repairs, mechanics }) => {
                     </thead>
                     <tbody>
                         {currentRepairs.map((repair, index) => (
-                            <tr key={index}>
+                            <tr key={index} className="hover:bg-gray-700 transition-colors duration-300">
                                 <td className="border-t border-gray-300 px-4 py-2">{repair.id}</td>
                                 <td className="border-t border-gray-300 px-4 py-2">{repair.description}</td>
                                 <td className="border-t border-gray-300 px-4 py-2">{repair.status}</td>

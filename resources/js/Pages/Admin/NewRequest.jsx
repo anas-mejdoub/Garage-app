@@ -38,9 +38,13 @@ const NewRequests = ({ repairs , mechanics}) => {
     };
 
     const handleDetails = (requestId) => {
-        const repair = requests.find(req => req.repai_id === requestId);
-        setSelectedRepairDetails(repair);
-        setDetailsModalIsOpen(true);
+        const repair = requests.find(req => req.repair_id === requestId);
+        if (repair) {
+            setSelectedRepairDetails(repair);
+            setDetailsModalIsOpen(true);
+        } else {
+            console.log("Repair not found"); 
+        }
     };
 
     return (

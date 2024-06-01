@@ -1,89 +1,183 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import Modal from 'react-modal';
-import {Card} from "flowbite-react";
-import {FaCar, FaCheckCircle} from "react-icons/fa";
-
-export function Component(props) {
-    return (
-        <Card
-            className="max-w-sm rounded overflow-hidden shadow-lg m-4"
-            imgSrc={`/storage/${props.img}`}
-        >
-            <div className="px-6 py-4">
-                <div className="flex items-center">
-                    <FaCar className="mr-2"/>
-                    <h5 className="font-bold text-xl mb-2 text-gray-700 dark:text-white">
-                        {props.carName}
-                    </h5>
-                </div>
-                <div className="flex items-center">
-                    <FaCheckCircle className="mr-2"/>
-                    <p className="text-gray-700 dark:text-gray-400 text-base">
-                        {props.status}
-                    </p>
-                </div>
-                <div className="flex justify-center items-center">
-                    <button onClick={() => props.openModal(props.id)}
-                            className="mt-2 px-4 py-2 bg-blue-700 text-white rounded">Select
-                    </button>
-                </div>
-            </div>
-        </Card>
-    );
-}
-
-const NewRequests = ({repairs}) => {
-    console.log(repairs);
+import { FaCar, FaCheckCircle } from "react-icons/fa";
+import Swal from 'sweetalert2'
+const NewRequests = ({ repairs , mechanics}) => {
+    console.log(repairs)
     const [requests, setRequests] = useState(repairs || []);
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [price, setPrice] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const status = "pending"
+    const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
+    const [selectedRepairDetails, setSelectedRepairDetails] = useState(null);
+    const [selectedMechanic, setSelectedMechanic] = useState();
+    const status = "pending";
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(selectedRequest, startDate, status, endDate, price);
-        console.log(selectedRequest, startDate, status, endDate, price);
-        Inertia.post('/admin/repairs/requests/pick-dates', { selectedRequest, startDate, status, endDate, price });
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "YooHoo! Dates picked successfully!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        Inertia.post('/admin/repairs/requests/pick-dates', { selectedRequest, startDate, status, endDate, price , selectedMechanic });
         setModalIsOpen(false);
     };
-
+    const handleMechanicChange = (event) => {
+        setSelectedMechanic(event.target.value);
+    };
     const openModal = (requestId) => {
+       console.log(requestId)
         setSelectedRequest(requestId);
         setModalIsOpen(true);
     };
+
+    const handleDetails = (requestId) => {
+        const repair = requests.find(req => req.repai_id === requestId);
+        setSelectedRepairDetails(repair);
+        setDetailsModalIsOpen(true);
+    };
+
     return (
-        <div className="p-6">
-            {requests.length === 0 && <h1 className="text-xl font-bold">No new requests</h1>}
-            {requests.length > 0 && <h1 className="text-xl font-bold">New Requests</h1>}
-            {requests.map(request => (
-                <div key={request.id} className="my-4 p-4 border rounded">
-                    <Component openModal={openModal} img={request.vehicle_photos} id={request.id} status={request.status} carName={request.description}/>
-                    {/*<button onClick={() => openModal(request.id)} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Select</button>*/}
-                </div>
-            ))}
+        <div className="p-6" style={{ background: '#161D32', minHeight: '100vh' }}>
+            {requests.length === 0 && <h1 className="text-xl font-bold text-white">No new requests</h1>}
+            {requests.length > 0 && (
+                <>
+                    <h1 className="text-xl font-bold text-white">New Requests</h1>
+                    <table className="min-w-full leading-normal mt-4 text-white">
+                        <thead>
+                            <tr>
+                                <th className="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Car</th>
+                                <th className="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Status</th>
+                                <th className="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {requests.map(request => (
+                                <tr key={request.repai_id} className="bg-gray-900">
+                                    <td className="px-5 py-5 border-b border-gray-700 text-sm">
+                                        <div className="flex items-center">
+                                            <FaCar className="mr-2" />
+                                            <div>
+                                                <p className="text-gray-300 whitespace-no-wrap">{request.description}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-700 text-sm">
+                                        <div className="flex items-center">
+                                            <FaCheckCircle className="mr-2" />
+                                            <p className="text-gray-300 whitespace-no-wrap">{request.status}</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-700 text-sm">
+                                        <div className="flex space-x-2">
+                                            <button onClick={() => openModal(request.repair_id)} className="px-4 py-2 bg-blue-700 text-white rounded">Select</button>
+                                            <button onClick={() => handleDetails(request.repair_id)} className="px-4 py-2 bg-green-700 text-white rounded">Details</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </>
+            )}
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Request Modal"
+                className="bg-gray-900 text-white rounded-lg p-6 max-w-lg mx-auto mt-20"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             >
-                <form onSubmit={handleSubmit} className="mt-4">
-                    <label className="block">
-                        <span className="text-gray-700">Start Date:</span>
-                        <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                    </label>
-                    <label className="block mt-4">
-                        <span className="text-gray-700">End Date:</span>
-                        <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                    </label>
-                    <label className="block mt-4">
-                        <span className="text-gray-700">Price:</span>
-                        <input type="number" value={price} onChange={e => setPrice(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                    </label>
-                    <button type="submit" className="mt-4 px-4 py-2 bg-green-500 text-white rounded">Submit</button>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium">Start Date:</label>
+                        <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded text-gray-300" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">End Date:</label>
+                        <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded text-gray-300" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">Price:</label>
+                        <input type="number" value={price} onChange={e => setPrice(e.target.value)} className="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded text-gray-300" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">Mechanic :</label>
+                        <select name="mechanic" id="mechanic" value={selectedMechanic} onChange={handleMechanicChange} className="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded text-gray-300">
+                            {mechanics.map(mechanic => (
+                                <option key={mechanic.id} value={mechanic.id}>{mechanic.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <button type="submit" className="w-full py-2 bg-green-600 rounded">Submit</button>
                 </form>
+            </Modal>
+            <Modal
+                isOpen={detailsModalIsOpen}
+                onRequestClose={() => setDetailsModalIsOpen(false)}
+                contentLabel="Details Modal"
+                className="bg-gray-900 text-white rounded-lg p-6 max-w-lg mx-auto mt-20"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            >
+                {selectedRepairDetails && (
+                    <div className="bg-gray-900 shadow overflow-hidden sm:rounded-lg p-6">
+                    <h2 className="text-2xl font-bold mb-4 text-white">Repair Details</h2>
+                    <div className="border-t border-gray-700">
+                        <dl className="divide-y divide-gray-700 grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-4">
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Repair ID</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.repai_id}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Vehicle ID</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.vehicleID}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Car name</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.description}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Model</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.model}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Registration</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.registration}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Status</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.status}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">User name</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.name}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">User Email</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.email}</dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <dt className="text-md font-medium text-gray-500">Client Notes</dt>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.clientNotes}</dd>
+                            </div>
+                            <div>
+                                <dt></dt>
+                                <dd></dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <img src={`/storage/${selectedRepairDetails.photos}`} alt="Vehicle" className="mb-4 w-full rounded" />
+                    <button onClick={() => setDetailsModalIsOpen(false)} className="w-full py-2 mt-4 bg-red-600 text-white rounded">Close</button>
+                </div>
+                
+                
+                
+                )}
             </Modal>
         </div>
     );

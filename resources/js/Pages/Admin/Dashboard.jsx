@@ -249,7 +249,7 @@ function MyChart({ invoices }) {
 
     return (
         <div>
-            <canvas ref={chartRef} id="myChart"  width="800" height="900"></canvas>
+            <canvas ref={chartRef} id="myChart"  width="800" height="400"></canvas>
         </div>
     );
 }

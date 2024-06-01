@@ -8,9 +8,10 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Repair;
 use App\Models\Vehicle;
-    use App\Models\Notification;
+use App\Models\Notification;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
+
 class AdminController extends Controller
 {
     public function destroy($id)
@@ -101,7 +102,7 @@ class AdminController extends Controller
 
     public function repairsRequest()
     {
-        $repairs = Repair::where('status','pending')->get();
+        $repairs = Repair::where('status', 'pending')->get();
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/RepairsRequests', ['repairs' => $repairs, 'mechanics' => $mechanics]);
     }
@@ -116,13 +117,17 @@ class AdminController extends Controller
     }
     public function NewRequest()
     {
-//        $repairid = $request->selectedRepair;
+        $mechanics = User::where('role', 'mecanic')->get();
         $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
+            ->join('clients', 'vehicles.clientID', '=', 'clients.id')
+            ->join('users', 'clients.userID', '=', 'users.id')
             ->where('repairs.status', 'Review')
-            ->select('repairs.*', 'vehicles.photos as vehicle_photos')
+            ->select('repairs.id as repair_id', 'vehicles.id as vehicle_id', 'clients.id as client_id', 'users.id as user_id', 'repairs.*', 'vehicles.*', 'clients.*', 'users.*')
             ->get();
-
-        return Inertia::render('Admin/NewRequest', ['repairs' => $repairs]);
+        // dd($repairs);
+        // $test = Repair::where('status', 'Review')->first();
+        // dd($test);
+        return Inertia::render('Admin/NewRequest', ['repairs' => $repairs, 'mechanics' => $mechanics]);
     }
     public function ChangeRepairDates(Request $request)
     {
@@ -133,28 +138,26 @@ class AdminController extends Controller
         $repair->endDate = $request->endDate;
         $repair->save();
     }
-//DatePriceNewRequest
+    //DatePriceNewRequest
     public function DatePriceNewRequest(Request $request)
     {
         $repairid = $request->selectedRequest;
+        // dd($repairid);
         $invoice = Invoice::where('repairID', $repairid)->first();
-        if (!$invoice)
-        {
+        if (!$invoice) {
             $invoice = Invoice::create([
                 'repairID' => $repairid,
                 'totalAmount' => $request->price,
                 'additionalCharges' => 0,
             ]);
         }
-        $vehicleId = Repair ::where('id',$repairid)->first()->vehicleID;
+        $vehicleId = Repair::where('id', $repairid)->first()->vehicleID;
         $msg = "your repair of " . $vehicleId . " start date has been set to " . $request->startDate . " and the end date will be " . $request->endDate;
         $client = Vehicle::join('clients', 'vehicles.clientId', '=', 'clients.id')
             ->where('vehicles.id', $vehicleId)
             ->select('clients.*')
             ->first();
-        // dd($client);
-            $uesrId = $client->userID;
-            // dd($uesrId);
+        $uesrId = $client->userID;
         $clientId = $client->id;
         Notification::create([
             'user_id' => $uesrId,
@@ -165,15 +168,16 @@ class AdminController extends Controller
         $repair->startDate = $request->startDate;
         $repair->endDate = $request->endDate;
         $repair->status = $request->status;
+        $repair->mechanicID = $request->selectedMechanic;
         $repair->save();
         redirect()->back();
     }
     public function completedRepairs()
     {
         $repairs = Repair::join('vehicles', 'repairs.vehicleID', '=', 'vehicles.id')
-    ->where('repairs.status', 'completed')
-    ->select('repairs.*', 'vehicles.photos as vehicle_photos')
-    ->get();
+            ->where('repairs.status', 'completed')
+            ->select('repairs.*', 'vehicles.photos as vehicle_photos')
+            ->get();
         return Inertia::render('Admin/CompletedRepairs', ['repairs' => $repairs]);
     }
 }

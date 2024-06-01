@@ -167,20 +167,46 @@ function NavBar({ auth, notifications }) {
 
 
 
-function MyChart() {
-    const chartRef = useRef(null); // Ref for canvas element
+function MyChart({ invoices }) {
+    const chartRef = useRef(null); 
 
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
 
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+        // Group invoices by month and sum total amount for each month
+        const monthlyTotals = {};
+        invoices.forEach(invoice => {
+            const invoiceDate = new Date(invoice.created_at);
+            if (invoiceDate >= sixMonthsAgo) {
+                const monthKey = `${invoiceDate.getFullYear()}-${invoiceDate.getMonth() + 1}`;
+                if (!monthlyTotals[monthKey]) {
+                    monthlyTotals[monthKey] = 0;
+                }
+                monthlyTotals[monthKey] += Number(invoice.totalAmount);
+            }
+        });
+
+        // Ensure data for all six months, even if some months have zero total amounts
+        const labels = [];
+        const data = [];
+        for (let i = 5; i >= 0; i--) {
+            const monthKey = `${sixMonthsAgo.getFullYear()}-${sixMonthsAgo.getMonth() + 1}`;
+            labels.push(monthKey);
+            data.push(monthlyTotals[monthKey] || 0);
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() + 1); // Move to the next month
+        }
+
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: labels,
                 datasets: [{
-                    label: '# of Votes',
-                    color: 'white',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: '$ Dollars',
+                    backgroundColor: 'rgb(22, 29, 50)', 
+                    data: data,
                     borderWidth: 1
                 }]
             },
@@ -189,17 +215,17 @@ function MyChart() {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            color: 'white', // Change this to the color you want
+                            color: 'white', 
                             font: {
-                                size: 20 // Change this to the size you want
+                                size: 20 
                             }
                         }
                     },
                     x: {
                         ticks: {
-                            color: 'white', // Change this to the color you want
+                            color: 'white', 
                             font: {
-                                size: 20 // Change this to the size you want
+                                size: 20 
                             }
                         }
                     }
@@ -207,21 +233,21 @@ function MyChart() {
                 plugins: {
                     legend: {
                         labels: {
-                            color: 'white', // Change this to the color you want
+                            color: 'white', 
                             font: {
-                                size: 20 // Change this to the size you want
+                                size: 20 
                             }
                         }
                     }
-                }
+                },
+                barThickness: 100,
             }
         });
 
         return () => {
-            // Cleanup code (if needed) when component unmounts
             myChart.destroy();
         };
-    }, []); // Empty dependency array ensures useEffect runs only once
+    }, [invoices]); 
 
     return (
         <div>
@@ -377,7 +403,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
                                         </div>
                                     )}
                                 </div>
-                                <MyChart />
+                                <MyChart invoices={invoices}/>
 
 
 

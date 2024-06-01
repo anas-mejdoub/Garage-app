@@ -214,7 +214,6 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
         <div>
             <NavBar auth={auth} notifications={notifications}/>
 
-            {/* </dir> */}
             <Head title="Dashboard" />
 
 
@@ -222,7 +221,6 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
             <div className="flex">
 
                 {auth.role === 'admin' && <Sidebar />}
-                {/* pp */}
                 <div className="relative w-full h-screen">
                     <img src="/background_.jpg" alt="" className="absolute inset-0 h-full w-full object-cover z-0" />
                     <div className="py-12 flex-grow relative z-10">
@@ -234,7 +232,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                         <div className="p-6 bg-white rounded shadow">
 
                                             <h2 className="text-3xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
-                                            <p className="mt-2 text-2xl text-gray-600"><strong>Your space To Manage Your Garage Easily !</strong> </p>
+                                            <p className="mt-2 text-xl text-gray-600"><strong>Your space To Manage Your Garage Easily !</strong> </p>
                                         </div>
 
                                     )}
@@ -244,10 +242,10 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                         
                                             <div className="p-6 bg-white rounded shadow flex ">
                                             <div className='flex flex-col center gap-9 md-4 items-center'>
-                                                <h2 className="text-3xl font-semibold text-gray-700">Users Joined This Month</h2>
+                                                <h2 className="text-2xl font-semibold text-gray-700">Users Joined This Month</h2>
                                                 <div className='flex'>
 
-                                                    <h1 className="text-2xl  font-semibold text-gray-700">{userCount} User</h1>
+                                                    <h1 className="text-xl  font-semibold text-gray-700">{userCount} User</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -258,10 +256,10 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                             <div className="p-6 bg-white rounded shadow flex ">
                                                 <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mt-2 mr-2 h-6 w-6" />
                                                 <div className='flex flex-col center gap-9 md-4 items-center'>
-                                                    <h2 className="text-3xl font-semibold text-gray-700">Completed Repairs</h2>
+                                                    <h2 className="text-2xl font-semibold text-gray-700">Completed Repairs</h2>
                                                     <div className='flex'>
 
-                                                        <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'completed').length} repair</h1>
+                                                        <h1 className="text-xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'completed').length} repair</h1>
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,10 +270,10 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                             <div className="p-6 bg-white rounded shadow flex">
                                                 <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
                                                 <div className='flex flex-col center gap-9 items-center'>
-                                                    <h2 className="text-3xl font-semibold text-gray-700"> Pending Repairs</h2>
+                                                    <h2 className="text-2xl font-semibold text-gray-700"> Pending Repairs</h2>
                                                     <div className='flex'>
 
-                                                        <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'pending').length} repair</h1>
+                                                        <h1 className="text-xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'pending').length} repair</h1>
                                                     </div>
                                                 </div>
                                             </div>

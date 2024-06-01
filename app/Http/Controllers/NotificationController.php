@@ -21,11 +21,12 @@ class NotificationController extends Controller
         $notifications = Notification::where('user_id', $request->id)->get();
         if (auth()->user()->role == 'admin')
         {
+            $repairs = Repair::all();
             $users = User::all();
             $userCount = User::whereMonth('created_at', '=', date('m'))
                      ->whereYear('created_at', '=', date('Y'))
                      ->count();
-            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications, 'users' => $users, 'userCount' => $userCount]);
+            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user(), 'repairs' => $repairs ,'notifications' => $notifications, 'users' => $users, 'userCount' => $userCount]);
         }
         else if (auth()->user()->role == 'mechanic')
         {

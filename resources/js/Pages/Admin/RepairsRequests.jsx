@@ -81,29 +81,29 @@ const RepairRequests = ({ repairs, mechanics }) => {
     };
 
     return (
-        <div className="p-6 flex flex-col gap-4 items-center">
-            <h1 className="text-5xl font-semibold text-gray-800 leading-tight mb-6">Repair Requests</h1>
-            <div className="max-w-2xl w-[60em] p-6 bg-white rounded-lg min-w-full">
-                <table className="table-auto w-full border-collapse border border-gray-300 min-w-full">
+        <div className="p-6 bg-gray-800 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
+            <h1 className="text-5xl font-semibold text-gray-300 leading-tight mb-6">Repair Requests</h1>
+            <div className="max-w-2xl w-[60em] p-6 bg-gray-900 text-gray-400 rounded-lg min-w-full">
+            <table className="table-auto w-full border-collapse  min-w-full">
                     <thead>
                         <tr>
-                            <th className="px-4 py-2 border border-gray-300">Request ID</th>
-                            <th className="px-4 py-2 border border-gray-300">Description</th>
-                            <th className="px-4 py-2 border border-gray-300">Status</th>
-                            <th className="px-4 py-2 border border-gray-300">Mechanic Name</th>
-                            <th className="px-4 py-2 border border-gray-300">Forward to Mechanic</th>
-                            <th className="px-4 py-2 border border-gray-300">Actions</th>
+                            <th className="px-4 py-2 border-b border-gray-300">Request ID</th>
+                            <th className="px-4 py-2 border-b border-gray-300">Description</th>
+                            <th className="px-4 py-2 border-b border-gray-300">Status</th>
+                            <th className="px-4 py-2 border-b border-gray-300">Mechanic Name</th>
+                            <th className="px-4 py-2 border-b border-gray-300">Forward to Mechanic</th>
+                            <th className="px-4 py-2 border-b border-gray-300">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentRepairs.map((repair, index) => (
                             <tr key={index}>
-                                <td className="border px-4 py-2 border-gray-300">{repair.id}</td>
-                                <td className="border px-4 py-2 border-gray-300">{repair.description}</td>
-                                <td className="border px-4 py-2 border-gray-300">{repair.status}</td>
-                                <td className="border px-4 py-2 border-gray-300">{getNameById(repair.mechanicID)}</td>
-                                <td className="border px-4 py-2 border-gray-300">
-                                    <select value={selectedMechanics[repair.id] || ''} onChange={(e) => handleSelectMechanic(e, repair.id)}>
+                                <td className="border-t border-gray-300 px-4 py-2">{repair.id}</td>
+                                <td className="border-t border-gray-300 px-4 py-2">{repair.description}</td>
+                                <td className="border-t border-gray-300 px-4 py-2">{repair.status}</td>
+                                <td className="border-t border-gray-300 px-4 py-2">{getNameById(repair.mechanicID)}</td>
+                                <td className="border-t border-gray-300 px-4 py-2">
+                                    <select className='bg-gray-800 text-white rounded-xl' value={selectedMechanics[repair.id] || ''} onChange={(e) => handleSelectMechanic(e, repair.id)}>
                                         {mechanics.map((mechanic, index) => (
                                             <option key={index} value={mechanic.id}>
                                                 {mechanic.name}
@@ -112,16 +112,16 @@ const RepairRequests = ({ repairs, mechanics }) => {
                                     </select>
 
                                 </td>
-                                <td className="border px-4 py-2 border-gray-300">
+                                <td className="border-t border-gray-300 px-4 py-2">
                                     <button
                                         onClick={() => openDateModal(repair.id)}
-                                        className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                                        className="text-lg bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mr-4"
                                     >
                                         Change Dates
                                     </button>
                                     <button
                                         onClick={() => handleForwardRequest(repair.id, selectedMechanic)}
-                                        className="text-lg text-red-500 border-red-500 bg-white font-bold py-2 px-4 rounded border hover:bg-red-50"
+                                        className="text-lg text-white border-red-500 bg-red-600 font-bold py-2 px-4 rounded border hover:bg-red-500"
                                     >
                                         Forward to Mechanic
                                     </button>
@@ -134,14 +134,14 @@ const RepairRequests = ({ repairs, mechanics }) => {
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
                         Previous
                     </button>
                     <button
                         onClick={() => setCurrentPage(currentPage + 1)}
                         disabled={currentPage === Math.ceil(repairs.length / repairsPerPage)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
                         Next
                     </button>

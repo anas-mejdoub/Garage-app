@@ -17,16 +17,19 @@ import { Link } from '@inertiajs/react';
 function Modal({ messages, onClose }) {
     console.log(messages)
     return (
-        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onClose}></div>
-                <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    {/* ... rest of your code ... */}
-                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div className="fixed z-50 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onClose}></div>
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div className="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                 <div className="bg-gray-900  text-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        
                         <div className="sm:flex sm:items-start">
+                            
                             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                
+                                <h3 className="text-lg  leading-6 font-medium text-white" id="modal-title">
                                     Notifications
                                 </h3>
                                 <div className="mt-2">
@@ -48,7 +51,7 @@ function Modal({ messages, onClose }) {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <div className="bg-gray-900 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={onClose}>
                             Close
                         </button>
@@ -66,22 +69,22 @@ function Sidebar() {
         <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6">
             <ul className="space-y-4">
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/user">Add Client</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/user"><strong> Add Client</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic">Add Mechanic</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic"><strong>Add Mechanic</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/new-requests">New Repair Request</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/new-requests"><strong>New Repair Request</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics">Delete Mechanics</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics"><strong>Delete Mechanics</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/completed">Completed Repairs</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/completed"><strong>Completed Repairs</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/requests">Pending Repairs</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/requests"><strong>Pending Repairs</strong></InertiaLink>
                 </li>
             </ul>
         </div>
@@ -91,13 +94,12 @@ function Sidebar() {
 
 
 
-function NavBar({auth}) {
+function NavBar({auth, notifications}) {
+    const [isModalVisible, setModalVisible] = useState(false);
     const dsh = '/ndashboard/' + auth.id;
     const img = `https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`;
-    async function getImg() {
-        const img = await axios.get(`https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`);
-        // console.log(img);   
-        return img;
+    const handleNotificationClick = () => {
+        setModalVisible(true);
     }
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -112,25 +114,12 @@ function NavBar({auth}) {
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
                 </a>
-                {/* <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                        </li>
-                    </ul>
-                </div> */}
+                
+                <div className="flex items-center space-x-9">
+                    <FaBell
+                        onClick={handleNotificationClick}
+                        className="text-gray-400  hover:text-gray-100 cursor-pointer"
+                    />
                 <div className="relative">
                     <button
                         type="button"
@@ -165,8 +154,10 @@ function NavBar({auth}) {
                         </div>
                     )}
                 </div>
+                </div>
                 
             </div>
+            {isModalVisible && <Modal   messages={notifications} onClose={() => setModalVisible(false)} />}
         </nav>
     );
 }
@@ -221,7 +212,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
     return (
         // 
         <div>
-            <NavBar auth={auth} />
+            <NavBar auth={auth} notifications={notifications}/>
 
             {/* </dir> */}
             <Head title="Dashboard" />
@@ -288,7 +279,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                             <div className="p-6 bg-white rounded shadow flex">
                                                 <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
                                                 <div className='flex flex-col center gap-9 items-center'>
-                                                    <h2 className="text-3xl font-semibold text-gray-700">Pending Repairs</h2>
+                                                    <h2 className="text-3xl font-semibold text-gray-700"> Pending Repairs</h2>
                                                     <div className='flex'>
 
                                                         <h1 className="text-2xl  font-semibold text-gray-700">{reps.filter((e) => e.status === 'pending').length} repair</h1>

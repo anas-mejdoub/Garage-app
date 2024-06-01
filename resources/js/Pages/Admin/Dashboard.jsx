@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import Chart from 'chart.js/auto'; // Import Chart.js library
 function Modal({ messages, onClose }) {
     console.log(messages)
     return (
@@ -67,7 +68,7 @@ function Modal({ messages, onClose }) {
 
 function Sidebar() {
     return (
-        <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6">
+        <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6 overflow-y-auto">
             <ul className="space-y-4">
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/user"><strong> Add Client</strong></InertiaLink>
@@ -166,7 +167,43 @@ function NavBar({ auth, notifications }) {
 
 
 
-
+function MyChart() {
+    const chartRef = useRef(null); // Ref for canvas element
+  
+    useEffect(() => {
+      const ctx = chartRef.current.getContext('2d');
+  
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+  
+      return () => {
+        // Cleanup code (if needed) when component unmounts
+        myChart.destroy();
+      };
+    }, []); // Empty dependency array ensures useEffect runs only once
+  
+    return (
+      <div>
+        <canvas ref={chartRef} id="myChart"></canvas>
+      </div>
+    );
+  }
 
 export default function MiniDsh({ auth, notifications, repair, repairs, userCount, invoices }) {
 
@@ -217,7 +254,6 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
         updated_at: "",
         vehicleID: 0
     };
-    console.log("test", repairs);
     const [isModalVisible, setModalVisible] = useState(false);
 
     const handleNotificationClick = () => {
@@ -225,7 +261,6 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
     }
 
     return (
-        // 
         <div>
             <NavBar auth={auth} notifications={notifications} />
 
@@ -233,11 +268,11 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
 
 
 
-            <div className="flex">
+            <div className="flex h-screen overflow-hidden">
 
                 {auth.role === 'admin' && <Sidebar />}
-                <div className="relative w-full h-screen">
-                    <img src="/background_.jpg" alt="" className="absolute inset-0 h-full w-full object-cover z-0" />
+                <div className="flex-grow overflow-y-auto">
+                    <img src="/background_.jpg" alt="" className="fixed inset-0 h-screen w-screen object-cover z-0" style={{ zIndex: -1 }}/>
                     <div className="py-12 flex-grow relative z-10">
                         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div className="flex flex-col gap-4">
@@ -317,6 +352,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs, userCoun
                                         </div>
                                     )}
                                 </div>
+                                <MyChart />
 
 
 

@@ -169,41 +169,66 @@ function NavBar({ auth, notifications }) {
 
 function MyChart() {
     const chartRef = useRef(null); // Ref for canvas element
-  
+
     useEffect(() => {
-      const ctx = chartRef.current.getContext('2d');
-  
-      const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
+        const ctx = chartRef.current.getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    color: 'white',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white', // Change this to the color you want
+                            font: {
+                                size: 20 // Change this to the size you want
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white', // Change this to the color you want
+                            font: {
+                                size: 20 // Change this to the size you want
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white', // Change this to the color you want
+                            font: {
+                                size: 20 // Change this to the size you want
+                            }
+                        }
+                    }
+                }
             }
-          }
-        }
-      });
-  
-      return () => {
-        // Cleanup code (if needed) when component unmounts
-        myChart.destroy();
-      };
+        });
+
+        return () => {
+            // Cleanup code (if needed) when component unmounts
+            myChart.destroy();
+        };
     }, []); // Empty dependency array ensures useEffect runs only once
-  
+
     return (
-      <div>
-        <canvas ref={chartRef} id="myChart"></canvas>
-      </div>
+        <div>
+            <canvas ref={chartRef} id="myChart"></canvas>
+        </div>
     );
-  }
+}
 
 export default function MiniDsh({ auth, notifications, repair, repairs, userCount, invoices }) {
 

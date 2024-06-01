@@ -22,7 +22,10 @@ class NotificationController extends Controller
         if (auth()->user()->role == 'admin')
         {
             $users = User::all();
-            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications, 'users' => $users]);
+            $userCount = User::whereMonth('created_at', '=', date('m'))
+                     ->whereYear('created_at', '=', date('Y'))
+                     ->count();
+            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications, 'users' => $users, 'userCount' => $userCount]);
         }
         else if (auth()->user()->role == 'mechanic')
         {

@@ -168,13 +168,12 @@ function NavBar({auth, notifications}) {
 
 
 
-export default function MiniDsh({ auth, notifications, repair, repairs }) {
+export default function MiniDsh({ auth, notifications, repair, repairs , userCount}) {
     async function getImg() {
         const img = await axios.get(`https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`);
         console.log(img);   
     }
     getImg();
-    // if (!repair)
     let reps = repairs || [
         {
             id: 0,
@@ -242,24 +241,17 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                 </div>
                                 <div className='flex gap-3'>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        {/* {auth.role === 'client' && ( */}
-                                        {repair != null ?
-                                            <div className="p-6 bg-white rounded shadow">
-                                                <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
-                                                <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {rep?.id ?? 0}</p>
-                                                <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
-                                                <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
-                                                <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p>
+                                        
+                                            <div className="p-6 bg-white rounded shadow flex ">
+                                            <div className='flex flex-col center gap-9 md-4 items-center'>
+                                                <h2 className="text-3xl font-semibold text-gray-700">Users Joined This Month</h2>
+                                                <div className='flex'>
+
+                                                    <h1 className="text-2xl  font-semibold text-gray-700">{userCount} User</h1>
+                                                </div>
                                             </div>
-                                            :
-                                            <div className="p-6 bg-white rounded shadow flex flex-col items-center justify-center">
-                                                <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
-                                                <p className="mt-4 text-2xl text-gray-600"><strong>No repair</strong> </p>
-                                                {/* <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
-                                                  <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
-                                                  <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p> */}
-                                            </div>}
-                                        {/* )} */}
+                                        </div>
+                                           
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
                                         {auth.role === 'admin' && reps && (

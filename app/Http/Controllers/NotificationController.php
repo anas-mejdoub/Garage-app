@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\Repair;
+use App\Models\Invoice;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Client;
@@ -21,12 +22,13 @@ class NotificationController extends Controller
         $notifications = Notification::where('user_id', $request->id)->get();
         if (auth()->user()->role == 'admin')
         {
+            $invs = Invoice::all();
             $repairs = Repair::all();
             $users = User::all();
             $userCount = User::whereMonth('created_at', '=', date('m'))
                      ->whereYear('created_at', '=', date('Y'))
                      ->count();
-            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user(), 'repairs' => $repairs ,'notifications' => $notifications, 'users' => $users, 'userCount' => $userCount]);
+            return Inertia::render('Admin/Dashboard', ['auth' => auth()->user(), 'invoices' => $invs,'repairs' => $repairs ,'notifications' => $notifications, 'users' => $users, 'userCount' => $userCount]);
         }
         else if (auth()->user()->role == 'mechanic')
         {

@@ -19,17 +19,17 @@ function Modal({ messages, onClose }) {
     console.log(messages)
     return (
         <div className="fixed z-50 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onClose}></div>
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div className="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                 <div className="bg-gray-900  text-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        
+
+            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onClose}></div>
+                <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div className="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div className="bg-gray-900  text-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+
                         <div className="sm:flex sm:items-start">
-                            
+
                             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                
+
                                 <h3 className="text-lg  leading-6 font-medium text-white" id="modal-title">
                                     Notifications
                                 </h3>
@@ -95,7 +95,7 @@ function Sidebar() {
 
 
 
-function NavBar({auth, notifications}) {
+function NavBar({ auth, notifications }) {
     const [isModalVisible, setModalVisible] = useState(false);
     const dsh = '/ndashboard/' + auth.id;
     const img = `https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`;
@@ -115,50 +115,50 @@ function NavBar({auth, notifications}) {
                     <img src={logo} className="h-8" alt="Flowbite Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Garagiste</span>
                 </a>
-                
+
                 <div className="flex items-center space-x-9">
                     <FaBell
                         onClick={handleNotificationClick}
                         className="text-gray-400  hover:text-gray-100 cursor-pointer"
                     />
-                <div className="relative">
-                    <button
-                        type="button"
-                        className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                        id="user-menu-button"
-                        aria-expanded={dropdownVisible}
-                        onClick={toggleDropdown}
-                    >
-                        <span className="sr-only">Open user menu</span>
-                        
-                        <img className="w-8 h-8 rounded-full" src={img} alt="user photo" />
-                    </button>
-                    {dropdownVisible && (
-                        <div className="absolute right-0 mt-2 w-48 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-                            <div className="px-4 py-3">
-                                <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{auth.email}</span>
-                            </div>
-                            <ul className="py-2" aria-labelledby="user-menu-button">
-                                
-                                <li>
-                                    <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-                                </li><li>
-                                    <a href={dsh} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                                </li>
-                                
-                                <li>
-                                     <Dropdown.Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" href={route('logout')} method="post" as="button">
+                    <div className="relative">
+                        <button
+                            type="button"
+                            className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            id="user-menu-button"
+                            aria-expanded={dropdownVisible}
+                            onClick={toggleDropdown}
+                        >
+                            <span className="sr-only">Open user menu</span>
+
+                            <img className="w-8 h-8 rounded-full" src={img} alt="user photo" />
+                        </button>
+                        {dropdownVisible && (
+                            <div className="absolute right-0 mt-2 w-48 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                                <div className="px-4 py-3">
+                                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{auth.email}</span>
+                                </div>
+                                <ul className="py-2" aria-labelledby="user-menu-button">
+
+                                    <li>
+                                        <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                                    </li><li>
+                                        <a href={dsh} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                                    </li>
+
+                                    <li>
+                                        <Dropdown.Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
-                                </li>
-                            </ul>
-                        </div>
-                    )}
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                 </div>
-                </div>
-                
+
             </div>
-            {isModalVisible && <Modal   messages={notifications} onClose={() => setModalVisible(false)} />}
+            {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
         </nav>
     );
 }
@@ -168,12 +168,27 @@ function NavBar({auth, notifications}) {
 
 
 
-export default function MiniDsh({ auth, notifications, repair, repairs , userCount}) {
-    async function getImg() {
-        const img = await axios.get(`https://api.dicebear.com/8.x/thumbs/svg?seed=${auth.name}`);
-        console.log(img);   
-    }
-    getImg();
+export default function MiniDsh({ auth, notifications, repair, repairs, userCount, invoices }) {
+
+    console.log("invoices", invoices);
+    const currentDate = new Date();
+
+    const startOfToday = new Date(currentDate);
+
+    startOfToday.setHours(0, 0, 0, 0);
+    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+    const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
+    const invoicesToday = invoices.filter(invoice =>  new Date(invoice.created_at) >=  (startOfToday));
+    const invoicesThisMonth = invoices.filter(invoice =>  new Date(invoice.created_at) >= (startOfMonth));
+    const invoicesThisYear = invoices.filter(invoice =>  new Date(invoice.created_at) >= (startOfYear));
+    const earningsToday = invoicesToday.reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
+    const earningsThisMonth = invoicesThisMonth.reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
+    const earningsThisYear = invoicesThisYear.reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
+
+    console.log("Earnings Today:", earningsToday);
+    console.log("Earnings This Month:", earningsThisMonth);
+    console.log("Earnings This Year:", earningsThisYear);
     let reps = repairs || [
         {
             id: 0,
@@ -212,7 +227,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
     return (
         // 
         <div>
-            <NavBar auth={auth} notifications={notifications}/>
+            <NavBar auth={auth} notifications={notifications} />
 
             <Head title="Dashboard" />
 
@@ -225,7 +240,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                     <img src="/background_.jpg" alt="" className="absolute inset-0 h-full w-full object-cover z-0" />
                     <div className="py-12 flex-grow relative z-10">
                         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-4">
                                 <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg">
 
                                     {auth.role === 'admin' && (
@@ -239,23 +254,21 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                 </div>
                                 <div className='flex gap-3'>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        
-                                            <div className="p-6 bg-white rounded shadow flex ">
-                                            <div className='flex flex-col center gap-9 md-4 items-center'>
-                                                <h2 className="text-2xl font-semibold text-gray-700">Users Joined This Month</h2>
-                                                <div className='flex'>
 
-                                                    <h1 className="text-xl  font-semibold text-gray-700">{userCount} User</h1>
-                                                </div>
+                                        <div className="p-6 bg-white rounded shadow flex ">
+                                            <div className='flex flex-col center gap-4 md-4 items-center'>
+                                                <h2 className="text-2xl font-semibold text-gray-700">Users Joined This Month</h2>
+
+                                                <h1 className="text-xl  font-semibold text-gray-700">{userCount} user</h1>
                                             </div>
                                         </div>
-                                           
+
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
                                         {auth.role === 'admin' && reps && (
                                             <div className="p-6 bg-white rounded shadow flex ">
                                                 <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mt-2 mr-2 h-6 w-6" />
-                                                <div className='flex flex-col center gap-9 md-4 items-center'>
+                                                <div className='flex flex-col center gap-4 md-4 items-center'>
                                                     <h2 className="text-2xl font-semibold text-gray-700">Completed Repairs</h2>
                                                     <div className='flex'>
 
@@ -269,7 +282,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                         {auth.role === 'admin' && reps && (
                                             <div className="p-6 bg-white rounded shadow flex">
                                                 <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
-                                                <div className='flex flex-col center gap-9 items-center'>
+                                                <div className='flex flex-col center gap-4 items-center'>
                                                     <h2 className="text-2xl font-semibold text-gray-700"> Pending Repairs</h2>
                                                     <div className='flex'>
 
@@ -279,7 +292,34 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
                                             </div>
                                         )}
                                     </div>
+
                                 </div>
+                                <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg">
+                                    {auth.role === 'admin' && (
+                                        <div className="p-6 bg-white rounded shadow">
+                                            <h2 className="text-3xl font-semibold text-gray-700">Earnings</h2>
+                                            <table className="mt-7 w-full">
+                                                <thead>
+                                                    <tr>
+                                                        <th className="px-4 py-2 text-center">Today</th>
+                                                        <th className="px-4 py-2 text-center">This Month</th>
+                                                        <th className="px-4 py-2 text-center">This Year</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="px-4 py-2 text-center">{earningsToday} $</td>
+                                                        <td className="px-4 py-2 text-center">{earningsThisMonth} $</td>
+                                                        <td className="px-4 py-2 text-center">{earningsThisYear} $</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </div>
+
+
+
                             </div>
                         </div>
                     </div>

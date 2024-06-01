@@ -292,6 +292,5 @@ export default function MiniDsh({ auth, notifications, repair, repairs , userCou
             </div>
             {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
         </div>
-        // {/* </AuthenticatedLayout> */}
     );
 }

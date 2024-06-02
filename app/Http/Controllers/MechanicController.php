@@ -54,6 +54,7 @@ class MechanicController extends Controller
     }
     public function  addPartToInvoice(Request $request)
     {
+
         $inv = Invoice::where('repairID', $request->repair['id'])->first();
         if ($inv == null) {
             Invoice::create([
@@ -66,6 +67,9 @@ class MechanicController extends Controller
 //        dd($request->part['price']);
         $invoice = Invoice::where('repairID', $request->repair['id'])->first();
         $invoice->additionalCharges += $request->part['price'];
+        $part = SparePart::where('id', $request->part['id'])->first();
+        $part->quantity = $part->quantity - 1;
+        $part->save();
         $invoice->totalAmount += $request->part['price'];
         $invoice->save();
     }

@@ -117,6 +117,11 @@ class AdminController extends Controller
     public function ForwardMecanic(Request $request)
     {
         //dd($request->selectedMechanic);
+        $msg = "a repair request with this id : ". $request->selectedRepair . " has been assigned to you";
+        Notification::create([
+            'user_id' => $request->selectedMechanic,
+            'content' => $msg,
+        ]);
         $repairid = $request->selectedRepair;
         $mecanicid = $request->selectedMechanic;
         $repair = Repair::where('id', $repairid)->first();

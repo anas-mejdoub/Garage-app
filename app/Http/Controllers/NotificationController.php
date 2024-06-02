@@ -34,6 +34,7 @@ class NotificationController extends Controller
         {
             $repairs = Repair::where('mechanicID', auth()->user()->id)->get();
             $latest = Repair::where('mechanicID', $request->id)->orderBy('created_at', 'desc')->first();
+            $notifications = Notification::where('user_id', $request->id)->orderBy('created_at', 'desc')->get();
             // dd($latest);
             return Inertia::render('Mechanic/Dashboard', ['repairs' => $repairs,   'auth' => auth()->user() , 'repair'=>$latest,'notifications' => $notifications]);
         }

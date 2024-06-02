@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { AiFillCheckCircle, AiFillCloseCircle, AiOutlineCar, AiOutlineSync } from 'react-icons/ai';
 import Modal from 'react-modal';
+import NavBar from './Navbar';
 
-const MechanicRepairs = ({ repairs }) => {
+const MechanicRepairs = ({ repairs , auth, notifications}) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [newStatus, setNewStatus] = useState("completed");
     const [currentRepair, setCurrentRepair] = useState(null);
@@ -24,7 +25,9 @@ const MechanicRepairs = ({ repairs }) => {
     };
 
     return (
-        <div className="p-6 bg-gray-800 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
+        <div>
+            <NavBar auth={auth.user} notifications={notifications} />
+        <div className="p-6 bg-gray-700 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
             <h1 className="text-5xl font-semibold text-gray-300 leading-tight mb-6 flex items-center">
                 <AiOutlineCar className="mr-2" /> Repairs assigned to me
             </h1>
@@ -68,8 +71,8 @@ const MechanicRepairs = ({ repairs }) => {
                                 <td className="border-gray-300 px-4 py-2 text-center">
                                     {repair.status !== 'completed' && (
                                         <button
-                                            onClick={() => Inertia.get(`/mechanic/repairs/working/${repair.id}`)}
-                                            className="bg-yellow-500 text-white rounded px-2 py-1 flex items-center justify-center mx-auto"
+                                        onClick={() => Inertia.get(`/mechanic/repairs/working/${repair.id}`)}
+                                        className="bg-yellow-500 text-white rounded px-2 py-1 flex items-center justify-center mx-auto"
                                         >
                                             <AiOutlineSync className="mr-1" /> Working on
                                         </button>
@@ -97,7 +100,7 @@ const MechanicRepairs = ({ repairs }) => {
                 contentLabel="Change Status Modal"
                 className="m-auto w-11/12 md:w-1/2 lg:w-1/3 border border-gray-300 shadow-lg p-6 rounded-md bg-white"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
-            >
+                >
                 <h2 className="text-2xl font-bold mb-4">Change Status</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -122,6 +125,7 @@ const MechanicRepairs = ({ repairs }) => {
                     </button>
                 </form>
             </Modal>
+                            </div>
         </div>
     );
 };

@@ -138,7 +138,7 @@ const NewRequests = ({ repairs , mechanics, auth, notifications}) => {
                         <dl className="divide-y divide-gray-700 grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-4">
                             <div className="sm:col-span-1">
                                 <dt className="text-md font-medium text-gray-500">Repair ID</dt>
-                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.repai_id}</dd>
+                                <dd className="mt-1 text-md text-white">{selectedRepairDetails.repair_id}</dd>
                             </div>
                             <div className="sm:col-span-1">
                                 <dt className="text-md font-medium text-gray-500">Vehicle ID</dt>

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
+import NavBar from './Navbar';
 import bgImage from '../repairs/select.jpg'; // Import the background image
 
-const VehicleForm = () => {
+const VehicleForm = ({ auth, notifications }) => {
     const [make, setMake] = useState('');
     const [model, setModel] = useState('');
     const [fuelType, setFuelType] = useState('');
     const [registration, setRegistration] = useState('');
     const [photos, setPhotos] = useState(null);
+    const [error, setError] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,56 +25,44 @@ const VehicleForm = () => {
     };
 
     return (
-        <div className="flex bg-blue-500" style={{ backgroundImage: `url(${bgImage})`}} >
-            <div className="w-full max-w-sm mx-auto mt-4">
-            <h1 className="text-2xl text-white  font-bold text-center mb-6">Adding Vehicle</h1>
-            <form onSubmit={handleSubmit} className="w-full bg-gradient-to-b from-slate-800 to-slate-800 max-w-sm rounded-xl mx-auto mt-5 p-5 space-y-6 mb-10">
-            <label className="block">
-                <span className="text-white">Make:</span>
-                <input type="text" value={make} onChange={e => setMake(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-            </label>
+        <div>
+            <NavBar auth={auth.user} notifications={notifications} />
+            <div style={{ background: '#161D32' }} className="flex flex-col gap-7 items-center justify-center w-screen h-screen p-8 m-0">
+                <h1 className='text-white text-3xl'><strong>Adding Vehicle</strong></h1>
+                <form style={{ background: '#161D32' }} className="max-w-sm w-full bg-gray-800 p-6 border border-gray-700 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+                    {error && <div className="mb-4 text-red-500">{error}</div>}
+                    <div className="mb-5">
+                        <label htmlFor="make" className="block mb-2 text-sm font-medium text-white">Make</label>
+                        <input type="text" id="make" value={make} onChange={e => setMake(e.target.value)} className="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-0 focus:border-gray-600 block w-full p-2.5" placeholder="Make" required />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="model" className="block mb-2 text-sm font-medium text-white">Model</label>
+                        <input type="text" id="model" value={model} onChange={e => setModel(e.target.value)} className="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-0 focus:border-gray-600 block w-full p-2.5" placeholder="Model" required />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="fuelType" className="block mb-2 text-sm font-medium text-white">Fuel Type</label>
+                        <input type="text" id="fuelType" value={fuelType} onChange={e => setFuelType(e.target.value)} className="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-0 focus:border-gray-600 block w-full p-2.5" placeholder="Fuel Type" required />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="registration" className="block mb-2 text-sm font-medium text-white">Registration</label>
+                        <input type="text" id="registration" value={registration} onChange={e => setRegistration(e.target.value)} className="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-0 focus:border-gray-600 block w-full p-2.5" placeholder="Registration" required />
+                    </div>
 
-            <label className="block">
-                <span className="text-white">Model:</span>
-                <input type="text" value={model} onChange={e => setModel(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-            </label>
 
-            <label className="block">
-                <span className="text-white">Fuel Type:</span>
-                <input type="text" value={fuelType} onChange={e => setFuelType(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-            </label>
 
-            <label className="block">
-                <span className="text-white">Registration:</span>
-                <input type="text" value={registration} onChange={e => setRegistration(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-            </label>
+                    <div className="mb-5">
+                        <label htmlFor="photos" className="block mb-2 text-sm font-medium text-white">Photos</label>
+                        <div className="flex justify-center items-center">
+                            <label htmlFor="file-upload" className="bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:ring-blue-300 text-white rounded-xl px-4 py-2.5 cursor-pointer">
+                                Upload Picture
+                                <input id="file-upload" type="file" onChange={e => setPhotos(e.target.files[0])} className="sr-only " />
+                            </label>
+                        </div>
+                    </div>
 
-            <label className="block">
-    <span className="text-white">Photos:</span>
-    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-        <div className="space-y-1 text-center">
-            <svg className="mx-auto h-12 w-12 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M38 38L10 38 10 10l11.293 11.293a1 1 0 001.414 0l1.586-1.586a1 1 0 000-1.414L10 6h28v28z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 14l7-7 7 7m-7-7v18" />
-            </svg>
-            <div className="flex text-sm text-white">
-                <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                    <span className='bg-slate-800 border-slate-800' >Upload a file</span>
-                    <input id="file-upload" name="file-upload" type="file" onChange={e => setPhotos(e.target.files[0])} className="sr-only" />
-                </label>
-                <p className="pl-1">or drag and drop</p>
+                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Vehicle</button>
+                </form>
             </div>
-            <p className="text-xs text-white">
-                PNG, JPG, GIF up to 10MB
-            </p>
-        </div>
-    </div>
-    
-</label>
-
-            <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Vehicle</button>
-        </form>
-        </div>
         </div>
     );
 };

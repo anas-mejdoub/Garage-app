@@ -63,7 +63,7 @@ function Sidebar() {
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                 <InertiaLink className="text-lg text-white hover:text-gray-200" href="/mechanic/repairs/requests"><strong>Repairs Requests</strong></InertiaLink>
                 </li>
-                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
+                {/* <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/my-vehicles"><strong>My Vehicles</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
@@ -71,7 +71,7 @@ function Sidebar() {
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/repairs-history"><strong> Repairs History</strong></InertiaLink>
-                </li>
+                </li> */}
             </ul>
         </div>
     );

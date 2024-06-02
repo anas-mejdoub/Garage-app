@@ -10,6 +10,7 @@ import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/react';
 import { InertiaLink } from '@inertiajs/inertia-react';
+import NavBar from './Navbar';
 function Modal({ messages, onClose }) {
     console.log(messages)
     return (
@@ -119,18 +120,20 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
     }
 
     return (
-        <AuthenticatedLayout
-            user={auth}
-            header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-                    <FaBell
-                        onClick={handleNotificationClick}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                    />
-                </div>
-            }
-        >
+        // <AuthenticatedLayout
+        //     user={auth}
+        //     header={
+        //         <div className="flex justify-between items-center">
+        //             <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+        //             <FaBell
+        //                 onClick={handleNotificationClick}
+        //                 className="text-blue-500 hover:text-blue-700 cursor-pointer"
+        //             />
+        //         </div>
+        //     }
+        // >
+        <div>
+            <NavBar auth={auth} notifications={notifications} />
             <Head title="Dashboard" />
             <div className="flex">
 
@@ -211,6 +214,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
 
             </div>
             {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
-        </AuthenticatedLayout>
+        {/* </AuthenticatedLayout> */}
+        </div>
     );
 }

@@ -8,11 +8,11 @@ import NavBar from './Navbar';
 const Modal = ({ children, onClose }) => {
     return (
         <div
-            className="fixed top-0 left-0 w-full h-screen bg-gray-500 bg-opacity-50 flex justify-center items-center"
+            className="fixed top-0 left-0 w-full h-screen bg-gray-900 bg-opacity-50 flex justify-center items-center"
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-lg p-4 w-full max-w-md"
+                className="bg-gray-900 rounded-lg p-4 w-full max-w-md"
                 onClick={(e) => e.stopPropagation()}
             >
                 {children}
@@ -124,7 +124,7 @@ const RepairRequests = ({ repairs, mechanics , auth, notifications}) => {
                                     </button>
                                     <button
                                         onClick={() => handleForwardRequest(repair.id, selectedMechanic)}
-                                        className="text-lg text-white border-red-500 bg-red-600 font-bold py-2 px-4 rounded border hover:bg-red-500"
+                                        className="text-lg text-white border-red-500 bg-orange-600 font-bold py-2 px-4 rounded border hover:bg-orange-700"
                                     >
                                         Forward to Mechanic
                                     </button>
@@ -152,17 +152,17 @@ const RepairRequests = ({ repairs, mechanics , auth, notifications}) => {
             </div>
             {isModalOpen && (
                 <Modal onClose={handleModalClose}>
-                    <h2 className="text-lg font-semibold text-gray-700">
+                    <h2 className="text-lg font-semibold text-gray-200">
                         Forwarding Request {selectedRepair} to Mechanic {getNameById(selectedMechanics[selectedRepair])}
                     </h2>
 
-                    <p className="text-gray-600">
+                    <p className="text-gray-300">
                         Are you sure you want to forward this request to the selected mechanic?
                     </p>
-                    <div className="flex justify-end">
+                    <div className="flex mt-2 justify-end gap-3">
                         <button
                             onClick={handleModalClose}
-                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+                            className="bg-gray-700 hover:bg-gray-400 hover:text-black text-gray-300 font-bold py-2 px-4 rounded-xl"
                         >
                             Cancel
                         </button>
@@ -172,7 +172,7 @@ const RepairRequests = ({ repairs, mechanics , auth, notifications}) => {
                                 console.log('Forwarding request...');
                                 forwardAndClose();
                             }}
-                            className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
+                            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-xl"
                         >
                             Forward
                         </button>
@@ -181,40 +181,40 @@ const RepairRequests = ({ repairs, mechanics , auth, notifications}) => {
             )}
             {isDateModalOpen && (
                 <Modal onClose={closeDateModal}>
-                    <h2 className="text-lg font-semibold text-gray-700">
+                    <h2 className="text-lg font-semibold text-white">
                         Change Dates for Request {selectedRepair}
                     </h2>
                     <form onSubmit={handleDateChange}>
                         <div className="flex flex-col gap-4">
-                            <label htmlFor="startDate" className="text-gray-600">Start Date</label>
+                            <label htmlFor="startDate" className="text-gray-300">Start Date</label>
                             <input
                                 type="date"
                                 id="startDate"
                                 name="startDate"
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
-                                className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full"
+                                className="border border-gray-300 rounded-xl text-gray-400 h-10 pl-5 pr-10 bg-gray-800 hover:border-gray-400 focus:outline-none w-full"
                             />
-                            <label htmlFor="endDate" className="text-gray-600">End Date</label>
+                            <label htmlFor="endDate" className="text-gray-300">End Date</label>
                             <input
                                 type="date"
                                 id="endDate"
                                 name="endDate"
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
-                                className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none w-full"
+                                className="border border-gray-300 rounded-xl text-gray-400 h-10 pl-5 pr-10 bg-gray-800 hover:border-gray-400 focus:outline-none w-full"
                             />
                         </div>
-                        <div className="flex justify-end">
+                        <div className="flex mt-4 justify-end gap-2">
                             <button
                                 onClick={closeDateModal}
-                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+                                className="bg-gray-700 hover:bg-gray-400 hover:text-black text-gray-300 font-bold py-2 px-4 rounded-xl"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
                             >
                                 Save
                             </button>

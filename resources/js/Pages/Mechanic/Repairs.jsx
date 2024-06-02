@@ -98,20 +98,20 @@ const MechanicRepairs = ({ repairs , auth, notifications}) => {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 contentLabel="Change Status Modal"
-                className="m-auto w-11/12 md:w-1/2 lg:w-1/3 border border-gray-300 shadow-lg p-6 rounded-md bg-white"
+                className="m-auto w-11/12 md:w-1/2 lg:w-1/3 border border-gray-300 shadow-lg p-6 rounded-md bg-gray-900"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
                 >
-                <h2 className="text-2xl font-bold mb-4">Change Status</h2>
+                <h2 className="text-2xl text-gray-200 font-bold mb-4">Change Status</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
+                        <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="status">
                             Status
                         </label>
                         <select
                             id="status"
                             value={newStatus}
                             onChange={(e) => setNewStatus(e.target.value)}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >
                             <option value="completed">Completed</option>
                             <option value="pending">Pending</option>
@@ -119,7 +119,7 @@ const MechanicRepairs = ({ repairs , auth, notifications}) => {
                     </div>
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
                     >
                         Confirm
                     </button>

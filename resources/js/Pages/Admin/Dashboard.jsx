@@ -178,7 +178,7 @@ function MyChart({ invoices }) {
         const ctx = chartRef.current.getContext('2d');
 
         const sixMonthsAgo = new Date();
-        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
 
         const monthlyTotals = {};
         invoices.forEach(invoice => {

@@ -75,9 +75,25 @@ function NavBar({ auth, notifications }) {
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownVisible(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
 
     return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
+        <nav className="bg-white border-gray-200 h-20 dark:bg-gray-900">
+            <div className="relative" ref={dropdownRef}>
             <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
                 <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-8" alt="Flowbite Logo" />
@@ -87,19 +103,19 @@ function NavBar({ auth, notifications }) {
                 <div className="flex items-center space-x-9">
                     <FaBell
                         onClick={handleNotificationClick}
-                        className="text-gray-400  hover:text-gray-100 cursor-pointer"
+                        className="text-gray-400  w-5 h-5 hover:text-gray-100 cursor-pointer"
                     />
                     <div className="relative">
                         <button
                             type="button"
-                            className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-900"
                             id="user-menu-button"
                             aria-expanded={dropdownVisible}
                             onClick={toggleDropdown}
                         >
                             <span className="sr-only">Open user menu</span>
 
-                            <img className="w-8 h-8 rounded-full" src={img} alt="user photo" />
+                            <img className="w-10 h-10 rounded-full" src={img} alt="user photo" />
                         </button>
                         {dropdownVisible && (
                             <div className="absolute right-0 mt-2 w-48 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
@@ -125,6 +141,7 @@ function NavBar({ auth, notifications }) {
                     </div>
                 </div>
 
+            </div>
             </div>
             {isModalVisible && <Modal messages={notifications} onClose={() => setModalVisible(false)} />}
         </nav>

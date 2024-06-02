@@ -61,16 +61,16 @@ function Sidebar() {
         <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6">
             <ul className="space-y-4">
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                <InertiaLink className="text-lg text-white hover:text-gray-200" href="/add-vehicle">Add Vehicles</InertiaLink>
+                <InertiaLink className="text-lg text-white hover:text-gray-200" href="/add-vehicle"><strong>Add Vehicles</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/my-vehicles">My Vehicles</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/my-vehicles"><strong>My Vehicles</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/select-vehicle">Repair Request</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/select-vehicle"><strong>Repair Request</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/repairs-history">Repairs History</InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/repairs-history"><strong> Repairs History</strong></InertiaLink>
                 </li>
             </ul>
         </div>

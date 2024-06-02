@@ -28,7 +28,7 @@ const VehicleForm = ({ auth, notifications }) => {
         <div>
             <NavBar auth={auth.user} notifications={notifications} />
             <div style={{ background: '#161D32' }} className="flex flex-col gap-7 items-center justify-center w-screen h-screen p-8 m-0">
-                <h1 className='text-white text-3xl'><strong>Adding Vehicle</strong></h1>
+                <h1 className='text-gray-300 text-3xl'><strong>Adding Vehicle</strong></h1>
                 <form style={{ background: '#161D32' }} className="max-w-sm w-full bg-gray-800 p-6 border border-gray-700 rounded-lg shadow-lg" onSubmit={handleSubmit}>
                     {error && <div className="mb-4 text-red-500">{error}</div>}
                     <div className="mb-5">

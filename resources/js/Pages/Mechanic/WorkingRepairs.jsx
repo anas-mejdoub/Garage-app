@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { FaCar, FaCheckCircle } from "react-icons/fa";
 import { Inertia } from '@inertiajs/inertia';
+import NavBar from '../Admin/Navbar';
 
-const RepairDetails = ({ repair, parts }) => {
+const RepairDetails = ({ repair, parts , auth, notifications}) => {
     const [currentRepair, setCurrentRepair] = useState(repair);
     const [currentParts, setCurrentParts] = useState(parts);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -35,6 +36,8 @@ const RepairDetails = ({ repair, parts }) => {
     };
 
     return (
+        <div>
+            <NavBar auth={auth.user} notifications={notifications} />
         <div className="p-6 bg-gray-800 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
             <h1 className="text-3xl font-bold text-white mb-4">Repair Details</h1>
             <div className="mb-4 bg-gray-900 shadow-lg rounded-lg overflow-hidden w-full max-w-4xl">
@@ -90,6 +93,7 @@ const RepairDetails = ({ repair, parts }) => {
                     <button onClick={nextPage} disabled={currentItems.length < itemsPerPage} className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">Next</button>
                 </div>
             </Modal>
+        </div>
         </div>
     );
 };

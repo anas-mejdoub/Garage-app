@@ -80,29 +80,6 @@ const userId = auth.user.id;
 
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-                    <FaBell 
-                        onClick={() => setModalVisible(true)}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer" 
-                    />
-                </div>
-            }
-        >
-            <Head title="Dashboard" />
-            <div className="flex">
-            <Sidebar/>
-                <div className="py-12 flex-grow">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {isModalVisible && <Modal message="No notification" onClose={() => setModalVisible(false)} />}
-        </AuthenticatedLayout>
+        <></>
     );
 }

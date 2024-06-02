@@ -30,9 +30,9 @@ class NotificationController extends Controller
                      ->count();
             return Inertia::render('Admin/Dashboard', ['auth' => auth()->user(), 'invoices' => $invs,'repairs' => $repairs ,'notifications' => $notifications, 'users' => $users, 'userCount' => $userCount]);
         }
-        else if (auth()->user()->role == 'mechanic')
+        else if (auth()->user()->role == 'mecanic')
         {
-            return Inertia::render('MiniDsh', ['auth' => auth()->user() ,'notifications' => $notifications]);
+            return Inertia::render('Mechanic/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications]);
         }
         else if (auth()->user()->role == 'client')
         {

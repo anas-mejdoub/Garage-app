@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Repair;
 use App\Models\Vehicle;
 use App\Models\Client;
+use App\Models\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -13,6 +14,11 @@ class RepairController extends Controller
 {
     public function store(Request $request)
     {
+        $msg = "the user with id: " . auth()->user()->id . " has requested a repair for vehicle with id: " . $request->vehicle_id . " at " . date('Y-m-d') . " with the following description: " . $request->description . " and the following notes: " . $request->clientNotes . " the request is currently under review.";
+        $notification = Notification::create([
+            'user_id' => 1,
+            'message' => $msg,
+        ]);
         $repair = Repair::create([
             'vehicleID' => $request->vehicle_id,
             'description' => $request->description,

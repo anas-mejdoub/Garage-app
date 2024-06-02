@@ -81,7 +81,7 @@ const RepairRequests = ({ repairs, mechanics , auth, notifications}) => {
         Inertia.post('/admin/repairs/requests/forward', { selectedMechanic: selectedMechanics[selectedRepair], selectedRepair });        setIsModalOpen(false);
     };
 
-    return (
+    return ( 
         <div>
             <NavBar auth={auth} notifications={notifications} />
         <div className="p-6 bg-gray-800 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>

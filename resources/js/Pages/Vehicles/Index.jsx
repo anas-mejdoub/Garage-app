@@ -9,7 +9,7 @@ function Index({ vehicles , auth, notifications }) {
         <NavBar auth={auth.user} notifications={notifications} />
         <div className="grid grid-cols-3 gap-4 bg-gray-800">
       {{ vehicles }.vehicles.map((vehicle) => (
-        <div key={vehicle.id} className="m-4 bg-gray-700  p-6 rounded-lg">
+        <div key={vehicle.id} className="m-4 bg-gray-900  p-6 rounded-lg">
           <img className="w-full h-48 object-cover" src={`/storage/${vehicle.photos}`} alt="Vehicle" />
           <div className="px-6 py-4">
             <div className="font-bold text-xl text-gray-300 mb-2">{vehicle.make}</div>

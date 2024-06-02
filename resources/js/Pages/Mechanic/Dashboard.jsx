@@ -135,11 +135,11 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                             <div className="flex flex-col gap-6">
                                 <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg">
 
-                                    {auth.role === 'client' && (
+                                    {auth.role === 'mecanic' && (
                                         <div className="p-6 bg-white rounded shadow">
 
                                             <h2 className="text-3xl font-semibold text-gray-700">Welcome, {auth.name}!</h2>
-                                            <p className="mt-2 text-2xl text-gray-600"><strong>Your space to request your repair easily !</strong> </p>
+                                            <p className="mt-2 text-2xl text-gray-600"><strong>Your space to work on your repairs easily !</strong> </p>
                                         </div>
 
                                     )}
@@ -152,8 +152,9 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                                   <h2 className="text-3xl font-semibold text-gray-700">Latest Repair</h2>
                                                   <p className="mt-2 text-2xl text-gray-600"><strong>Repair ID:</strong> {rep?.id ?? 0}</p>
                                                   <p className="text-2xl text-gray-600"><strong>Description:</strong> {rep?.description ?? ""}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>Status: </strong>{rep.status}</p>
                                                   <p className="text-2xl text-gray-600"><strong>Start Date:</strong> {new Date(rep?.startDate ?? "").toLocaleDateString()}</p>
-                                                  <p className="text-2xl text-gray-600"><strong>End Date:</strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p>
+                                                  <p className="text-2xl text-gray-600"><strong>End Date: </strong>{new Date(rep?.endDate ?? "").toLocaleDateString()}</p>
                                                 </div>
                                               : 
                                               <div className="p-6 bg-white rounded shadow flex flex-col items-center justify-center">
@@ -166,7 +167,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                         {/* )} */}
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        {auth.role === 'client' && reps && (
+                                        {auth.role === 'mecanic' && reps && (
                                             <div className="p-6 bg-white rounded shadow flex ">
                                                 <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mt-2 mr-2 h-6 w-6" />
                                                 <div className='flex flex-col center gap-9 md-4 items-center'>
@@ -180,7 +181,7 @@ export default function MiniDsh({ auth, notifications, repair, repairs }) {
                                         )}
                                     </div>
                                     <div className="bg-white opacity-85 overflow-hidden shadow-sm sm:rounded-lg w-full max-w-3xl md:w-1/3">
-                                        {auth.role === 'client' && reps && (
+                                        {auth.role === 'mecanic' && reps && (
                                         <div className="p-6 bg-white rounded shadow flex">
                                             <FontAwesomeIcon icon={faSync} className="text-orange-500 animate-spin mt-2 mr-2 h-6 w-6" />
                                             <div className='flex flex-col center gap-9 items-center'>

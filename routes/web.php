@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MechanicController;
+use App\Http\Controllers\MailController;
 use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\AuthenticatedSessionController;
@@ -37,12 +38,13 @@ Route::get('/', function () {
 });
 Route::get('/generate-invoice/{id}', [PDFController::class, 'generatePDF']);
 Route::delete('/users/{id}', [AdminController::class, 'destroy']);
-Route::get('/invoices', [InvoiceController::class, 'index']);
+// Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');
 
 });
 Route::post('/admin/users', [AdminController::class, 'store']);
+Route::get('send-mail', [MailController::class, 'index']);
 Route::get('/ndashboard/{id}', [NotificationController::class, 'index']);
 Route::post('/mechanic/add/part-to-invoice', [MechanicController::class, 'addPartToInvoice']);
 Route::get('/admin/repairs/completed', [AdminController::class, 'completedRepairs']);

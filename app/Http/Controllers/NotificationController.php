@@ -32,7 +32,9 @@ class NotificationController extends Controller
         }
         else if (auth()->user()->role == 'mecanic')
         {
-            return Inertia::render('Mechanic/Dashboard', ['auth' => auth()->user() ,'notifications' => $notifications]);
+            $latest = Repair::where('mechanicID', $request->id)->orderBy('created_at', 'desc')->first();
+            // dd($latest);
+            return Inertia::render('Mechanic/Dashboard', ['auth' => auth()->user() , 'repair'=>$latest,'notifications' => $notifications]);
         }
         else if (auth()->user()->role == 'client')
         {

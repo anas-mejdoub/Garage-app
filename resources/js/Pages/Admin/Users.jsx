@@ -79,7 +79,7 @@ export default function Users({ auth, users, notifications }) {
                                 onChange={handleSearchChange}
                                 className="px-3 py-2 bg-gray-800 text-gray-300 border rounded-lg focus:outline-none"
                             />
-                            <button className="ml-2 bg-green-500 text-white px-4 py-2 rounded" onClick={() => Inertia.visit('/admin/add/user')}>
+                            <button className="ml-2 bg-green-600 font-bold text-white px-4 py-2 rounded" onClick={() => Inertia.visit('/admin/add/user')}>
                                 Add New Client
                             </button>
                         </div>

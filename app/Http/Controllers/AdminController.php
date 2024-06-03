@@ -46,6 +46,18 @@ class AdminController extends Controller
     }
     public function store(Request $request)
     {
+        $user = User::where('id', $request->id)->first();
+        if ($user)
+        {
+            // dd($request);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+            $data = User::all();
+            $notifications = Notification::all();
+            return redirect()->route('admin.dashboard', ['users' => $data, 'notifications' => $notifications, 'auth' =>auth()->user()]);
+
+        }
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -66,7 +78,13 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'userID' => $user->id,
         ]);
-        return redirect()->back()->with('success', 'User created successfully');
+        $data = User::all();
+        $notifications = Notification::all();
+        return redirect()->route('admin.dashboard', ['users' => $data, 'notifications' => $notifications, 'auth' =>auth()->user()]);
+
+        // return redirect('Admin/Users', $data);
+        // return Inertia::render('Admin/Users', $data);
+        // return Inertia::render('Admin/Users', ['data' => $data]);
     }
     public function addMecanic(Request $request)
     {

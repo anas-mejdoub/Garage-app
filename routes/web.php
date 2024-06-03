@@ -44,7 +44,7 @@ Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');
 
 });
-Route::post('/admin/users', [AdminController::class, 'store']);
+Route::post('/admin/users', [AdminController::class, 'store'])->name('admin.users.store');
 Route::get('/admin/spare-parts', [AdminController::class, 'spareIndex']);
 Route::post('/admin/update-spare-parts', [AdminController::class, 'updateSparePart']);
 Route::get('send-mail', [MailController::class, 'index']);

@@ -78,13 +78,13 @@ function Sidebar() {
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/users"><strong> Manage Client</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic"><strong>Add Mechanic</strong></InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics"><strong>Manage Mechanics</strong></InertiaLink>
                 </li>
+                {/* <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic"><strong>Add Mechanic</strong></InertiaLink>
+                </li> */}
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/new-requests"><strong>New Repair Request</strong></InertiaLink>
-                </li>
-                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/mechanics"><strong>Delete Mechanics</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/completed"><strong>Completed Repairs</strong></InertiaLink>

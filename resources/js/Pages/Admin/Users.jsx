@@ -9,6 +9,7 @@ export default function Users({ auth, users, notifications }) {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     const [formData, setFormData] = useState({
         id: null,
         name: '',
@@ -63,7 +64,17 @@ export default function Users({ auth, users, notifications }) {
         Inertia.delete(`/users/${formData.id}`);
         closeDeleteModal();
     };
+    const handleNextPage = () => {
+        setCurrentPage(prevPage => prevPage + 1);
+    };
 
+    const handlePrevPage = () => {
+        setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+    };
+
+    const usersPerPage = 10;
+    const startIndex = (currentPage - 1) * usersPerPage;
+    const displayedUsers = filteredUsers.slice(startIndex, startIndex + usersPerPage);
     return (
         <div>
             <NavBar auth={auth} notifications={notifications} />
@@ -97,7 +108,7 @@ export default function Users({ auth, users, notifications }) {
                             </tr>
                         </thead>
                         <tbody className="bg-gray-900 text-white divide-y divide-gray-700">
-                            {filteredUsers.map((user) => (
+                            {displayedUsers.map((user) => (
                                 <tr key={user.id}>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm font-medium">{user.name}</div>
@@ -117,6 +128,14 @@ export default function Users({ auth, users, notifications }) {
                             ))}
                         </tbody>
                     </table>
+                    <div className="flex justify-center mt-4">
+                        <button disabled={currentPage === 1} onClick={handlePrevPage} className="bg-blue-900 text-white px-4 py-2 rounded-lg mr-2">
+                            Previous 10
+                        </button>
+                        <button disabled={displayedUsers.length < usersPerPage} onClick={handleNextPage} className="bg-blue-900 text-white px-4 py-2 rounded-lg mr-2">
+                            Next 10
+                        </button>
+                    </div>
                 </div>
             </div>
             <Modal

@@ -217,6 +217,11 @@ class AdminController extends Controller
         $repair->save();
         return redirect()->back();
     }
+    public function deleteSparePart($id)
+    {
+        SparePart::where('id', $id)->delete();
+        return redirect()->back();
+    }
     public function spareIndex()
     {
         $spare = SparePart::all();

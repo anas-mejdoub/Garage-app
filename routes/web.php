@@ -38,6 +38,7 @@ Route::get('/', function () {
 });
 Route::get('/generate-invoice/{id}', [PDFController::class, 'generatePDF']);
 Route::delete('/users/{id}', [AdminController::class, 'destroy']);
+Route::delete('/admin/spare-part-delete/{id}', [AdminController::class, 'deleteSparePart']);
 // Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/add-vehicle', function () {
     return Inertia::render('Vehicles/AddVehicle');

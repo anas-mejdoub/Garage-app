@@ -17,6 +17,10 @@ class AdminController extends Controller
 {
     public function destroy($id)
     {
+        if (auth()->user()->id !=   1)
+        {
+            return redirect()->back()->with('error', 'You cannot delete your own account');
+        }
         if ($id == auth()->id()) {
             return redirect()->back()->with('error', 'You cannot delete your own account');
         }
@@ -31,6 +35,7 @@ class AdminController extends Controller
         if ($user->client) {
             $user->client->delete();
         }
+        $role = $user->role;
         $user->delete();
         $users = User::all();
 
@@ -42,7 +47,12 @@ class AdminController extends Controller
             'auth' =>auth()->user(),
 
         ];
-        return Inertia::render('Admin/Dashboard', $data);
+        $notifications = Notification::all();
+        if ($role == 'mecanic')
+        {
+            return redirect()->route('admin.mecanics', ['users' => $users, 'notifications' => $notifications, 'auth' =>auth()->user()]);
+        }
+        return redirect()->route('admin.dashboard', ['users' => $data, 'notifications' => $notifications, 'auth' =>auth()->user()]);
     }
     public function store(Request $request)
     {
@@ -82,24 +92,29 @@ class AdminController extends Controller
         $notifications = Notification::all();
         return redirect()->route('admin.dashboard', ['users' => $data, 'notifications' => $notifications, 'auth' =>auth()->user()]);
 
-        // return redirect('Admin/Users', $data);
-        // return Inertia::render('Admin/Users', $data);
-        // return Inertia::render('Admin/Users', ['data' => $data]);
     }
     public function addMecanic(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-        ]);
+        $user = User::where('id', $request->formData['id'])->first();
+        if ($user)
+        {
+            $user->name = $request->formData['name'];
+            $user->email = $request->formData['email'];
+            $user->save();
+            $users = User::where('role', 'mecanic')->get();
+            $notifications = Notification::all();
+            return redirect()->route('admin.mecanics', ['users' => $users, 'notifications' => $notifications, 'auth' =>auth()->user()]);
+        }
+        
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-            'password' => Hash::make($request->password),
+            'name' => $request->formData['name'],
+            'email' => $request->formData['email'],
+            'role' => $request->formData['role'],
+            'password' => Hash::make($request->formData['password']),
         ]);
-        return redirect()->back()->with('success', 'User created successfully');
+        $users = User::where('role', 'mecanic')->get();
+            $notifications = Notification::all();
+        return redirect()->route('admin.mecanics', ['users' => $users, 'notifications' => $notifications, 'auth' =>auth()->user()]);
     }
     public function dashboard()
     {

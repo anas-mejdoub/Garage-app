@@ -63,7 +63,7 @@ Route::get('/admin/add/mecanic', function(){
 Route::get('/mechanic/repairs/working/{id}', [MechanicController::class, 'WorkingRepairs']);
 //    return Inertia::render('/Mechanic/WorkingRepairs');
 //});
-Route::get('/admin/mechanics', [AdminController::class, 'getMecanics']);
+Route::get('/admin/mechanics', [AdminController::class, 'getMecanics'])->name('admin.mecanics');
 Route::post('/admin/repairs/requests/pick-dates', [AdminController::class, 'DatePriceNewRequest']);
 Route::get('/admin/repairs/requests', [AdminController::class, 'repairsRequest']);
 Route::get('/mechanic/repairs/requests', [MechanicController::class, 'repairs']);

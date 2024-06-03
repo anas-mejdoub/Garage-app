@@ -71,11 +71,11 @@ function Sidebar() {
     return (
         <div style={{ backgroundColor: '#161D32' }} className="w-64 min-h-screen text-white p-6 overflow-y-auto">
             <ul className="space-y-4">
-                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
+                {/* <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/user"><strong> Add Client</strong></InertiaLink>
-                </li>
+                </li> */}
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
-                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/users"><strong> delete Client</strong></InertiaLink>
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/users"><strong> Manage Client</strong></InertiaLink>
                 </li>
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/add/mecanic"><strong>Add Mechanic</strong></InertiaLink>

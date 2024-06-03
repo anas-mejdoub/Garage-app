@@ -96,12 +96,12 @@ const SpareParts = ({ spare, auth, notifications }) => {
     return (
         <div>
             <NavBar auth={auth.user} notifications={notifications} />
-            <div className="p-6 bg-gray-800 flex flex-col gap-4 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
+            <div className="p-6 bg-gray-800 flex flex-col gap-0 items-center" style={{ background: '#161D32', minHeight: '100vh' }}>
                 <h1 className="text-3xl font-bold text-white mb-4">Spare Parts</h1>
                 <div className="flex justify-between items-center w-full mb-4">
                     <button
                         onClick={() => openModal()}
-                        className="bg-green-500 text-white px-4 py-2 rounded"
+                        className="bg-green-700 text-white px-4 py-2 rounded-lg"
                     >
                         Create a New Part
                     </button>
@@ -140,7 +140,7 @@ const SpareParts = ({ spare, auth, notifications }) => {
                         ))}
                     </tbody>
                 </table>
-                <div className="flex justify-between w-full mt-4">
+                <div className="flex justify-center gap-4 w-full mt-4">
                     <button
                         onClick={handlePreviousPage}
                         className="bg-gray-700 text-white px-4 py-2 rounded"

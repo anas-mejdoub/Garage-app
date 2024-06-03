@@ -194,4 +194,25 @@ class AdminController extends Controller
             ->get();
         return Inertia::render('Admin/CompletedRepairs', ['repairs' => $repairs]);
     }
+    public function updateSparePart(Request $request)
+    {
+        $repair = Repair::where('id', $request->repairId)->first();
+        if (!$repair)
+        {
+            Repair::create([
+                'partName' => $request->partName,
+                'partReference' => $request->partReference,
+                'supplier' => $request->supplier,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+            ]);
+            return redirect()->back();
+        }
+        $repair->partName = $request->partName;
+        $repair->partReference = $request->partReference;
+        $repair->supplier = $request->supplier;
+        $repair->quantity = $request->quantity;
+        $repair->save();
+        return redirect()->back();
+    }
 }

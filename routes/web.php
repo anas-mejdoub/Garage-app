@@ -44,6 +44,8 @@ Route::get('/add-vehicle', function () {
 
 });
 Route::post('/admin/users', [AdminController::class, 'store']);
+Route::get('/admin/spare-parts', [AdminController::class, 'spareIndex']);
+Route::post('/admin/update-spare-parts', [AdminController::class, 'updateSparePart']);
 Route::get('send-mail', [MailController::class, 'index']);
 Route::get('/ndashboard/{id}', [NotificationController::class, 'index']);
 Route::post('/mechanic/add/part-to-invoice', [MechanicController::class, 'addPartToInvoice']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\SparePart;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
@@ -196,23 +197,29 @@ class AdminController extends Controller
     }
     public function updateSparePart(Request $request)
     {
-        $repair = Repair::where('id', $request->repairId)->first();
+        // dd($request->formData['id']);
+        $repair = SparePart::where('id', $request->formData['id'])->first();
         if (!$repair)
         {
-            Repair::create([
-                'partName' => $request->partName,
-                'partReference' => $request->partReference,
-                'supplier' => $request->supplier,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
+            SparePart::create([
+                'partName' => $request->formData['partName'],
+                'partReference' => $request->formData['partReference'],
+                'supplier' => $request->formData['supplier'],
+                'price' => $request->formData['price'],
+                'quantity' => $request->formData['quantity'],
             ]);
             return redirect()->back();
         }
-        $repair->partName = $request->partName;
-        $repair->partReference = $request->partReference;
-        $repair->supplier = $request->supplier;
-        $repair->quantity = $request->quantity;
+        $repair->partName = $request->formData['partName'];
+        $repair->partReference =$request->formData['partReference'];
+        $repair->supplier = $request->formData['supplier'];
+        $repair->quantity = $request->formData['quantity'];
         $repair->save();
         return redirect()->back();
+    }
+    public function spareIndex()
+    {
+        $spare = SparePart::all();
+        return Inertia::render('Admin/SpareParts', ['spare' => $spare]);   
     }
 }

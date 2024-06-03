@@ -92,6 +92,9 @@ function Sidebar() {
                 <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
                     <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/repairs/requests"><strong>Pending Repairs</strong></InertiaLink>
                 </li>
+                <li className="transition duration-300 hover:bg-gray-700 p-2 rounded">
+                    <InertiaLink className="text-lg text-white hover:text-gray-200" href="/admin/spare-parts"><strong>Spare Parts</strong></InertiaLink>
+                </li>
             </ul>
         </div>
     );

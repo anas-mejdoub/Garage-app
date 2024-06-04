@@ -17,4 +17,3 @@ export default function SuccessRequest({ auth , notifications}){
 );
 }
 
-// export default SuccessRequest;

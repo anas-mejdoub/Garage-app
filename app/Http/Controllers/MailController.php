@@ -17,4 +17,12 @@ class MailController extends Controller
             'body' => $data['msg']
         ]));
     }
+    public function repair($data)
+    {
+        Mail::to($data['email'])->send(new TestMail([
+            'title' => 'Your Repair',
+            'body' => $data['msg']
+        ]));
+    }
+    
 }

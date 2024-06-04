@@ -135,12 +135,7 @@ class AdminController extends Controller
 
         return Inertia::render('Admin/Users', $data);
     }
-    // public function success()
-    // {
-    //     $id = auth()->user()->id;
-    //     $notifications = Notification::where('user_id', $id)->get();
-    //     return Inertia::render('repairs/SuccessRequest', ['auth' =>auth()->user(), 'notifications' => $notifications]);
-    // }
+   
     public function getMecanics()
     {
         $id = auth()->user()->id;
@@ -182,9 +177,7 @@ class AdminController extends Controller
             ->get();
             $id = auth()->user()->id;
             $notifications = Notification::where('user_id', $id)->get();
-        // dd($repairs);
-        // $test = Repair::where('status', 'Review')->first();
-        // dd($test);
+   
         return Inertia::render('Admin/NewRequest', ['auth' =>auth()->user() ,'repairs' => $repairs, 'mechanics' => $mechanics, 'notifications' => $notifications]);
     }
     public function ChangeRepairDates(Request $request)
@@ -217,6 +210,11 @@ class AdminController extends Controller
             ->first();
         $uesrId = $client->userID;
         $clientId = $client->id;
+        $mailController = new MailController();
+        $email = User::where('id', $uesrId)->first()->email; 
+        $msg = 'the start date of your repair with the following id :'. $repairid . ' has been set to ' . $request->startDate . ' and the end date will be ' . $request->endDate . "the initial price is " . $request->price;
+        $data = ["email" => $email,  "msg" => $msg];
+        $mailController->repair($data);
         Notification::create([
             'user_id' => $uesrId,
             'content' => $msg,
@@ -240,7 +238,6 @@ class AdminController extends Controller
     }
     public function updateSparePart(Request $request)
     {
-        // dd($request->formData['id']);
         $repair = SparePart::where('id', $request->formData['id'])->first();
         if (!$repair)
         {

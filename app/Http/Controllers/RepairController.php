@@ -38,7 +38,7 @@ class RepairController extends Controller
     }
     public function success()
     {
-        dd(auth()->user());
+        // dd(auth()->user());
         $id = auth()->user()->id;
         $notifications = Notification::where('user_id', $id)->get();
         return Inertia::render('repairs/SuccessRequest', ['auth' =>auth()->user(), 'notifications' => $notifications]);

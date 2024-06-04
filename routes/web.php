@@ -72,6 +72,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'dashboard'])->name('admin.dashboard');
  });
  Route::post('/mechanic/change/vehicle-status', [MechanicController::class, 'changeStatus']);
+Route::get('/repair-request-success', function () {
+    return Inertia::render('repairs/SuccessRequest');
+})->name('repair.success');
 
 Route::post('/repair-request', [RepairController::class, 'store']);
 Route::post('/vehicles', [VehicleController::class, 'store']);

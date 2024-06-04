@@ -123,7 +123,8 @@ class AdminController extends Controller
             abort(403, 'Unauthorized action.');
         }
         $users = User::where('role', 'client')->get();
-        $notifications = Notification::all();
+        $id = auth()->user()->id;
+        $notifications = Notification::where('user_id', $id)->get();
         $data = [
             'totalUsers' => User::count(),
             'totalRepairs' => Repair::count(),
@@ -134,16 +135,24 @@ class AdminController extends Controller
 
         return Inertia::render('Admin/Users', $data);
     }
+    // public function success()
+    // {
+    //     $id = auth()->user()->id;
+    //     $notifications = Notification::where('user_id', $id)->get();
+    //     return Inertia::render('repairs/SuccessRequest', ['auth' =>auth()->user(), 'notifications' => $notifications]);
+    // }
     public function getMecanics()
     {
-        $notifications = Notification::all();
+        $id = auth()->user()->id;
+        $notifications = Notification::where('user_id', $id)->get();
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/Mechanic', ['mechanics' => $mechanics, 'auth' =>auth()->user(),  'notifications' => $notifications]);
     }
 
     public function repairsRequest()
     {
-        $notifications = Notification::all();
+        $id = auth()->user()->id;
+        $notifications = Notification::where('user_id', $id)->get();
         $repairs = Repair::where('status', 'pending')->get();
         $mechanics = User::where('role', 'mecanic')->get();
         return Inertia::render('Admin/RepairsRequests', ['auth' =>auth()->user(),  'notifications' => $notifications,'repairs' => $repairs, 'mechanics' => $mechanics]);
@@ -171,7 +180,8 @@ class AdminController extends Controller
             ->where('repairs.status', 'Review')
             ->select('repairs.id as repair_id', 'vehicles.id as vehicle_id', 'clients.id as client_id', 'users.id as user_id', 'repairs.*', 'vehicles.*', 'clients.*', 'users.*')
             ->get();
-            $notifications = Notification::all();
+            $id = auth()->user()->id;
+            $notifications = Notification::where('user_id', $id)->get();
         // dd($repairs);
         // $test = Repair::where('status', 'Review')->first();
         // dd($test);

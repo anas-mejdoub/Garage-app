@@ -17,8 +17,10 @@ class RepairController extends Controller
         $msg = "the user with id: " . auth()->user()->id . " has requested a repair for vehicle with id: " . $request->vehicle_id . " at " . date('Y-m-d') . " with the following description: " . $request->description . " and the following notes: " . $request->clientNotes . " the request is currently under review.";
         $notification = Notification::create([
             'user_id' => 1,
-            'message' => $msg,
+            'content' => $msg,
         ]);
+        $ntf = Notification::where('user_id', auth()->user()->id)->get();
+        // dd($request->vehicle_id);
         $repair = Repair::create([
             'vehicleID' => $request->vehicle_id,
             'description' => $request->description,
@@ -28,6 +30,18 @@ class RepairController extends Controller
             'clientNotes' => $request->clientNotes,
             'mechanicID' => auth()->user()->id,
         ]);
+        // rep = RepairController;
+        // rep.su
+
+        return redirect()->route('repair.success');
+        
+    }
+    public function success()
+    {
+        dd(auth()->user());
+        $id = auth()->user()->id;
+        $notifications = Notification::where('user_id', $id)->get();
+        return Inertia::render('repairs/SuccessRequest', ['auth' =>auth()->user(), 'notifications' => $notifications]);
     }
     public function selectToRepair(Request $request)
     {

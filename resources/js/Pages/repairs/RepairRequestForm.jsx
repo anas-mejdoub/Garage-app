@@ -14,7 +14,9 @@ const RepairRequestForm = ({ auth, notifications, vehicleId }) => {
         formData.append('description', description);
         formData.append('clientNotes', clientNotes);
         formData.append('vehicle_id', vehicleId);
+        console.log("test" + vehicleId);
         Inertia.post('/repair-request', formData);
+        // Inertia.get('/repair-request/success');
     };
 
     return (

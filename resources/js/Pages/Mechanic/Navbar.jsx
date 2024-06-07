@@ -24,7 +24,7 @@ function Modal({ messages, onClose }) {
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onClose}></div>
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                 <div className="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <div className="bg-gray-900  text-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div className="bg-gray-800  text-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 
                         <div className="sm:flex sm:items-start">
 
@@ -33,14 +33,14 @@ function Modal({ messages, onClose }) {
                                 <h3 className="text-lg  leading-6 font-medium text-white" id="modal-title">
                                     Notifications
                                 </h3>
-                                <div className="mt-2">
+                                <div className="mt-2 flex flex-col gap-2">
                                     {messages && messages.length > 0 ? (
                                         messages.map((message, index) => (
-                                            <div key={index}>
-                                                <p className="text-sm text-gray-500">
+                                            <div key={index} className='bg-gray-900 p-4 rounded-xl hover:bg-gray-700'>
+                                                <p className="text-sm text-gray-400">
                                                     {message.content}
                                                 </p>
-                                                {index < messages.length - 1 && <hr />}
+                                                {index < messages.length - 1}
                                             </div>
                                         ))
                                     ) : (
@@ -62,7 +62,6 @@ function Modal({ messages, onClose }) {
         </div>
     );
 }
-
 function NavBar({ auth, notifications }) {
     const [isModalVisible, setModalVisible] = useState(false);
     const dsh = '/ndashboard/' + auth.id;

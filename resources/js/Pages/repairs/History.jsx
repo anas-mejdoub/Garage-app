@@ -37,7 +37,7 @@ const History = ({ repairs , auth, notifications}) => {
                                     {repair.status === 'completed' && (
                                         <button onClick={() => {
                                             console.log('Print icon clicked');
-                                            Inertia.get(`/generate-invoice/${repair.id}`);
+                                             Inertia.get(`/generate-invoice/${repair.id}`);
                                         }}>
                                             <FaPrint className="text-white" size={24} />
                                         </button>

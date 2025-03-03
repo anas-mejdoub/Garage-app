@@ -64,12 +64,11 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Copy PHP-FPM configuration
 # COPY docker/php/php-fpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-RUN sed -i 's/^listen = .*/listen = 0.0.0.0:9000/' /usr/local/etc/php-fpm.d/www.conf
+
 # Copy startup script
 COPY docker/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
-# RUN sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /etc/php/8.2/fpm/pool.d/www.conf
-
+RUN sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /usr/local/etc/php-fpm.d/www.conf
 # Expose port 9000
 EXPOSE 9000
 

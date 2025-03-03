@@ -20,7 +20,7 @@ services:
       retries: 3
 
   nginx:
-    image: nginx:alpine
+    image: nginx:latest
     container_name: laravel_nginx
     restart: unless-stopped
     ports:

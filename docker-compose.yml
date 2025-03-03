@@ -1,0 +1,60 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html:delegated
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+      - ./.env:/var/www/html/.env
+    networks:
+      - laravel_network
+    healthcheck:
+      test: ["CMD", "php-fpm", "-t"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html:delegated
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./.env:/var/www/html/.env
+    networks:
+      - laravel_network
+    depends_on:
+      app:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel_network
+
+networks:
+  laravel_network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

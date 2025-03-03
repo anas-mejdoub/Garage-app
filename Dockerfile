@@ -1,7 +1,20 @@
 # Build stage
-FROM php:8.2-fpm as builder
+# Add a build stage for Node.js
+FROM node:18 as node-builder
 
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Build frontend assets if needed
+COPY . .
+RUN npm run build
+
+# Now continue with PHP-FPM container
+FROM php:8.2-fpm as builder
 # Install system dependencies
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -10,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip
-
+COPY --from=node-builder /app/public /var/www/html/public
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -72,5 +85,6 @@ RUN sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /usr/lo
 # Expose port 9000
 EXPOSE 9000
 
+RUN apt-get update && apt-get install -y nodejs npm && npm install
 # Start PHP-FPM
 CMD ["/usr/local/bin/start.sh"]

@@ -13,8 +13,8 @@ services:
       - ./.env:/var/www/html/.env
     networks:
       - laravel_network
-    ports :
-      - "5173:5173"
+    # ports :
+    #   - "5173:5173"
       # - "8080:5173"
 
     healthcheck:
@@ -24,15 +24,17 @@ services:
       retries: 3
 
   nginx:
-    image: nginx:latest
+    # image: nginx:latest
+    build :
+      context: ./docker/nginx/
     container_name: laravel_nginx
     restart: unless-stopped
     ports:
       - "8081:80"
-      # - "5173:80"
+      - "5173:5173"
     volumes:
-      - ./:/var/www/html:delegated
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/html/
+      # - ./docker/nginx/conf.d:/etc/nginx/conf.d
       - ./.env:/var/www/html/.env
     networks:
       - laravel_network

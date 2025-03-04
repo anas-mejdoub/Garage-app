@@ -28,6 +28,6 @@ php artisan migrate --force
 # Start PHP-FPM
 php artisan serve &
 
-npm run build
-npx update-browserslist-db@latest
+npm run dev &
+# npx update-browserslist-db@latest
 exec php-fpm -F

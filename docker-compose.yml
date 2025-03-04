@@ -7,13 +7,13 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html:delegated
+      # - ./:/var/www/html:delegated
       - /var/www/html/vendor
       - /var/www/html/node_modules
       - ./.env:/var/www/html/.env
     networks:
       - laravel_network
-    # ports :
+    # ports :3
     #   - "5173:5173"
       # - "8080:5173"
 

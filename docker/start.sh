@@ -27,8 +27,9 @@ php artisan migrate --force
 # apt-get update && apt-get install -y nodejs npm
 # Start PHP-FPM
 npm run dev -- --host &
-
-php artisan serve --host=0.0.0.0 --port=8000 
+php artisan storage:link &
+php artisan serve --host=0.0.0.0 --port=8000 &
 
 # npx update-browserslist-db@latest
 # exec php-fpm -F
+exec yes > /dev/null

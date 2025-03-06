@@ -20,7 +20,7 @@ const RepairRequestForm = ({ auth, notifications, vehicleId }) => {
     };
 
     return (
-        <div>
+        <div className='min-h-screen bg-gray-800'>
             <NavBar auth={auth.user} notifications={notifications} />
             <div style={{ background: '#161D32' }} className="flex flex-col items-center justify-center min-h-screen p-8">
                 <form onSubmit={handleSubmit} className="max-w-md w-full bg-gray-800 p-6 border border-gray-700 rounded-lg shadow-lg">

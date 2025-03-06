@@ -13,7 +13,7 @@ import NavBar from '../Client/Navbar';
 export default function Edit({ auth, mustVerifyEmail, status }) {
     console.log("test" ,auth.user);
     return (
-        <div>
+        <div className='min-h-screen bg-gray-800'>
             <NavBar auth={auth.user} />
             <Head title="Profile" />
 

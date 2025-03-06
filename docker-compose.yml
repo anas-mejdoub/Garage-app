@@ -13,9 +13,9 @@ services:
       - ./.env:/var/www/html/.env
     networks:
       - laravel_network
-    # ports :3
-    #   - "5173:5173"
-      # - "8080:5173"
+    ports :
+      - "5173:5173"
+      - "8080:8000"
 
     healthcheck:
       test: ["CMD", "php-fpm", "-t"]
@@ -23,24 +23,24 @@ services:
       timeout: 5s
       retries: 3
 
-  nginx:
-    # image: nginx:latest
-    build :
-      context: ./docker/nginx/
-    container_name: laravel_nginx
-    restart: unless-stopped
-    ports:
-      - "8081:80"
-      - "5173:5173"
-    volumes:
-      - ./:/var/www/html/
-      # - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./.env:/var/www/html/.env
-    networks:
-      - laravel_network
-    depends_on:
-      app:
-        condition: service_healthy
+  # nginx:
+  #   # image: nginx:latest
+  #   build :
+  #     context: ./docker/nginx/
+  #   container_name: laravel_nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8081:80"
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./:/var/www/html/
+  #     # - ./docker/nginx/conf.d:/etc/nginx/conf.d
+  #     - ./.env:/var/www/html/.env
+  #   networks:
+  #     - laravel_network
+  #   depends_on:
+  #     app:
+  #       condition: service_healthy
 
   db:
     image: mysql:8.0

@@ -83,7 +83,8 @@ COPY docker/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 RUN sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /usr/local/etc/php-fpm.d/www.conf
 # Expose port 9000
-EXPOSE 9000
+# EXPOSE 9000
+EXPOSE 8000 5173
 
 RUN apt-get update && apt-get install -y nodejs npm && npm install
 # Start PHP-FPM

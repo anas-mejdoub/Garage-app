@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      # - ./:/var/www/html:delegated
+      - ./:/var/www/html
       - /var/www/html/vendor
       - /var/www/html/node_modules
       - ./.env:/var/www/html/.env
@@ -22,26 +22,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-
-  # nginx:
-  #   # image: nginx:latest
-  #   build :
-  #     context: ./docker/nginx/
-  #   container_name: laravel_nginx
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8081:80"
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./:/var/www/html/
-  #     # - ./docker/nginx/conf.d:/etc/nginx/conf.d
-  #     - ./.env:/var/www/html/.env
-  #   networks:
-  #     - laravel_network
-  #   depends_on:
-  #     app:
-  #       condition: service_healthy
-
   db:
     image: mysql:8.0
     container_name: laravel_db

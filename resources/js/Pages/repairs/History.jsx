@@ -19,7 +19,7 @@ const History = ({ repairs , auth, notifications}) => {
     }
 
     return (
-        <div>
+        <div className='min-h-screen bg-gray-800'>
             <NavBar auth={auth.user} notifications={notifications} />
         <div className="p-6 bg-gray-800">
             <h1 className="text-3xl font-bold mb-4 text-white">Repair History</h1>

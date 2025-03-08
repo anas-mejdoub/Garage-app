@@ -9,7 +9,7 @@ const SelectVehicle = ({ vehicles , auth, notifications}) => {
   };
 
   return (
-    <div>
+    <div  className='min-h-screen bg-gray-800'>
       <NavBar auth={auth.user} notifications={notifications}/>
     <div className="grid grid-cols-3 gap-4 bg-slate-800" >
       {vehicles.map((vehicle) => (
